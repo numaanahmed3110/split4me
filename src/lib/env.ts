@@ -189,12 +189,13 @@ const envSchema = z
     }
     if (
       (enableReceiptExtract || enableCategoryExtract) &&
-      !env.OPENAI_API_KEY
+      !env.OPENAI_API_KEY &&
+      !env.NVIDIA_API_KEY
     ) {
       ctx.addIssue({
         code: ZodIssueCode.custom,
         message:
-          'If ENABLE_RECEIPT_EXTRACT or ENABLE_CATEGORY_EXTRACT is set, then OPENAI_API_KEY must be set too',
+          'If ENABLE_RECEIPT_EXTRACT or ENABLE_CATEGORY_EXTRACT is set, then OPENAI_API_KEY or NVIDIA_API_KEY must be set too',
       })
     }
     if (env.ANALYTICS_PROVIDER === 'plausible' && !env.PLAUSIBLE_DOMAIN) {

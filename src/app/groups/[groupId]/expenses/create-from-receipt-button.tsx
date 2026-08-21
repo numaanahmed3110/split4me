@@ -1,6 +1,5 @@
 'use client'
 
-import { CategoryIcon } from '@/app/groups/[groupId]/expenses/category-icon'
 import {
   ReceiptExtractedInfo,
   extractExpenseInformationFromImage,
@@ -33,8 +32,7 @@ import {
   formatFileSize,
   getCurrencyFromGroup,
 } from '@/lib/utils'
-import { trpc } from '@/trpc/client'
-import { ChevronRight, FileQuestion, Loader2, Receipt } from 'lucide-react'
+import { FileQuestion, Loader2, Receipt } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { getImageData, usePresignedUpload } from 'next-s3-upload'
 import Image from 'next/image'
@@ -81,9 +79,6 @@ export function CreateFromReceiptButton() {
 function ReceiptDialogContent() {
   const { groupId, group } = useCurrentGroup()
   const sendEvent = useAnalytics()
-  const { data: categoriesData } = trpc.categories.list.useQuery()
-  const categories = categoriesData?.categories
-
   const locale = useLocale()
   const t = useTranslations('CreateFromReceipt')
   const [pending, setPending] = useState(false)
@@ -118,10 +113,9 @@ function ReceiptDialogContent() {
         console.log('Uploading image…')
         let { url } = await uploadToS3(file)
         console.log('Extracting information from receipt…')
-        const { amount, categoryId, date, title } =
-          await extractExpenseInformationFromImage(url)
+        const extracted = await extractExpenseInformationFromImage(groupId, url)
         const { width, height } = await getImageData(file)
-        setReceiptInfo({ amount, categoryId, date, title, url, width, height })
+        setReceiptInfo({ ...extracted, url, width, height })
       } catch (err) {
         console.error(err)
         toast({
@@ -143,11 +137,6 @@ function ReceiptDialogContent() {
     }
     upload()
   }
-
-  const receiptInfoCategory =
-    (receiptInfo?.categoryId &&
-      categories?.find((c) => String(c.id) === receiptInfo.categoryId)) ||
-    null
 
   return (
     <div className="prose prose-sm dark:prose-invert">
@@ -188,19 +177,7 @@ function ReceiptDialogContent() {
             <strong>{t('Dialog.categoryLabel')}</strong>
             <div>
               {receiptInfo ? (
-                receiptInfoCategory ? (
-                  <div className="flex items-center">
-                    <CategoryIcon
-                      category={receiptInfoCategory}
-                      className="inline w-4 h-4 mr-2"
-                    />
-                    <span className="mr-1">{receiptInfoCategory.grouping}</span>
-                    <ChevronRight className="inline w-3 h-3 mr-1" />
-                    <span>{receiptInfoCategory.name}</span>
-                  </div>
-                ) : (
-                  <Unknown />
-                )
+                <Unknown />
               ) : (
                 ''
               )}

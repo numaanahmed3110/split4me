@@ -20,10 +20,12 @@ export async function getRuntimeFeatureFlags() {
       env.NEXT_PUBLIC_ENABLE_EXPENSE_DOCUMENTS,
     enableReceiptExtract:
       parseFlag(process.env.ENABLE_RECEIPT_EXTRACT) ||
-      env.NEXT_PUBLIC_ENABLE_RECEIPT_EXTRACT,
+      env.NEXT_PUBLIC_ENABLE_RECEIPT_EXTRACT ||
+      !!env.NVIDIA_API_KEY,
     enableCategoryExtract:
       parseFlag(process.env.ENABLE_CATEGORY_EXTRACT) ||
-      env.NEXT_PUBLIC_ENABLE_CATEGORY_EXTRACT,
+      env.NEXT_PUBLIC_ENABLE_CATEGORY_EXTRACT ||
+      !!env.NVIDIA_API_KEY,
   }
 }
 

@@ -12,11 +12,12 @@ import { effectiveBaseUrl } from '@/lib/env'
 import { TRPCProvider } from '@/trpc/client'
 import {
   ClerkProvider,
-  SignedIn,
-  SignedOut,
+  Show,
   SignInButton,
+  SignUpButton,
   UserButton,
 } from '@clerk/nextjs'
+import { shadcn } from '@clerk/ui/themes'
 import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider, useTranslations } from 'next-intl'
 import { getLocale, getMessages, getTranslations } from 'next-intl/server'
@@ -113,17 +114,20 @@ function Content({ children }: { children: React.ReactNode }) {
             <li>
               <ThemeToggle />
             </li>
-            <li className="ml-2">
-              <SignedOut>
+            <li className="ml-2 flex items-center gap-2">
+              <Show when="signed-out">
                 <SignInButton mode="modal">
                   <Button variant="outline" size="sm">
                     Sign in
                   </Button>
                 </SignInButton>
-              </SignedOut>
-              <SignedIn>
+                <SignUpButton mode="modal">
+                  <Button size="sm">Sign up</Button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
                 <UserButton />
-              </SignedIn>
+              </Show>
             </li>
           </ul>
         </div>
@@ -181,14 +185,14 @@ export default async function RootLayout({
   const messages = await getMessages()
   const analyticsConfig = await getAnalyticsConfig()
   return (
-    <ClerkProvider>
-      <html
-        lang={locale}
-        dir={['ar', 'he'].includes(locale) ? 'rtl' : 'ltr'}
-        suppressHydrationWarning
-      >
-        <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
-        <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
+    <html
+      lang={locale}
+      dir={['ar', 'he'].includes(locale) ? 'rtl' : 'ltr'}
+      suppressHydrationWarning
+    >
+      <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
+      <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
+        <ClerkProvider appearance={{ theme: shadcn }}>
           <NextIntlClientProvider messages={messages}>
             {/* Rendered inside the provider because it reads translations via
               `useTranslations`, which needs NextIntlClientProvider in its
@@ -208,8 +212,8 @@ export default async function RootLayout({
               </ThemeProvider>
             </Analytics>
           </NextIntlClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
