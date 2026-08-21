@@ -163,6 +163,10 @@ const envSchema = z
       interpretBlankEnvVarAsUndefined,
       z.string().trim().optional(),
     ),
+    NEXT_PUBLIC_ONESIGNAL_APP_ID: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
   })
   .superRefine((env, ctx) => {
     // Either spelling enables the feature, so either has to satisfy the

@@ -1,5 +1,6 @@
 import { Prisma } from '@/generated/prisma/client'
-import { auth } from '@clerk/nextjs/server'
+import { upsertUserFromClerk } from '@/lib/users'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { initTRPC, TRPCError } from '@trpc/server'
 import { cache } from 'react'
 import superjson from 'superjson'
@@ -29,11 +30,24 @@ const t = initTRPC.context<TRPCContext>().create({
 export const createTRPCRouter = t.router
 export const baseProcedure = t.procedure
 
-/** Requires a signed-in Clerk user. */
-export const protectedProcedure = baseProcedure.use(({ ctx, next }) => {
+/** Requires a signed-in Clerk user and ensures a DB User row exists. */
+export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
   if (!ctx.userId) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
+
+  const clerkUser = await currentUser()
+  if (clerkUser) {
+    await upsertUserFromClerk({
+      id: clerkUser.id,
+      emailAddresses: clerkUser.emailAddresses.map((e) => ({
+        emailAddress: e.emailAddress,
+      })),
+      firstName: clerkUser.firstName,
+      lastName: clerkUser.lastName,
+    })
+  }
+
   return next({
     ctx: {
       ...ctx,

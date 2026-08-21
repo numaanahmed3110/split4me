@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import useSWR, { Fetcher } from 'swr'
+import { trpc } from '@/trpc/client'
+import { useAuth } from '@clerk/nextjs'
 
 export function useMediaQuery(query: string): boolean {
   const getMatches = (query: string): boolean => {
@@ -52,19 +54,32 @@ export function useBaseUrl() {
 }
 
 /**
- * @returns The active user, or `null` until it is fetched from local storage
+ * Active participant for a group — from DB when signed in, localStorage otherwise.
+ * @returns participant id, `null` while loading, or `"None"` when explicitly nobody
  */
 export function useActiveUser(groupId?: string) {
-  const [activeUser, setActiveUser] = useState<string | null>(null)
+  const { isSignedIn, isLoaded } = useAuth()
+  const [localUser, setLocalUser] = useState<string | null>(null)
+
+  const { data: membership, isLoading } =
+    trpc.preferences.getMembership.useQuery(
+      { groupId: groupId! },
+      { enabled: !!groupId && !!isSignedIn },
+    )
 
   useEffect(() => {
-    if (groupId) {
-      const activeUser = localStorage.getItem(`${groupId}-activeUser`)
-      if (activeUser) setActiveUser(activeUser)
-    }
-  }, [groupId])
+    if (!groupId || isSignedIn) return
+    const activeUser = localStorage.getItem(`${groupId}-activeUser`)
+    if (activeUser) setLocalUser(activeUser)
+    else setLocalUser(null)
+  }, [groupId, isSignedIn])
 
-  return activeUser
+  if (!groupId) return null
+  if (isSignedIn) {
+    if (!isLoaded || isLoading) return null
+    return membership?.participantId ?? 'None'
+  }
+  return localUser
 }
 
 interface FrankfurterAPIResponse {

@@ -1,17 +1,20 @@
 'use server'
 
-import { extractReceiptDraft } from '@/lib/receipt-extract'
+import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
+import {
+  extractReceiptDraftFromBase64,
+} from '@/lib/receipt-extract'
 
 export async function extractExpenseInformationFromImage(
   groupId: string,
-  imageUrl: string,
+  imageDataUrl: string,
   payerParticipantId?: string,
 ) {
   'use server'
 
-  const result = await extractReceiptDraft(
+  const result = await extractReceiptDraftFromBase64(
     groupId,
-    imageUrl,
+    imageDataUrl,
     payerParticipantId,
   )
   if (!result) {
@@ -37,3 +40,5 @@ export async function extractExpenseInformationFromImage(
 export type ReceiptExtractedInfo = Awaited<
   ReturnType<typeof extractExpenseInformationFromImage>
 >
+
+export type { ExpenseDraftPayload }

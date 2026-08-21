@@ -63,7 +63,13 @@ export const draftsRouter = createTRPCRouter({
     }),
 
   confirm: protectedProcedure
-    .input(z.object({ draftId: z.string(), groupId: z.string() }))
+    .input(
+      z.object({
+        draftId: z.string(),
+        groupId: z.string(),
+        payload: expenseDraftPayloadSchema.optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const draft = await prisma.expenseDraft.findFirst({
         where: {
@@ -77,7 +83,9 @@ export const draftsRouter = createTRPCRouter({
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Draft not found' })
       }
 
-      const payload = expenseDraftPayloadSchema.parse(draft.payload)
+      const payload = expenseDraftPayloadSchema.parse(
+        input.payload ?? draft.payload,
+      )
       const group = await getGroup(input.groupId)
       if (!group) {
         throw new TRPCError({ code: 'NOT_FOUND', message: 'Group not found' })

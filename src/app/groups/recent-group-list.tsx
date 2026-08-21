@@ -1,37 +1,16 @@
 'use client'
 import { AddGroupByUrlButton } from '@/app/groups/add-group-by-url-button'
-import {
-  RecentGroups,
-  getArchivedGroups,
-  getRecentGroups,
-  getStarredGroups,
-} from '@/app/groups/recent-groups-helpers'
+import type { RecentGroups } from '@/app/groups/recent-groups-helpers'
+import { useRecentGroupsState } from '@/app/groups/use-recent-groups'
 import { Button } from '@/components/ui/button'
-import { getGroups } from '@/lib/api'
 import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren } from 'react'
 import { GlobalBalanceCard } from './global-balance-card'
 import { RecentGroupListCard } from './recent-group-list-card'
-
-export type RecentGroupsState =
-  | { status: 'pending' }
-  | {
-      status: 'partial'
-      groups: RecentGroups
-      starredGroups: string[]
-      archivedGroups: string[]
-    }
-  | {
-      status: 'complete'
-      groups: RecentGroups
-      groupsDetails: Awaited<ReturnType<typeof getGroups>>
-      starredGroups: string[]
-      archivedGroups: string[]
-    }
 
 function sortGroups({
   groups,
@@ -62,23 +41,7 @@ function sortGroups({
 }
 
 export function RecentGroupList() {
-  const [state, setState] = useState<RecentGroupsState>({ status: 'pending' })
-
-  function loadGroups() {
-    const groupsInStorage = getRecentGroups()
-    const starredGroups = getStarredGroups()
-    const archivedGroups = getArchivedGroups()
-    setState({
-      status: 'partial',
-      groups: groupsInStorage,
-      starredGroups,
-      archivedGroups,
-    })
-  }
-
-  useEffect(() => {
-    loadGroups()
-  }, [])
+  const state = useRecentGroupsState()
 
   if (state.status === 'pending') return null
 
@@ -87,7 +50,8 @@ export function RecentGroupList() {
       groups={state.groups}
       starredGroups={state.starredGroups}
       archivedGroups={state.archivedGroups}
-      refreshGroupsFromStorage={() => loadGroups()}
+      refreshGroupsFromStorage={state.refresh}
+      isSignedIn={state.isSignedIn}
     />
   )
 }
@@ -97,11 +61,13 @@ function RecentGroupList_({
   starredGroups,
   archivedGroups,
   refreshGroupsFromStorage,
+  isSignedIn,
 }: {
   groups: RecentGroups
   starredGroups: string[]
   archivedGroups: string[]
   refreshGroupsFromStorage: () => void
+  isSignedIn: boolean
 }) {
   const t = useTranslations('Groups')
   const { data, isLoading } = trpc.groups.list.useQuery({
@@ -154,6 +120,7 @@ function RecentGroupList_({
             archivedGroups={archivedGroups}
             starredGroups={starredGroups}
             refreshGroupsFromStorage={refreshGroupsFromStorage}
+            isSignedIn={isSignedIn}
           />
         </>
       )}
@@ -167,6 +134,7 @@ function RecentGroupList_({
             archivedGroups={archivedGroups}
             starredGroups={starredGroups}
             refreshGroupsFromStorage={refreshGroupsFromStorage}
+            isSignedIn={isSignedIn}
           />
         </>
       )}
@@ -181,6 +149,7 @@ function RecentGroupList_({
               archivedGroups={archivedGroups}
               starredGroups={starredGroups}
               refreshGroupsFromStorage={refreshGroupsFromStorage}
+              isSignedIn={isSignedIn}
             />
           </div>
         </>
@@ -195,12 +164,14 @@ function GroupList({
   starredGroups,
   archivedGroups,
   refreshGroupsFromStorage,
+  isSignedIn,
 }: {
   groups: RecentGroups
   groupDetails?: AppRouterOutput['groups']['list']['groups']
   starredGroups: string[]
   archivedGroups: string[]
   refreshGroupsFromStorage: () => void
+  isSignedIn: boolean
 }) {
   return (
     <ul className="grid gap-2 sm:grid-cols-2">
@@ -214,6 +185,7 @@ function GroupList({
           isStarred={starredGroups.includes(group.id)}
           isArchived={archivedGroups.includes(group.id)}
           refreshGroupsFromStorage={refreshGroupsFromStorage}
+          isSignedIn={isSignedIn}
         />
       ))}
     </ul>
@@ -234,10 +206,7 @@ function GroupsPage({
         <div className="flex gap-2">
           <AddGroupByUrlButton reload={reload} />
           <Button asChild>
-            <Link href="/groups/create">
-              {/* <Plus className="w-4 h-4 mr-2" /> */}
-              {t('create')}
-            </Link>
+            <Link href="/groups/create">{t('create')}</Link>
           </Button>
         </div>
       </div>

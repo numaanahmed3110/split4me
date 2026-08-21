@@ -1,13 +1,15 @@
 var mockExtractReceiptDraft = jest.fn()
 
 jest.mock('../../../../lib/receipt-extract', () => ({
-  extractReceiptDraft: (...args: unknown[]) => mockExtractReceiptDraft(...args),
+  extractReceiptDraftFromBase64: (...args: unknown[]) =>
+    mockExtractReceiptDraft(...args),
 }))
 
 import { extractExpenseInformationFromImage } from './create-from-receipt-button-actions'
 
 const GROUP_ID = 'group-test'
-const IMAGE = 'https://uploads.test/receipt.jpg'
+const IMAGE_DATA_URL =
+  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQCEAwEPwAB//9k='
 
 const NOTHING_EXTRACTED = {
   amount: null,
@@ -34,7 +36,9 @@ describe('extractExpenseInformationFromImage', () => {
       raw: {},
     })
 
-    expect(await extractExpenseInformationFromImage(GROUP_ID, IMAGE)).toEqual({
+    expect(
+      await extractExpenseInformationFromImage(GROUP_ID, IMAGE_DATA_URL),
+    ).toEqual({
       amount: 42.5,
       categoryId: null,
       date: '2026-03-01',
@@ -57,12 +61,15 @@ describe('extractExpenseInformationFromImage', () => {
       raw: {},
     })
 
-    const info = await extractExpenseInformationFromImage(GROUP_ID, IMAGE)
+    const info = await extractExpenseInformationFromImage(
+      GROUP_ID,
+      IMAGE_DATA_URL,
+    )
     expect(info.title).toBe('Dinner, drinks and tip')
     expect(info.amount).toBe(42.5)
   })
 
-  it('passes group id and image url to receipt extraction', async () => {
+  it('passes group id and image data to receipt extraction', async () => {
     mockExtractReceiptDraft.mockResolvedValue({
       draft: {
         title: 'x',
@@ -76,26 +83,26 @@ describe('extractExpenseInformationFromImage', () => {
       raw: {},
     })
 
-    await extractExpenseInformationFromImage(GROUP_ID, IMAGE, 'p2')
+    await extractExpenseInformationFromImage(GROUP_ID, IMAGE_DATA_URL, 'p2')
 
     expect(mockExtractReceiptDraft).toHaveBeenCalledWith(
       GROUP_ID,
-      IMAGE,
+      IMAGE_DATA_URL,
       'p2',
     )
   })
 
   it('reports nothing extracted when extraction returns null', async () => {
     mockExtractReceiptDraft.mockResolvedValue(null)
-    expect(await extractExpenseInformationFromImage(GROUP_ID, IMAGE)).toEqual(
-      NOTHING_EXTRACTED,
-    )
+    expect(
+      await extractExpenseInformationFromImage(GROUP_ID, IMAGE_DATA_URL),
+    ).toEqual(NOTHING_EXTRACTED)
   })
 
   it('propagates errors from receipt extraction', async () => {
-    mockExtractReceiptDraft.mockRejectedValue(new Error('Invalid image URL.'))
+    mockExtractReceiptDraft.mockRejectedValue(new Error('Invalid image data.'))
     await expect(
-      extractExpenseInformationFromImage(GROUP_ID, 'https://evil.example/x.jpg'),
-    ).rejects.toThrow('Invalid image URL.')
+      extractExpenseInformationFromImage(GROUP_ID, 'not-a-data-url'),
+    ).rejects.toThrow('Invalid image data.')
   })
 })

@@ -17,8 +17,18 @@ export const CreateGroup = ({
     <GroupForm
       defaultCurrencyCode={defaultCurrencyCode}
       onSubmit={async (groupFormValues) => {
-        const { groupId } = await mutateAsync({ groupFormValues })
+        const activeUserName =
+          typeof window !== 'undefined'
+            ? localStorage.getItem('newGroup-activeUser') ?? undefined
+            : undefined
+        const { groupId } = await mutateAsync({
+          groupFormValues,
+          creatorParticipantName: activeUserName ?? undefined,
+        })
         await utils.groups.invalidate()
+        if (activeUserName) {
+          localStorage.removeItem('newGroup-activeUser')
+        }
         router.push(`/groups/${groupId}`)
       }}
     />

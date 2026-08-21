@@ -79,16 +79,25 @@ function buildDraftFromExtract(
 
 export async function extractReceiptDraft(
   groupId: string,
-  imageUrl: string,
+  imageSource: string,
   payerParticipantId?: string,
 ): Promise<{ draft: ExpenseDraftPayload; raw: unknown } | null> {
   const { enableReceiptExtract } = await getRuntimeFeatureFlags()
   if (!enableReceiptExtract || !env.NVIDIA_API_KEY) {
     throw new Error('Receipt extraction is not enabled.')
   }
-  if (!isAllowedUploadUrl(imageUrl)) {
-    throw new Error('Invalid image URL.')
+
+  const imageUrl = imageSource.startsWith('data:image/')
+    ? imageSource
+    : null
+
+  if (!imageUrl) {
+    if (!isAllowedUploadUrl(imageSource)) {
+      throw new Error('Invalid image URL.')
+    }
   }
+
+  const nemotronImageUrl = imageUrl ?? imageSource
 
   const group = await getGroup(groupId)
   if (!group) throw new Error('Invalid group ID')
@@ -116,7 +125,7 @@ Use plain currency numbers (1850 for ₹1,850).`
       { role: 'user', content: [{ type: 'text', text: prompt }] },
       {
         role: 'user',
-        content: [{ type: 'image_url', image_url: { url: imageUrl } }],
+        content: [{ type: 'image_url', image_url: { url: nemotronImageUrl } }],
       },
     ],
     maxTokens: 8192,
@@ -129,6 +138,25 @@ Use plain currency numbers (1850 for ₹1,850).`
   if (!draft) return null
 
   return { draft, raw: parsed }
+}
+
+/** Extract receipt from a base64 data URL (no S3 storage). */
+export async function extractReceiptDraftFromBase64(
+  groupId: string,
+  imageDataUrl: string,
+  payerParticipantId?: string,
+) {
+  if (!imageDataUrl.startsWith('data:image/')) {
+    throw new Error('Invalid image data.')
+  }
+  const base64Part = imageDataUrl.split(',')[1]
+  if (!base64Part) throw new Error('Invalid image data.')
+  const byteLength = Math.ceil((base64Part.length * 3) / 4)
+  const maxBytes = 5 * 1024 * 1024
+  if (byteLength > maxBytes) {
+    throw new Error('Image is too large.')
+  }
+  return extractReceiptDraft(groupId, imageDataUrl, payerParticipantId)
 }
 
 const voiceExtractSchema = receiptExtractSchema.extend({

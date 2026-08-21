@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useMediaQuery } from '@/lib/hooks'
 import { cn } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
+import { useAuth } from '@clerk/nextjs'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { useTranslations } from 'next-intl'
 import { ComponentProps, useEffect, useState } from 'react'
@@ -29,26 +30,21 @@ export function ActiveUserModal({ groupId }: { groupId: string }) {
   const t = useTranslations('Expenses.ActiveUserModal')
   const [open, setOpen] = useState(false)
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const { isSignedIn } = useAuth()
   const { data: groupData } = trpc.groups.get.useQuery({ groupId })
 
   const group = groupData?.group
 
   useEffect(() => {
     if (!group) return
-
     const tempUser = localStorage.getItem(`newGroup-activeUser`)
-    const activeUser = localStorage.getItem(`${group.id}-activeUser`)
-    if (!tempUser && !activeUser) {
+    const stored = localStorage.getItem(`${group.id}-activeUser`)
+    if (!tempUser && !stored) {
       setOpen(true)
     }
   }, [group])
 
   function updateOpen(open: boolean) {
-    if (!group) return
-
-    if (!open && !localStorage.getItem(`${group.id}-activeUser`)) {
-      localStorage.setItem(`${group.id}-activeUser`, 'None')
-    }
     setOpen(open)
   }
 
@@ -60,7 +56,12 @@ export function ActiveUserModal({ groupId }: { groupId: string }) {
             <DialogTitle>{t('title')}</DialogTitle>
             <DialogDescription>{t('description')}</DialogDescription>
           </DialogHeader>
-          <ActiveUserForm group={group} close={() => setOpen(false)} />
+          <ActiveUserForm
+            group={group}
+            groupId={groupId}
+            isSignedIn={!!isSignedIn}
+            close={() => setOpen(false)}
+          />
           <DialogFooter className="sm:justify-center">
             <p className="text-sm text-center text-muted-foreground">
               {t('footer')}
@@ -81,6 +82,8 @@ export function ActiveUserModal({ groupId }: { groupId: string }) {
         <ActiveUserForm
           className="px-4"
           group={group}
+          groupId={groupId}
+          isSignedIn={!!isSignedIn}
           close={() => setOpen(false)}
         />
         <DrawerFooter className="pt-2">
@@ -95,23 +98,38 @@ export function ActiveUserModal({ groupId }: { groupId: string }) {
 
 function ActiveUserForm({
   group,
+  groupId,
+  isSignedIn,
   close,
   className,
 }: ComponentProps<'form'> & {
   group?: AppRouterOutput['groups']['get']['group']
+  groupId: string
+  isSignedIn: boolean
   close: () => void
 }) {
   const t = useTranslations('Expenses.ActiveUserModal')
-  const [selected, setSelected] = useState('None')
+  const [selected, setSelected] = useState('none')
+  const setMembership = trpc.preferences.setMembership.useMutation()
+  const utils = trpc.useUtils()
 
   return (
     <form
       className={cn('grid items-start gap-4', className)}
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         if (!group) return
 
         event.preventDefault()
-        localStorage.setItem(`${group.id}-activeUser`, selected)
+        const participantId = selected === 'none' ? null : selected
+
+        if (isSignedIn) {
+          await setMembership.mutateAsync({ groupId, participantId })
+          await utils.preferences.getMembership.invalidate({ groupId })
+        }
+        localStorage.setItem(
+          `${group.id}-activeUser`,
+          participantId ?? 'None',
+        )
         close()
       }}
     >

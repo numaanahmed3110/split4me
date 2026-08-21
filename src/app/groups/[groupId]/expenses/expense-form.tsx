@@ -178,13 +178,16 @@ export function ExpenseForm({
 
   /** Whether the form was opened from a suggested reimbursement ("Mark as paid"). */
   const isRepayment = isCreate && !!searchParams.get('reimbursement')
+  const activeUserId = useActiveUser(group.id)
 
   const getSelectedPayer = (field?: { value: string }) => {
-    if (isCreate && typeof window !== 'undefined') {
-      const activeUser = localStorage.getItem(`${group.id}-activeUser`)
-      if (activeUser && activeUser !== 'None' && field?.value === undefined) {
-        return activeUser
-      }
+    if (
+      isCreate &&
+      activeUserId &&
+      activeUserId !== 'None' &&
+      field?.value === undefined
+    ) {
+      return activeUserId
     }
     return field?.value
   }
@@ -293,7 +296,6 @@ export function ExpenseForm({
           },
   })
   const [isCategoryLoading, setCategoryLoading] = useState(false)
-  const activeUserId = useActiveUser(group.id)
   const sendEvent = useAnalytics()
 
   const submit = async (values: ExpenseFormValues) => {

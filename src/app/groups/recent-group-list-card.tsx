@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useToast } from '@/components/ui/use-toast'
+import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { Calendar, MoreHorizontal, Star, Users } from 'lucide-react'
@@ -28,17 +29,51 @@ export function RecentGroupListCard({
   isStarred,
   isArchived,
   refreshGroupsFromStorage,
+  isSignedIn,
 }: {
   group: RecentGroup
   groupDetail?: AppRouterOutput['groups']['list']['groups'][number]
   isStarred: boolean
   isArchived: boolean
   refreshGroupsFromStorage: () => void
+  isSignedIn: boolean
 }) {
   const router = useRouter()
   const locale = useLocale()
   const toast = useToast()
   const t = useTranslations('Groups')
+  const setStarred = trpc.preferences.setStarred.useMutation()
+  const setArchived = trpc.preferences.setArchived.useMutation()
+
+  const handleStar = async (star: boolean) => {
+    if (isSignedIn) {
+      await setStarred.mutateAsync({ groupId: group.id, starred: star })
+      if (star) {
+        await setArchived.mutateAsync({ groupId: group.id, archived: false })
+      }
+    } else if (star) {
+      starGroup(group.id)
+      unarchiveGroup(group.id)
+    } else {
+      unstarGroup(group.id)
+    }
+    refreshGroupsFromStorage()
+  }
+
+  const handleArchive = async (archived: boolean) => {
+    if (isSignedIn) {
+      await setArchived.mutateAsync({ groupId: group.id, archived })
+      if (archived) {
+        await setStarred.mutateAsync({ groupId: group.id, starred: false })
+      }
+    } else if (archived) {
+      archiveGroup(group.id)
+      unstarGroup(group.id)
+    } else {
+      unarchiveGroup(group.id)
+    }
+    refreshGroupsFromStorage()
+  }
 
   return (
     <li key={group.id}>
@@ -66,13 +101,7 @@ export function RecentGroupListCard({
                   className="-my-3 -ml-3 -mr-1.5"
                   onClick={(event) => {
                     event.stopPropagation()
-                    if (isStarred) {
-                      unstarGroup(group.id)
-                    } else {
-                      starGroup(group.id)
-                      unarchiveGroup(group.id)
-                    }
-                    refreshGroupsFromStorage()
+                    void handleStar(!isStarred)
                   }}
                 >
                   {isStarred ? (
@@ -98,7 +127,6 @@ export function RecentGroupListCard({
                         event.stopPropagation()
                         deleteRecentGroup(group)
                         refreshGroupsFromStorage()
-
                         toast.toast({
                           title: t('RecentRemovedToast.title'),
                           description: t('RecentRemovedToast.description'),
@@ -110,13 +138,7 @@ export function RecentGroupListCard({
                     <DropdownMenuItem
                       onClick={(event) => {
                         event.stopPropagation()
-                        if (isArchived) {
-                          unarchiveGroup(group.id)
-                        } else {
-                          archiveGroup(group.id)
-                          unstarGroup(group.id)
-                        }
-                        refreshGroupsFromStorage()
+                        void handleArchive(!isArchived)
                       }}
                     >
                       {t(isArchived ? 'unarchive' : 'archive')}
@@ -137,9 +159,7 @@ export function RecentGroupListCard({
                     <span>
                       {new Date(groupDetail.createdAt).toLocaleDateString(
                         locale,
-                        {
-                          dateStyle: 'medium',
-                        },
+                        { dateStyle: 'medium' },
                       )}
                     </span>
                   </div>
