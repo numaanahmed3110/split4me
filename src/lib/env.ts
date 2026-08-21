@@ -123,6 +123,46 @@ const envSchema = z
       interpretBlankEnvVarAsUndefined,
       z.string().optional(),
     ),
+    // Clerk authentication
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
+    CLERK_SECRET_KEY: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().default('/sign-in'),
+    ),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().default('/sign-up'),
+    ),
+    // NVIDIA Nemotron (receipt OCR, voice parsing, budget insights)
+    NVIDIA_API_KEY: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
+    NVIDIA_MODEL: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().default('nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'),
+    ),
+    // Deepgram speech-to-text (voice expense entry)
+    DEEPGRAM_API_KEY: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
+    // OneSignal web push (configure after Vercel deploy)
+    ONESIGNAL_APP_ID: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
+    ONESIGNAL_REST_API_KEY: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
   })
   .superRefine((env, ctx) => {
     // Either spelling enables the feature, so either has to satisfy the

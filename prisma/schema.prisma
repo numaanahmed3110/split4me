@@ -19,10 +19,137 @@ model Group {
   information  String?       @db.Text
   currency     String        @default("$")
   currencyCode String?
+  tripStartDate DateTime?    @db.Date
+  tripEndDate   DateTime?    @db.Date
+  status       GroupStatus   @default(ACTIVE)
   participants Participant[]
   expenses     Expense[]
   activities   Activity[]
+  members      GroupMember[]
+  preferences  UserGroupPreference[]
+  fund         GroupFund?
+  drafts       ExpenseDraft[]
+  rules        GroupRule[]
   createdAt    DateTime      @default(now())
+}
+
+enum GroupStatus {
+  ACTIVE
+  SETTLED
+}
+
+model User {
+  id                String               @id
+  email             String?
+  name              String?
+  oneSignalPlayerId String?
+  groupMembers      GroupMember[]
+  preferences       UserGroupPreference[]
+  contributions     FundContribution[]
+  drafts            ExpenseDraft[]
+  createdAt         DateTime             @default(now())
+}
+
+model GroupMember {
+  userId        String
+  groupId       String
+  participantId String      @unique
+  joinedAt      DateTime    @default(now())
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group         Group       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@id([userId, groupId])
+  @@index([groupId])
+}
+
+model UserGroupPreference {
+  userId              String
+  groupId             String
+  starred             Boolean  @default(false)
+  archived            Boolean  @default(false)
+  recentOrder         Int?
+  defaultSplitJson    String?  @db.Text
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group               Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@id([userId, groupId])
+}
+
+model GroupFund {
+  id            String             @id
+  groupId       String             @unique
+  targetAmount  Int
+  group         Group              @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  contributions FundContribution[]
+  budgets       Budget[]
+  reserves      FundReserve[]
+  expenses      Expense[]
+}
+
+model FundContribution {
+  id             String    @id
+  fundId         String
+  userId         String
+  amount         Int
+  contributedAt  DateTime  @default(now())
+  fund           GroupFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([fundId])
+}
+
+model Budget {
+  id              String    @id
+  fundId          String
+  name            String
+  allocatedAmount Int
+  fund            GroupFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  expenses        Expense[]
+
+  @@index([fundId])
+}
+
+model FundReserve {
+  id      String    @id
+  fundId  String
+  purpose String
+  amount  Int
+  fund    GroupFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+
+  @@index([fundId])
+}
+
+enum ExpenseDraftStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model ExpenseDraft {
+  id              String             @id
+  groupId         String
+  createdByUserId String
+  status          ExpenseDraftStatus @default(PENDING)
+  payload         Json
+  messages        Json               @default("[]")
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  group           Group              @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user            User               @relation(fields: [createdByUserId], references: [id], onDelete: Cascade)
+  expense         Expense?
+
+  @@index([groupId, status])
+}
+
+model GroupRule {
+  id       String @id
+  groupId  String
+  ruleText String @db.Text
+  policy   Json
+  group    Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
 }
 
 model Participant {
@@ -32,6 +159,7 @@ model Participant {
   groupId         String
   expensesPaidBy  Expense[]
   expensesPaidFor ExpensePaidFor[]
+  groupMember     GroupMember?
 }
 
 model Category {
@@ -56,6 +184,12 @@ model Expense {
   paidById         String
   paidFor          ExpensePaidFor[]
   groupId          String
+  fundId           String?
+  fund             GroupFund?        @relation(fields: [fundId], references: [id], onDelete: SetNull)
+  budgetId         String?
+  budget           Budget?           @relation(fields: [budgetId], references: [id], onDelete: SetNull)
+  draftId          String?           @unique
+  draft            ExpenseDraft?     @relation(fields: [draftId], references: [id], onDelete: SetNull)
   isReimbursement  Boolean           @default(false)
   splitMode        SplitMode         @default(EVENLY)
   createdAt        DateTime          @default(now())
@@ -132,4 +266,5 @@ enum ActivityType {
   CREATE_EXPENSE
   UPDATE_EXPENSE
   DELETE_EXPENSE
+  MEMBER_JOINED
 }

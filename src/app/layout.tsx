@@ -10,6 +10,13 @@ import { Analytics } from '@/lib/analytics/analytics'
 import { getAnalyticsConfig } from '@/lib/analytics/config'
 import { effectiveBaseUrl } from '@/lib/env'
 import { TRPCProvider } from '@/trpc/client'
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from '@clerk/nextjs'
 import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider, useTranslations } from 'next-intl'
 import { getLocale, getMessages, getTranslations } from 'next-intl/server'
@@ -106,6 +113,18 @@ function Content({ children }: { children: React.ReactNode }) {
             <li>
               <ThemeToggle />
             </li>
+            <li className="ml-2">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="outline" size="sm">
+                    Sign in
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </li>
           </ul>
         </div>
       </header>
@@ -162,33 +181,35 @@ export default async function RootLayout({
   const messages = await getMessages()
   const analyticsConfig = await getAnalyticsConfig()
   return (
-    <html
-      lang={locale}
-      dir={['ar', 'he'].includes(locale) ? 'rtl' : 'ltr'}
-      suppressHydrationWarning
-    >
-      <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
-      <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
-        <NextIntlClientProvider messages={messages}>
-          {/* Rendered inside the provider because it reads translations via
+    <ClerkProvider>
+      <html
+        lang={locale}
+        dir={['ar', 'he'].includes(locale) ? 'rtl' : 'ltr'}
+        suppressHydrationWarning
+      >
+        <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
+        <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
+          <NextIntlClientProvider messages={messages}>
+            {/* Rendered inside the provider because it reads translations via
               `useTranslations`, which needs NextIntlClientProvider in its
               ancestor tree. */}
-          <ServiceWorkerRegistration />
-          <Analytics config={analyticsConfig}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Suspense>
-                <ProgressBar />
-              </Suspense>
-              <Content>{children}</Content>
-            </ThemeProvider>
-          </Analytics>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+            <ServiceWorkerRegistration />
+            <Analytics config={analyticsConfig}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <Suspense>
+                  <ProgressBar />
+                </Suspense>
+                <Content>{children}</Content>
+              </ThemeProvider>
+            </Analytics>
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
