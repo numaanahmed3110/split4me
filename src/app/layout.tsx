@@ -83,6 +83,7 @@ function Content({ children }: { children: React.ReactNode }) {
   const t = useTranslations()
   return (
     <TRPCProvider>
+      <PreferencesMigration />
       <header className="fixed top-0 left-0 right-0 h-16 flex justify-between bg-white dark:bg-gray-950 bg-opacity-50 dark:bg-opacity-50 p-2 border-b backdrop-blur-sm z-50">
         <Link
           className="flex items-center gap-2 hover:scale-105 transition-transform"
@@ -195,7 +196,6 @@ export default async function RootLayout({
       <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
       <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
         <ClerkProvider appearance={{ theme: shadcn }}>
-          <PreferencesMigration />
           <OneSignalInit />
           <NextIntlClientProvider messages={messages}>
             {/* Rendered inside the provider because it reads translations via
