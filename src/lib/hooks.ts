@@ -55,30 +55,33 @@ export function useBaseUrl() {
 
 /**
  * Active participant for a group — from DB when signed in, localStorage otherwise.
- * @returns participant id, `null` while loading, or `"None"` when explicitly nobody
  */
 export function useActiveUser(groupId?: string) {
   const { isSignedIn, isLoaded } = useAuth()
-  const [localUser, setLocalUser] = useState<string | null>(null)
+  const [localUser, setLocalUser] = useState<string | null>(() => {
+    if (typeof window === 'undefined' || !groupId) return null
+    return localStorage.getItem(`${groupId}-activeUser`)
+  })
 
   const { data: membership, isLoading } =
     trpc.preferences.getMembership.useQuery(
       { groupId: groupId! },
-      { enabled: !!groupId && !!isSignedIn },
+      { enabled: !!groupId && !!isSignedIn && isLoaded },
     )
 
   useEffect(() => {
     if (!groupId || isSignedIn) return
     const activeUser = localStorage.getItem(`${groupId}-activeUser`)
-    if (activeUser) setLocalUser(activeUser)
-    else setLocalUser(null)
+    setLocalUser(activeUser)
   }, [groupId, isSignedIn])
 
   if (!groupId) return null
-  if (isSignedIn) {
-    if (!isLoaded || isLoading) return null
+
+  if (isSignedIn && isLoaded) {
+    if (isLoading) return null
     return membership?.participantId ?? 'None'
   }
+
   return localUser
 }
 

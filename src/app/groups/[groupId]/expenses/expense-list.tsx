@@ -89,6 +89,8 @@ export function ExpenseList() {
         )?.id
         if (userId) {
           localStorage.setItem(`${groupId}-activeUser`, userId)
+        } else {
+          localStorage.setItem(`${groupId}-activeUser`, 'None')
         }
       }
     }

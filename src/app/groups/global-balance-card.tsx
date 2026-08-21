@@ -9,8 +9,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Currency, getCurrency } from '@/lib/currency'
-import { cn, formatCurrency } from '@/lib/utils'
+import { Currency } from '@/lib/currency'
+import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 import { useLocale, useTranslations } from 'next-intl'
@@ -74,31 +74,26 @@ function GlobalBalanceCard_({
           <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-8 w-32" />
+          <Skeleton className="h-6 w-40" />
         </CardContent>
       </Card>
     )
   }
 
-  const balancesByCurrency = data.balances.reduce(
-    (acc, balance) => {
-      const currency =
-        getCurrency(balance.currencyCode ?? 'USD') ??
-        ({
-          symbol: balance.currency,
-          code: balance.currencyCode ?? 'USD',
-        } as Currency)
-      const key = currency.code
-      if (!acc[key]) {
-        acc[key] = { currency, amount: 0 }
-      }
-      acc[key].amount += balance.amount
-      return acc
-    },
-    {} as Record<string, CurrencyBalance>,
-  )
+  const byCurrency = new Map<string, CurrencyBalance>()
+  for (const balance of data.balances) {
+    const currency = getCurrencyFromGroup(balance)
+    const key = currency.code || `custom:${currency.symbol}`
+    const existing = byCurrency.get(key)
+    if (existing) {
+      existing.amount += balance.amount
+    } else {
+      byCurrency.set(key, { currency, amount: balance.amount })
+    }
+  }
 
-  const balances = Object.values(balancesByCurrency)
+  const currencyBalances = [...byCurrency.values()]
+  const isSettledUp = currencyBalances.every(({ amount }) => amount === 0)
 
   return (
     <Card className="mb-4">
@@ -107,20 +102,38 @@ function GlobalBalanceCard_({
         <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-1">
-          {balances.map(({ currency, amount }) => (
-            <li
-              key={currency.code}
-              className={cn(
-                'text-lg font-semibold',
-                amount > 0 && 'text-emerald-600',
-                amount < 0 && 'text-red-600',
-              )}
-            >
-              {formatCurrency(currency, amount / 100, locale, true)}
-            </li>
-          ))}
-        </ul>
+        {isSettledUp ? (
+          <p className="text-muted-foreground text-sm">{t('settledUp')}</p>
+        ) : (
+          <ul className="flex flex-col gap-1">
+            {currencyBalances.map(({ currency, amount }) => {
+              if (amount === 0) return null
+              const formatted = formatCurrency(
+                currency,
+                Math.abs(amount),
+                locale,
+              )
+              return (
+                <li
+                  key={currency.code || currency.symbol}
+                  className="flex justify-between items-baseline gap-2 text-sm"
+                >
+                  <span className="text-muted-foreground">
+                    {amount > 0 ? t('owedToYou') : t('youOwe')}
+                  </span>
+                  <span
+                    className={cn(
+                      'font-semibold tabular-nums',
+                      amount > 0 ? 'text-green-600' : 'text-red-600',
+                    )}
+                  >
+                    {formatted}
+                  </span>
+                </li>
+              )
+            })}
+          </ul>
+        )}
       </CardContent>
     </Card>
   )

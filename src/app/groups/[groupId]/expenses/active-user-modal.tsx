@@ -39,9 +39,9 @@ export function ActiveUserModal({ groupId }: { groupId: string }) {
     if (!group) return
     const tempUser = localStorage.getItem(`newGroup-activeUser`)
     const stored = localStorage.getItem(`${group.id}-activeUser`)
-    if (!tempUser && !stored) {
-      setOpen(true)
-    }
+    // expense-list promotes newGroup-activeUser → groupId-activeUser on mount
+    if (tempUser) return
+    if (!stored) setOpen(true)
   }, [group])
 
   function updateOpen(open: boolean) {
