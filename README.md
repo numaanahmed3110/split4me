@@ -35,7 +35,7 @@ Spliit is a free and open source alternative to Splitwise. You can either use th
 
 ## Contribute
 
-The project is open to contributions. Feel free to open an issue or even a pull-request! 
+The project is open to contributions. Feel free to open an issue or even a pull-request!
 Join the discussion in [the Spliit Discord server](https://discord.gg/YSyVXbwvSY).
 
 ### Contribute financially
@@ -52,7 +52,7 @@ the project.
 
 ### Translation
 
-The project's translations are managed using [our Weblate project](https://hosted.weblate.org/projects/spliit/spliit/). 
+The project's translations are managed using [our Weblate project](https://hosted.weblate.org/projects/spliit/spliit/).
 You can easily add missing translations to the project or even add a new language!
 Here is the current state of translation:
 
@@ -126,9 +126,9 @@ name: spliit
 services:
   app:
     image: ghcr.io/spliit-app/spliit:latest
-    user: "1000:1000" # change to your user id or remove if you want root
+    user: '1000:1000' # change to your user id or remove if you want root
     ports:
-      - "8080:3000/tcp"
+      - '8080:3000/tcp'
     environment:
       POSTGRES_PRISMA_URL: postgresql://spliit:spliit@database:5432/spliit
       POSTGRES_URL_NON_POOLING: postgresql://spliit:spliit@database:5432/spliit
@@ -141,7 +141,7 @@ services:
 
   database:
     image: postgres:17.3
-    user: "1000:1000" # same as above
+    user: '1000:1000' # same as above
     environment:
       POSTGRES_USER: spliit
       POSTGRES_PASSWORD: spliit
@@ -337,7 +337,5 @@ A provider supplies a transport — where events go — and optionally a `Script
 ## License
 
 MIT, see [LICENSE](./LICENSE).
+
 # split4me
-#   s p l i t 4 m e  
- #   s p l i t 4 m e  
- 
