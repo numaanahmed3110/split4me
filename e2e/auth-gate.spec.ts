@@ -3,7 +3,7 @@ import { expect, test } from './fixtures'
 /**
  * The authentication gate.
  *
- * Upstream Spliit is account-free, so every group/expense tRPC procedure used
+ * Before auth was added, any visitor could use every group/expense tRPC procedure
  * `baseProcedure` and `src/proxy.ts` ran a bare `clerkMiddleware()` that
  * protected nothing -- anyone could list, read, create and edit any group
  * without signing in. These tests pin the gate shut.

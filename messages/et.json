@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Jaga <strong>kulusid</strong> <strong>sõprade ja perega</strong>",
-    "description": "Tere tulemast oma uude <strong>Spliit</strong> i keskkonda!",
     "button": {
       "groups": "Mine gruppidesse",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupid"
-  },
-  "Footer": {
-    "madeIn": "Valmistatud Montréalis, Québecis 🇨🇦",
-    "builtBy": "Loonud <author>Sebastien Castiel</author> ja <source>kaasabilised</source>"
   },
   "Expenses": {
     "title": "Kulud",

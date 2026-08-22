@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Partilha <strong>Despesas</strong> com <strong>Amigos e Família</strong>",
-    "description": "Bem-vindo/a à tua nova instância <strong>Spliit</strong> !",
     "button": {
       "groups": "Ir para grupos",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupos"
-  },
-  "Footer": {
-    "madeIn": "Feito em Montréal, Québec 🇨🇦",
-    "builtBy": "Construído por <author>Sebastien Castiel</author> e <source>contribuidores</source>"
   },
   "Expenses": {
     "title": "Despesas",

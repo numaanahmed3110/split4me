@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "跟<strong>朋友和家人</strong>一起共享<strong>消費紀錄</strong>",
-    "description": "歡迎開始全新的<strong>Spliit</strong>",
     "button": {
       "groups": "前往群組",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "群組"
-  },
-  "Footer": {
-    "madeIn": "來自 🇨🇦 加拿大魁北克蒙特婁",
-    "builtBy": "由 <author>Sebastien Castiel</author> 以及 <source>社群貢獻者</source> 共同創建維護"
   },
   "Expenses": {
     "title": "消費",

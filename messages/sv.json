@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Dela <strong>Utgifter</strong> med <strong>Vänner & Familj</strong>",
-    "description": "Välkommen till din nya <strong>Dela</strong> instans !",
     "button": {
       "groups": "Gå till grupper",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupper"
-  },
-  "Footer": {
-    "madeIn": "Gjord i Montréal, Québec 🇨🇦",
-    "builtBy": "Byggt av <author>Sebastien Castiel</author> och <source>bidragsgivare</source>"
   },
   "Expenses": {
     "title": "Utgifter",

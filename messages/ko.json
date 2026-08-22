@@ -315,15 +315,10 @@
       "github": "깃허브",
       "groups": "그룹 보기"
     },
-    "title": "<strong>친구 & 가족</strong>과 <strong>지출</strong>을 함께 관리해요",
-    "description": "<strong>Spliit</strong>와 함께하는 새 시작을 환영해요!"
+    "title": "<strong>친구 & 가족</strong>과 <strong>지출</strong>을 함께 관리해요"
   },
   "Header": {
     "groups": "그룹"
-  },
-  "Footer": {
-    "madeIn": "몬트리올, 퀘벡에서 제작 🇨🇦",
-    "builtBy": "<author>Sebastien Castiel</author>와 <source>공동 작업자들</source>이 함께 만들었어요"
   },
   "Settings": {
     "title": "설정"

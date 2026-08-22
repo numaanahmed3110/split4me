@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Teile <strong>Ausgaben</strong> mit <strong>Freunden & Familie</strong>",
-    "description": "Willkommen zu deiner neuen <strong>Spliit</strong>-Instanz!",
     "button": {
       "groups": "Zu den Gruppen",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Gruppen"
-  },
-  "Footer": {
-    "madeIn": "Entwickelt in Montréal, Québec 🇨🇦",
-    "builtBy": "Erstellt von <author>Sebastien Castiel</author> und <source>Mitwirkenden</source>"
   },
   "Expenses": {
     "title": "Ausgaben",

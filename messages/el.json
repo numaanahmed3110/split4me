@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Μοιράσου <strong>έξοδα</strong> με <strong>φίλους & οικογένεια</strong>",
-    "description": "Καλωσορίσατε στην νέα σας <strong>Spliit</strong> !",
     "button": {
       "groups": "Πήγαινε στις ομάδες",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Ομάδες"
-  },
-  "Footer": {
-    "madeIn": "Φτιάχτηκε στο Μόντρεαλ, Κεμπέκ 🇨🇦",
-    "builtBy": "Φτιάχτηκε από <author>Sebastien Castiel</author> και τους <source>συνεργάτες</source>"
   },
   "Expenses": {
     "title": "Έξοδα",

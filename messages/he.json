@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "שתף <strong>הוצאות</strong> עם <strong>חברים ומשפחה</strong>",
-    "description": "ברוך הבא למופע החדש שלך של <strong>Spliit</strong>!",
     "button": {
       "groups": "עבור לקבוצות",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "קבוצות"
-  },
-  "Footer": {
-    "madeIn": "נבנה במונטריאול, קוויבק 🇨🇦",
-    "builtBy": "נבנה על ידי <author>סבסטיאן קסטיאל</author> ו<source>תורמים</source>"
   },
   "Expenses": {
     "title": "הוצאות",

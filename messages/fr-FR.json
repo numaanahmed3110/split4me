@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Partagez <strong>vos dépenses</strong> avec <strong>vos amis & votre famille</strong>",
-    "description": "Bienvenue sur votre instance <strong>Spliit</strong> !",
     "button": {
       "groups": "Accéder aux groupes",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Groupes"
-  },
-  "Footer": {
-    "madeIn": "Made in Montréal, Québec 🇨🇦",
-    "builtBy": "Développé par <author>Sebastien Castiel</author> et <source>contributeurs</source>"
   },
   "Expenses": {
     "title": "Dépenses",

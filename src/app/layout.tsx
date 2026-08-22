@@ -6,7 +6,6 @@ import { ProgressBar } from '@/components/progress-bar'
 import { ServiceWorkerRegistration } from '@/components/service-worker-registration'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/toaster'
 import { Analytics } from '@/lib/analytics/analytics'
 import { getAnalyticsConfig } from '@/lib/analytics/config'
@@ -15,8 +14,6 @@ import { TRPCProvider } from '@/trpc/client'
 import {
   ClerkProvider,
   Show,
-  SignInButton,
-  SignUpButton,
   UserButton,
 } from '@clerk/nextjs'
 import { shadcn } from '@clerk/ui/themes'
@@ -34,32 +31,30 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(effectiveBaseUrl),
     title: {
       default: t('metaTitle'),
-      template: '%s · Spliit',
+      template: '%s · split4me',
     },
     description:
-      'Spliit is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
+      'split4me is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
     openGraph: {
       title: t('metaTitle'),
       description:
-        'Spliit is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
+        'split4me is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
       images: `/banner.png`,
       type: 'website',
       url: '/',
     },
     twitter: {
       card: 'summary_large_image',
-      creator: '@scastiel',
-      site: '@scastiel',
       images: `/banner.png`,
       title: t('metaTitle'),
       description:
-        'Spliit is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
+        'split4me is a minimalist web application to share expenses with friends and family. No ads, no account, no problem.',
     },
     appleWebApp: {
       capable: true,
-      title: 'Spliit',
+      title: 'split4me',
     },
-    applicationName: 'Spliit',
+    applicationName: 'split4me',
     icons: [
       {
         url: '/android-chrome-192x192.png',
@@ -116,9 +111,9 @@ function Content({ children }: { children: React.ReactNode }) {
             <Image
               src="/logo-with-text.png"
               className="m-1 h-auto w-auto"
-              width={(35 * 522) / 180}
+              width={(35 * 586) / 180}
               height={35}
-              alt="Spliit"
+              alt="split4me"
             />
           </h1>
         </Link>
@@ -131,16 +126,6 @@ function Content({ children }: { children: React.ReactNode }) {
               <ThemeToggle />
             </li>
             <li className="ml-2 flex items-center gap-2">
-              <Show when="signed-out">
-                <SignInButton mode="modal">
-                  <Button variant="outline" size="sm">
-                    Sign in
-                  </Button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <Button size="sm">Sign up</Button>
-                </SignUpButton>
-              </Show>
               <Show when="signed-in">
                 <UserButton />
               </Show>
@@ -158,32 +143,14 @@ function Content({ children }: { children: React.ReactNode }) {
               <Image
                 src="/logo-with-text.png"
                 className="m-1 h-auto w-auto"
-                width={(35 * 522) / 180}
+                width={(35 * 586) / 180}
                 height={35}
-                alt="Spliit"
+                alt="split4me"
               />
             </Link>
           </div>
           <div className="flex flex-col space-y a--no-underline-text-white">
-            <span>{t('Footer.madeIn')}</span>
-            <span>
-              {t.rich('Footer.builtBy', {
-                author: (txt) => (
-                  <a href="https://scastiel.dev" target="_blank" rel="noopener">
-                    {txt}
-                  </a>
-                ),
-                source: (txt) => (
-                  <a
-                    href="https://github.com/spliit-app/spliit/graphs/contributors"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    {txt}
-                  </a>
-                ),
-              })}
-            </span>
+            <span>{t('Footer.tagline')}</span>
           </div>
         </div>
       </footer>
@@ -236,3 +203,5 @@ export default async function RootLayout({
     </html>
   )
 }
+
+

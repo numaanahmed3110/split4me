@@ -1,19 +1,69 @@
 {
   "Homepage": {
     "title": "Share <strong>Expenses</strong> with <strong>Friends & Family</strong>",
-    "metaTitle": "Spliit · Share Expenses with Friends & Family",
-    "description": "Welcome to your new <strong>Spliit</strong> instance !",
+    "metaTitle": "split4me · Share Expenses with Friends & Family",
+    "description": "Create a group, add shared expenses, and see exactly who owes whom. Simple, free, and no ads.",
     "button": {
       "groups": "Go to groups",
-      "github": "GitHub"
+      "signIn": "Sign in"
+    },
+    "features": {
+      "heading": "Everything you need to settle up",
+      "subheading": "All the tools to track shared expenses with your group, completely free.",
+      "groups": {
+        "title": "Shared groups",
+        "description": "Create a group and invite anyone with a link or a QR code — no app install required."
+      },
+      "expenses": {
+        "title": "Expense tracking",
+        "description": "Add expenses in seconds, attach receipts, and search through past spending."
+      },
+      "splitting": {
+        "title": "Flexible splitting",
+        "description": "Split evenly, by shares, by percentage, or by exact amounts."
+      },
+      "balances": {
+        "title": "Balances & settlements",
+        "description": "See who owes whom at a glance, with suggested reimbursements to settle up fast."
+      },
+      "currencies": {
+        "title": "Multi-currency",
+        "description": "Pick any currency for your group and convert amounts with live exchange rates."
+      },
+      "stats": {
+        "title": "Insights",
+        "description": "Understand spending over time, by participant, and by category."
+      },
+      "receipts": {
+        "title": "Receipt scanning",
+        "description": "Snap a photo of a receipt and let the app fill in the details for you."
+      },
+      "recurring": {
+        "title": "Recurring expenses",
+        "description": "Set rent or subscriptions to repeat daily, weekly, or monthly."
+      }
+    },
+    "how": {
+      "heading": "How it works",
+      "step1": {
+        "title": "Create a group",
+        "description": "Name it, pick a currency, and add your participants."
+      },
+      "step2": {
+        "title": "Add expenses",
+        "description": "Everyone adds what they paid and chooses who it was for."
+      },
+      "step3": {
+        "title": "Settle up",
+        "description": "Balances show who owes whom, with suggested reimbursements."
+      }
     }
   },
   "Header": {
     "groups": "Groups"
   },
   "Footer": {
-    "madeIn": "Made in Montréal, Québec 🇨🇦",
-    "builtBy": "Built by <author>Sebastien Castiel</author> and <source>contributors</source>"
+    "tagline": "Free expense sharing for friends and family."
   },
   "Expenses": {
     "title": "Expenses",
@@ -533,7 +583,7 @@
   },
   "Pwa": {
     "updateTitle": "Update available",
-    "updateDescription": "A new version of Spliit is available.",
+    "updateDescription": "A new version of split4me is available.",
     "reload": "Reload"
   }
 }

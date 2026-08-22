@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Deel <strong>Uitgaven</strong> met <strong>Vrienden & Familie</strong>",
-    "description": "Welkom op je nieuwe <strong>Spliit</strong>-instantie!",
     "button": {
       "groups": "Ga naar groepen",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Groepen"
-  },
-  "Footer": {
-    "madeIn": "Gemaakt in Montréal, Québec 🇨🇦",
-    "builtBy": "Geschreven door <author>Sebastien Castiel</author> en <source>bijdragers</source>"
   },
   "Expenses": {
     "title": "Uitgaven",

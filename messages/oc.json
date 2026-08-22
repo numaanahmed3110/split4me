@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Partejatz <strong>vòstras despensas</strong> amb <strong>vòstres amics & vòstra familha</strong>",
-    "description": "Benvenguda sus vòstra novèla instància <strong>Spliit</strong> !",
     "button": {
       "groups": "Accedir als grops",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grops"
-  },
-  "Footer": {
-    "madeIn": "Fach a Montréal, Québec 🇨🇦",
-    "builtBy": "Desvolopat per <author>Sebastien Castiel</author> e <source>contributors</source>"
   },
   "Expenses": {
     "title": "Despensas",

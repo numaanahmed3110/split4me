@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Sdílejte <strong>výdaje</strong> s <strong>přáteli a rodinou</strong>",
-    "description": "Vítejte ve své nové instanci <strong>Spliitu</strong>!",
     "button": {
       "groups": "Přejít na skupiny",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Skupiny"
-  },
-  "Footer": {
-    "madeIn": "Vyrobeno v Montréalu, Québec 🇨🇦",
-    "builtBy": "Vytvořil <author>Sebastien Castiel</author> a <source>další přispěvatelé</source>"
   },
   "Expenses": {
     "title": "Výdaje",

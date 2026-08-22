@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Dziel <strong>Wydatki</strong> z <strong>Rodziną i Przyjaciółmi</strong>",
-    "description": "Witaj na Twojej nowej instancji <strong>Spliit</strong> !",
     "button": {
       "groups": "Przejdź do grup",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupy"
-  },
-  "Footer": {
-    "madeIn": "Stworzone w Montréalu, Québec 🇨🇦",
-    "builtBy": "Napisane przez <author>Sebastien Castiela</author> i <source>kontrybutorów</source>"
   },
   "Expenses": {
     "title": "Wydatki",

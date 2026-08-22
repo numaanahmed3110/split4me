@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Distribuie <strong>Cheltuielile</strong> cu <strong>Prietenii & Familia</strong>",
-    "description": "Bine ai venit pe noua ta instanță de <strong>Spliit</strong> !",
     "button": {
       "groups": "Mergi la grupuri",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupuri"
-  },
-  "Footer": {
-    "madeIn": "Dezvoltat în Montréal, Québec 🇨🇦",
-    "builtBy": "Dezvoltat de către <author>Sebastien Castiel</author> și <source>contribuitori</source>"
   },
   "Expenses": {
     "title": "Cheltuieli",

@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "友達や家族と<strong>費用</strong>を<strong>分担</strong>しよう",
-    "description": "新しい<strong>Spliit</strong>インスタンスへようこそ！",
     "button": {
       "groups": "グループへ移動",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "グループ"
-  },
-  "Footer": {
-    "madeIn": "モントリオール、ケベック 🇨🇦 で製作",
-    "builtBy": "<author>Sebastien Castiel</author>と<source>貢献者</source>によって構築"
   },
   "Expenses": {
     "title": "支出",

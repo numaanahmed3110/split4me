@@ -1,7 +1,6 @@
 {
   "Homepage": {
     "title": "Dalinkitės <strong>išlaidomis</strong> su <strong>draugais ir šeima</strong>",
-    "description": "Sveiki atvykę į jūsų naująją <strong>Spliit</strong> !",
     "button": {
       "groups": "Eiti į grupes",
       "github": "GitHub"
@@ -9,10 +8,6 @@
   },
   "Header": {
     "groups": "Grupės"
-  },
-  "Footer": {
-    "madeIn": "Pagaminta Montréal, Québec 🇨🇦",
-    "builtBy": "Sukūrta <author>Sebastien Castiel</author> bei <source>bendraautorių</source>"
   },
   "Expenses": {
     "title": "Išlaidos",
