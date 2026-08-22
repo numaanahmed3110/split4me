@@ -11,6 +11,7 @@ import {
   touchRecentGroup,
 } from '@/lib/preferences-server'
 import { createTRPCRouter, protectedProcedure } from '@/trpc/init'
+import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 
 export const preferencesRouter = createTRPCRouter({
@@ -68,11 +69,24 @@ export const preferencesRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       if (input.participantId) {
-        await joinGroupAsParticipant(
-          ctx.userId,
-          input.groupId,
-          input.participantId,
-        )
+        try {
+          await joinGroupAsParticipant(
+            ctx.userId,
+            input.groupId,
+            input.participantId,
+          )
+        } catch (error) {
+          // Two people picking the same participant is an ordinary mistake in a
+          // shared group, not a server fault. Left as a bare Error it surfaced
+          // as a 500 INTERNAL_SERVER_ERROR, which is both wrong for the client
+          // and noise in error monitoring.
+          const message =
+            error instanceof Error ? error.message : 'Could not join the group.'
+          throw new TRPCError({
+            code: message.includes('already claimed') ? 'CONFLICT' : 'BAD_REQUEST',
+            message,
+          })
+        }
       } else {
         await setMembership(ctx.userId, input.groupId, null)
       }
