@@ -43,4 +43,3 @@ export const receiptExtractSchema = z.object({
   paidByParticipantId: z.string().optional(),
 })
 
-export type ReceiptExtract = z.infer<typeof receiptExtractSchema>

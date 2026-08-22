@@ -73,14 +73,18 @@ export function ExpenseDraftReview({
 
   const lineItems = payload.lineItems ?? []
 
+  // Read once into a local: the React Compiler infers `preview.data.shares` as
+  // the dependency while the array said `preview.data?.shares`, and refuses to
+  // preserve the memo when the two disagree.
+  const shares = preview.data?.shares
   const shareRows = useMemo(() => {
-    if (!preview.data?.shares) return []
-    return Object.entries(preview.data.shares).map(([participantId, amount]) => ({
+    if (!shares) return []
+    return Object.entries(shares).map(([participantId, amount]) => ({
       participantId,
       name: participantName(group, participantId),
       amount,
     }))
-  }, [preview.data?.shares, group])
+  }, [shares, group])
 
   useEffect(() => {
     setPayload(initialPayload)

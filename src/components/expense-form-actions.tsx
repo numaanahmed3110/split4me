@@ -69,7 +69,3 @@ export async function extractCategoryFromTitle(description: string) {
   // fall back to first category (should be "General") if no category matches the output
   return { categoryId: category?.id || 0 }
 }
-
-export type TitleExtractedInfo = Awaited<
-  ReturnType<typeof extractCategoryFromTitle>
->

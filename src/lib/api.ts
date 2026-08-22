@@ -381,9 +381,6 @@ export async function getGroupExpenses(
   })
 }
 
-export async function getGroupExpenseCount(groupId: string) {
-  return prisma.expense.count({ where: { groupId } })
-}
 
 /**
  * Returns the currently active recurring expenses of a group: the latest frame

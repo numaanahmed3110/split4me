@@ -181,9 +181,11 @@ test('keeps one user\u2019s starred groups invisible to another', async ({
 test('scans a receipt with Nemotron and confirms the draft into an expense', async ({
   page,
 }) => {
-  // The extraction is a live multimodal model call, so allow for a slow round
-  // trip rather than the suite's default 60s.
-  test.setTimeout(240_000)
+  // A live multimodal model call, and the slowest thing in the suite. Nemotron
+  // queues concurrent vision requests, so with several workers running this can
+  // take minutes -- it passes in ~10s when it has the API to itself. Budget for
+  // the contended case rather than reporting a provider queue as a product bug.
+  test.setTimeout(420_000)
 
   await signIn(page, 'test1@gmail.com')
 
@@ -239,7 +241,7 @@ test('scans a receipt with Nemotron and confirms the draft into an expense', asy
           .trim()
         return toast ? `toast: ${toast}` : 'waiting'
       },
-      { timeout: 180_000, intervals: [2000] },
+      { timeout: 330_000, intervals: [2000] },
     )
     .toBe('draft')
 

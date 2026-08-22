@@ -37,8 +37,5 @@ export async function extractExpenseInformationFromImage(
   }
 }
 
-export type ReceiptExtractedInfo = Awaited<
-  ReturnType<typeof extractExpenseInformationFromImage>
->
 
 export type { ExpenseDraftPayload }

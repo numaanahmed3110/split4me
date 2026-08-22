@@ -35,7 +35,9 @@ test.use({
 test('turns spoken audio into an expense draft via Deepgram and Nemotron', async ({
   page,
 }) => {
-  test.setTimeout(300_000)
+  // Deepgram then Nemotron, both live. See the note in authenticated.spec.ts:
+  // concurrent workers contend for the same provider queue.
+  test.setTimeout(420_000)
 
   // The voice button only exists in the installed app.
   await emulateInstalledPwa(page)
@@ -60,7 +62,7 @@ test('turns spoken audio into an expense draft via Deepgram and Nemotron', async
 
   // Deepgram + Nemotron, then the draft review renders.
   const confirm = page.getByRole('button', { name: 'Confirm & add expense' })
-  await expect(confirm).toBeVisible({ timeout: 240_000 })
+  await expect(confirm).toBeVisible({ timeout: 330_000 })
 
   await confirm.click()
 
