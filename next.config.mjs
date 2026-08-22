@@ -27,7 +27,12 @@ const nextConfig = {
   // Emit a self-contained server into .next/standalone, containing only the
   // files Next.js traced as actually reachable at runtime. The Docker runtime
   // stage copies that instead of a full production `node_modules`.
-  output: 'standalone',
+  //
+  // Skipped on Vercel, which builds its own serverless output and never reads
+  // .next/standalone. Worse, its build adapter runs `onBuildComplete` before
+  // the standalone step and prunes the trace files the latter then reads
+  // unguarded, failing the build with `ENOENT: .next/next-server.js.nft.json`.
+  output: process.env.VERCEL ? undefined : 'standalone',
   images: {
     remotePatterns
   },
