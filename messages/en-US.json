@@ -372,6 +372,59 @@
       "markAsPaid": "Mark as paid"
     }
   },
+  "TripFund": {
+    "title": "Trip Fund",
+    "tripFund": "Trip Fund",
+    "loading": "Loading trip fund…",
+    "noBudgetDescription": "Set a total trip budget to track spending, allocations, and protected reserves.",
+    "createBudget": "Create trip budget",
+    "editBudget": "Edit budget",
+    "totalBudget": "Total budget",
+    "spent": "Spent",
+    "remaining": "Remaining",
+    "reserved": "Reserved",
+    "freelySpendable": "Freely spendable",
+    "used": "Used",
+    "allocations": "Budget allocations",
+    "noAllocations": "No category allocations yet.",
+    "addAllocation": "Add allocation",
+    "reserves": "Protected reserves",
+    "noReserves": "No protected reserves yet.",
+    "addReserve": "Create reserve",
+    "releaseReserve": "Release reserve",
+    "history": "Ledger history",
+    "amount": "Amount",
+    "name": "Name",
+    "purpose": "Purpose",
+    "save": "Save",
+    "delete": "Delete",
+    "overAllocation": "Over allocation",
+    "budgetAllocation": "Budget category",
+    "selectBudget": "Select allocation",
+    "noBudget": "None",
+    "consumeReserve": "Consume from reserve",
+    "selectReserve": "Select reserve",
+    "noReserve": "None",
+    "reserveConsumed": "{amount} of protected reserves has been used",
+    "status": {
+      "withinBudget": "Within budget",
+      "overBudget": "Over budget by {amount}"
+    },
+    "warning": {
+      "title": "Budget warning",
+      "freelySpendable": "Freely spendable: {amount}",
+      "exceedsBy": "This exceeds freely spendable by {amount}",
+      "cancel": "Cancel",
+      "continue": "Continue anyway"
+    },
+    "ai": {
+      "title": "Ask about your trip fund",
+      "description": "Get answers from real ledger data. Proposed changes require your confirmation.",
+      "placeholder": "How much can we safely spend?",
+      "confirm": "Confirm",
+      "error": "Could not answer that question."
+    }
+  },
   "Stats": {
     "title": "Stats",
     "range": {

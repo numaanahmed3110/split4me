@@ -4,6 +4,7 @@ import {
   Activity,
   BarChart3,
   Info,
+  PiggyBank,
   Receipt,
   Scale,
   Settings,
@@ -25,6 +26,7 @@ export function GroupTabs({ groupId }: Props) {
 
   const tabs: { value: string; label: string; Icon: ComponentType<any> }[] = [
     { value: 'expenses', label: t('Expenses.title'), Icon: Receipt },
+    { value: 'fund', label: t('TripFund.title'), Icon: PiggyBank },
     { value: 'balances', label: t('Balances.title'), Icon: Scale },
     { value: 'information', label: t('Information.title'), Icon: Info },
     { value: 'stats', label: t('Stats.title'), Icon: BarChart3 },

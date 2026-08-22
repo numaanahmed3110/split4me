@@ -1,6 +1,7 @@
 import { CategorySelector } from '@/components/category-selector'
 import { CurrencySelector } from '@/components/currency-selector'
 import { ExpenseDocumentsInput } from '@/components/expense-documents-input'
+import { ExpenseFundFields } from '@/components/expense-fund-fields'
 import { SubmitButton } from '@/components/submit-button'
 import { Button } from '@/components/ui/button'
 import {
@@ -160,6 +161,7 @@ export function ExpenseForm({
   group,
   categories,
   expense,
+  expenseId,
   onSubmit,
   onDelete,
   runtimeFeatureFlags,
@@ -167,6 +169,7 @@ export function ExpenseForm({
   group: NonNullable<AppRouterOutput['groups']['get']['group']>
   categories: AppRouterOutput['categories']['list']['categories']
   expense?: AppRouterOutput['groups']['expenses']['get']['expense']
+  expenseId?: string
   onSubmit: (value: ExpenseFormValues, participantId?: string) => Promise<void>
   onDelete?: (participantId?: string) => Promise<void>
   runtimeFeatureFlags: RuntimeFeatureFlags
@@ -232,6 +235,8 @@ export function ExpenseForm({
           documents: expense.documents,
           notes: expense.notes ?? '',
           recurrenceRule: expense.recurrenceRule ?? undefined,
+          budgetId: expense.budgetId ?? null,
+          reserveId: expense.reserveId ?? null,
         }
       : isRepayment
         ? {
@@ -262,6 +267,8 @@ export function ExpenseForm({
             documents: [],
             notes: '',
             recurrenceRule: RecurrenceRule.NONE,
+            budgetId: null,
+            reserveId: null,
           }
         : {
             title: searchParams.get('title') ?? '',
@@ -293,6 +300,8 @@ export function ExpenseForm({
               : [],
             notes: '',
             recurrenceRule: RecurrenceRule.NONE,
+            budgetId: null,
+            reserveId: null,
           },
   })
   const [isCategoryLoading, setCategoryLoading] = useState(false)
@@ -1411,6 +1420,14 @@ export function ExpenseForm({
               />
             </CardContent>
           </Card>
+        )}
+
+        {!form.watch('isReimbursement') && (
+          <ExpenseFundFields
+            group={group}
+            form={form}
+            expenseId={expenseId ?? expense?.id}
+          />
         )}
 
         <div className="flex flex-col sm:flex-row mt-4 gap-2">

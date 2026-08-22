@@ -3,6 +3,12 @@ import { RuntimeFeatureFlags } from '@/lib/featureFlags'
 import { useActiveUserReady } from '@/lib/hooks'
 import { trpc } from '@/trpc/client'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import {
+  BudgetWarningDialog,
+  parseBudgetWarning,
+} from '@/components/budget-warning-dialog'
+import type { ExpenseFormValues } from '@/lib/schemas'
 import { ExpenseForm } from './expense-form'
 
 export function CreateExpenseForm({
@@ -25,27 +31,81 @@ export function CreateExpenseForm({
   const utils = trpc.useUtils()
   const router = useRouter()
 
-  // ExpenseForm seeds "Paid by" from the active participant, and it can only do
-  // that on the render that mounts it. Signed in, that value arrives from a tRPC
-  // query, so mounting early leaves "Paid by" empty for good.
+  const [warningOpen, setWarningOpen] = useState(false)
+  const [pendingSubmit, setPendingSubmit] = useState<{
+    values: ExpenseFormValues
+    participantId?: string
+  } | null>(null)
+  const [warnings, setWarnings] = useState<string[]>([])
+  const [warningMeta, setWarningMeta] = useState<{
+    freelySpendable?: number
+    exceedsBy?: number
+  }>({})
+
   const activeUserReady = useActiveUserReady(groupId)
+
+  const submitExpense = async (
+    expenseFormValues: ExpenseFormValues,
+    participantId?: string,
+    ignoreWarning = false,
+  ) => {
+    await createExpenseMutateAsync({
+      groupId,
+      expenseFormValues: {
+        ...expenseFormValues,
+        ignoreBudgetWarning: ignoreWarning,
+      },
+      participantId,
+    })
+    utils.groups.expenses.invalidate()
+    utils.groups.fund.invalidate()
+    router.push(`/groups/${groupId}`)
+  }
 
   if (!group || !categories || !activeUserReady) return null
 
   return (
-    <ExpenseForm
-      group={group}
-      categories={categories}
-      onSubmit={async (expenseFormValues, participantId) => {
-        await createExpenseMutateAsync({
-          groupId,
-          expenseFormValues,
-          participantId,
-        })
-        utils.groups.expenses.invalidate()
-        router.push(`/groups/${group.id}`)
-      }}
-      runtimeFeatureFlags={runtimeFeatureFlags}
-    />
+    <>
+      <ExpenseForm
+        group={group}
+        categories={categories}
+        onSubmit={async (expenseFormValues, participantId) => {
+          try {
+            await submitExpense(expenseFormValues, participantId)
+          } catch (error) {
+            const parsed = parseBudgetWarning(error)
+            if (parsed) {
+              setWarnings(parsed.warnings)
+              setWarningMeta({
+                freelySpendable: parsed.impact?.current?.freelySpendable,
+                exceedsBy: parsed.impact?.exceedsFreelySpendableBy,
+              })
+              setPendingSubmit({ values: expenseFormValues, participantId })
+              setWarningOpen(true)
+              return
+            }
+            throw error
+          }
+        }}
+        runtimeFeatureFlags={runtimeFeatureFlags}
+      />
+      <BudgetWarningDialog
+        open={warningOpen}
+        onOpenChange={setWarningOpen}
+        warnings={warnings}
+        freelySpendable={warningMeta.freelySpendable}
+        exceedsBy={warningMeta.exceedsBy}
+        group={group}
+        onConfirm={async () => {
+          if (!pendingSubmit) return
+          setWarningOpen(false)
+          await submitExpense(
+            pendingSubmit.values,
+            pendingSubmit.participantId,
+            true,
+          )
+        }}
+      />
+    </>
   )
 }
