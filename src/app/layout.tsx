@@ -79,6 +79,29 @@ export const viewport: Viewport = {
   themeColor: '#047857',
 }
 
+// Clerk's `shadcn` theme reads our design tokens as finished colors, e.g.
+// `colorBackground: 'var(--card)'`. Ours are bare HSL channel triplets
+// (`--card: 0 0% 100%`) that Tailwind wraps at use site as `hsl(var(--card))`,
+// so handing them over raw yields `background: 0 0% 100%` -- not a valid color,
+// which is why the modal rendered see-through over the page. Re-wrap every
+// token the theme maps so it receives an actual color.
+//
+// `colorModalBackdrop` is deliberately absent: the theme builds it from
+// `--color-black`, which Tailwind emits as `#000`, so it already works.
+const clerkVariables = {
+  colorBackground: 'hsl(var(--card))',
+  colorForeground: 'hsl(var(--card-foreground))',
+  colorInput: 'hsl(var(--input))',
+  colorInputForeground: 'hsl(var(--card-foreground))',
+  colorDanger: 'hsl(var(--destructive))',
+  colorMuted: 'hsl(var(--muted))',
+  colorMutedForeground: 'hsl(var(--muted-foreground))',
+  colorNeutral: 'hsl(var(--foreground))',
+  colorPrimary: 'hsl(var(--primary))',
+  colorPrimaryForeground: 'hsl(var(--primary-foreground))',
+  colorRing: 'color-mix(in srgb, hsl(var(--ring)), transparent 50%)',
+}
+
 function Content({ children }: { children: React.ReactNode }) {
   const t = useTranslations()
   return (
@@ -195,7 +218,7 @@ export default async function RootLayout({
     >
       <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
       <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
-        <ClerkProvider appearance={{ theme: shadcn }}>
+        <ClerkProvider appearance={{ theme: shadcn, variables: clerkVariables }}>
           <OneSignalInit />
           <NextIntlClientProvider messages={messages}>
             {/* Rendered inside the provider because it reads translations via
