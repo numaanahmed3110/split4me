@@ -42,7 +42,6 @@ model User {
   id                String               @id
   email             String?
   name              String?
-  oneSignalPlayerId String?
   groupMembers      GroupMember[]
   preferences       UserGroupPreference[]
   contributions     FundContribution[]

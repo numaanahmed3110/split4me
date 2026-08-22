@@ -50,9 +50,13 @@ export function ExpenseDraftReview({
 
   const preview = trpc.drafts.preview.useQuery({ payload })
   const confirmMutation = trpc.drafts.confirm.useMutation({
-    onSuccess: ({ expenseId }) => {
+    onSuccess: () => {
       toast({ title: 'Expense added', description: 'Your expense was saved.' })
-      router.push(`/groups/${groupId}/expenses/${expenseId}`)
+      // `/groups/<id>/expenses/<expenseId>` is not a route -- only
+      // `.../<expenseId>/edit` exists -- so confirming a receipt or voice draft
+      // used to create the expense and then drop the user on a 404. Go where the
+      // normal create and edit forms go: the group's expense list.
+      router.push(`/groups/${groupId}`)
       router.refresh()
     },
     onError: (err) => {

@@ -1,6 +1,6 @@
 import { getGroupExpenses } from '@/lib/api'
 import { filterExpensesByDateRange, getExpensesByCategory } from '@/lib/totals'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 import { z } from 'zod'
 
 /**
@@ -9,7 +9,7 @@ import { z } from 'zod'
  * so the overview payload stays lean. The date range is applied first so the
  * drill-down matches the range currently selected on the page.
  */
-export const getStatsCategoryExpensesProcedure = baseProcedure
+export const getStatsCategoryExpensesProcedure = protectedProcedure
   .input(
     z.object({
       groupId: z.string().min(1),

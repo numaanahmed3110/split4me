@@ -27,7 +27,7 @@ function getAllowedUploadHosts(): string[] {
  * Returns true only for http(s) URLs whose host is one of the app's own
  * configured upload hosts. Used to ensure AI extraction is performed against
  * images the app itself produced, rather than an arbitrary attacker-supplied
- * URL (which would otherwise enable SSRF-via-OpenAI and unbounded API spend).
+ * URL (which would otherwise enable SSRF-via-the-model and unbounded API spend).
  */
 export function isAllowedUploadUrl(rawUrl: string): boolean {
   let url: URL

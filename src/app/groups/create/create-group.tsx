@@ -26,9 +26,13 @@ export const CreateGroup = ({
           creatorParticipantName: activeUserName ?? undefined,
         })
         await utils.groups.invalidate()
-        if (activeUserName) {
-          localStorage.removeItem('newGroup-activeUser')
-        }
+        // `newGroup-activeUser` is deliberately left in place: the expenses
+        // page promotes it to `<groupId>-activeUser` on mount (see
+        // expense-list.tsx) and clears it there. Removing it here meant the
+        // promotion found nothing, so the group we just created had no active
+        // user and the "Who are you?" modal reopened immediately -- asking the
+        // creator to identify themselves again, and (being aria-modal) hiding
+        // the rest of the page from assistive technology.
         router.push(`/groups/${groupId}`)
       }}
     />

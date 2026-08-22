@@ -1,22 +1,12 @@
-// `var` and the indirection through an arrow are both deliberate: the module
-// under test constructs its OpenAI client at import time, which jest hoists
-// above this file's own initialisation.
-var mockCreate = jest.fn()
+// `var` and the indirection through an arrow are both deliberate: jest hoists
+// this mock above the file's own initialisation.
+var mockNemotronChat = jest.fn()
 
-jest.mock('openai', () => ({
-  __esModule: true,
-  default: class {
-    chat = {
-      completions: { create: (...args: unknown[]) => mockCreate(...args) },
-    }
-  },
-}))
-jest.mock('../lib/env', () => ({
-  env: {
-    OPENAI_API_KEY: 'sk-test',
-    OPENAI_BASE_URL: undefined,
-    OPENAI_MODEL_CATEGORY_EXTRACT: 'test-model',
-  },
+jest.mock('../lib/nemotron', () => ({
+  nemotronChat: (...args: unknown[]) => mockNemotronChat(...args),
+  // The real implementation is pure, so it is reused rather than stubbed: the
+  // tests below depend on its markdown-fence and validation behaviour.
+  parseModelJson: jest.requireActual('../lib/nemotron').parseModelJson,
 }))
 jest.mock('../lib/featureFlags', () => ({
   getRuntimeFeatureFlags: async () => ({ enableCategoryExtract: true }),
@@ -30,12 +20,12 @@ jest.mock('../lib/api', () => ({
 
 import { extractCategoryFromTitle } from './expense-form-actions'
 
-function respondWith(content: string | null) {
-  mockCreate.mockResolvedValue({ choices: [{ message: { content } }] })
+function respondWith(content: string) {
+  mockNemotronChat.mockResolvedValue(content)
 }
 
 describe('extractCategoryFromTitle', () => {
-  beforeEach(() => mockCreate.mockReset())
+  beforeEach(() => mockNemotronChat.mockReset())
 
   it('returns the category the model picked', async () => {
     respondWith(JSON.stringify({ categoryId: 4 }))
@@ -44,30 +34,37 @@ describe('extractCategoryFromTitle', () => {
     })
   })
 
-  it('asks for a strict JSON schema, and for the configured model', async () => {
+  it('asks Nemotron for the id without spending a reasoning budget', async () => {
     respondWith(JSON.stringify({ categoryId: 4 }))
     await extractCategoryFromTitle('Taxi to the airport')
 
-    const request = mockCreate.mock.calls[0][0]
-    expect(request.model).toBe('test-model')
-    expect(request.response_format.type).toBe('json_schema')
-    expect(request.response_format.json_schema.strict).toBe(true)
-    // Both were tuned for a free-text answer and are rejected by the models
-    // that support structured outputs.
-    expect(request.max_tokens).toBeUndefined()
-    expect(request.temperature).toBeUndefined()
+    const request = mockNemotronChat.mock.calls[0][0]
+    // Deterministic, and cheap: one small integer comes back.
+    expect(request.temperature).toBe(0)
+    expect(request.reasoningBudget).toBe(0)
+    expect(request.maxTokens).toBe(512)
+    // The shape has to be requested in the prompt; Nemotron has no
+    // structured-output mode to bind it.
+    expect(request.messages[0].content).toContain('"categoryId"')
   })
 
   it('truncates the title before sending it', async () => {
     respondWith(JSON.stringify({ categoryId: 4 }))
     await extractCategoryFromTitle('T'.repeat(100))
 
-    const userMessage = mockCreate.mock.calls[0][0].messages.at(-1)
+    const userMessage = mockNemotronChat.mock.calls[0][0].messages.at(-1)
     expect(userMessage.content).toHaveLength(40)
   })
 
+  it('accepts an id returned inside a markdown fence', async () => {
+    respondWith('```json\n{"categoryId": 4}\n```')
+    expect(await extractCategoryFromTitle('Taxi to the airport')).toEqual({
+      categoryId: 4,
+    })
+  })
+
   // Everything below must degrade to the "General" fallback rather than throw:
-  // a self-hosted endpoint may ignore the schema entirely.
+  // a reasoning model may ignore the requested shape entirely.
   it.each([
     ['an id that does not exist', JSON.stringify({ categoryId: 9999 })],
     ['a value of the wrong type', JSON.stringify({ categoryId: 'four' })],
@@ -81,8 +78,10 @@ describe('extractCategoryFromTitle', () => {
     })
   })
 
-  it('falls back to the first category when there is no content at all', async () => {
-    respondWith(null)
+  it('falls back to the first category when the call itself fails', async () => {
+    mockNemotronChat.mockRejectedValue(
+      new Error('NVIDIA_API_KEY is not configured.'),
+    )
     expect(await extractCategoryFromTitle('Taxi to the airport')).toEqual({
       categoryId: 0,
     })

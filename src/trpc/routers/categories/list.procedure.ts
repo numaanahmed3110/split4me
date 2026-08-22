@@ -1,6 +1,6 @@
 import { getCategories } from '@/lib/api'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 
-export const listCategoriesProcedure = baseProcedure.query(async () => {
+export const listCategoriesProcedure = protectedProcedure.query(async () => {
   return { categories: await getCategories() }
 })

@@ -1,6 +1,6 @@
 import { getGroupExpenses } from '@/lib/api'
 import { filterExpensesByDateRange, getExpensesByMonth } from '@/lib/totals'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 import { z } from 'zod'
 
 /**
@@ -10,7 +10,7 @@ import { z } from 'zod'
  * partial month (e.g. the current month under a "last 30 days" range) drills
  * down into exactly the expenses that contributed to the bar.
  */
-export const getStatsMonthExpensesProcedure = baseProcedure
+export const getStatsMonthExpensesProcedure = protectedProcedure
   .input(
     z.object({
       groupId: z.string().min(1),

@@ -1,9 +1,9 @@
 import { updateExpense } from '@/lib/api'
 import { expenseFormSchema } from '@/lib/schemas'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 import { z } from 'zod'
 
-export const updateGroupExpenseProcedure = baseProcedure
+export const updateGroupExpenseProcedure = protectedProcedure
   .input(
     z.object({
       expenseId: z.string().min(1),

@@ -45,6 +45,39 @@ const PREFILLED_PARTICIPANTS = 3
  */
 export const EXPENSES_URL = /\/groups\/[^/]+\/expenses(\?|$)/
 
+/**
+ * Make the page look like the installed app rather than a browser tab.
+ *
+ * Voice capture is offered only in the installed PWA (see `useIsInstalledPwa`),
+ * and Playwright always runs in a tab. `display-mode` cannot actually be
+ * emulated: Playwright has no API for it, and CDP's
+ * `Emulation.setEmulatedMedia` accepts the feature then ignores it (verified --
+ * `matchMedia` still reports false). So the query itself is stubbed, which
+ * exercises the hook's real primary path with a controlled answer.
+ *
+ * Registered as an init script, so it applies from the next navigation onwards.
+ */
+export async function emulateInstalledPwa(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const real = window.matchMedia.bind(window)
+    window.matchMedia = ((query: string) => {
+      // Everything that is not a display-mode question is left to the browser,
+      // so the responsive-layout queries the app relies on still work.
+      if (!query.includes('display-mode')) return real(query)
+      return {
+        matches: query.includes('standalone'),
+        media: query,
+        onchange: null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        dispatchEvent: () => false,
+      } as unknown as MediaQueryList
+    }) as typeof window.matchMedia
+  })
+}
+
 /** Short random suffix so group names are unique on the shared database. */
 export function uniqueSuffix(): string {
   return Math.random().toString(36).slice(2, 8)
@@ -240,11 +273,17 @@ export async function setActiveUser(
   groupId: string,
   name: string,
 ): Promise<void> {
-  await page.addInitScript((participantName) => {
-    window.localStorage.setItem('newGroup-activeUser', participantName)
-  }, name)
-
+  // Written on the live page rather than through addInitScript: those stack up,
+  // one per call, and then all of them re-run on every later navigation -- so
+  // after picking a user in two groups the last script would keep re-promoting
+  // its name into whichever group was being viewed.
   await page.goto(`/groups/${groupId}/expenses`)
+  await page.evaluate(
+    (participantName) =>
+      window.localStorage.setItem('newGroup-activeUser', participantName),
+    name,
+  )
+  await page.reload()
 
   await expect
     .poll(
@@ -256,6 +295,29 @@ export async function setActiveUser(
       { timeout: 20_000 },
     )
     .not.toMatch(/^(|None)$/)
+
+  // localStorage is written synchronously, but the matching GroupMember row is
+  // written by a fire-and-forget mutation from the same effect -- and signed in,
+  // that row is the only thing the app reads. Returning as soon as the local key
+  // appears lets the caller navigate away and abort the request, so wait for the
+  // server to agree before handing back.
+  await expect
+    .poll(
+      () =>
+        page.evaluate(async (id) => {
+          const res = await fetch(
+            '/api/trpc/preferences.getMembership?input=' +
+              encodeURIComponent(JSON.stringify({ json: { groupId: id } })),
+          )
+          if (res.status !== 200) return null
+          const body = (await res.json()) as {
+            result?: { data?: { json?: { participantId: string | null } } }
+          }
+          return body.result?.data?.json?.participantId ?? null
+        }, groupId),
+      { timeout: 20_000 },
+    )
+    .not.toBeNull()
 }
 
 /** An expense row in the list. */

@@ -4,6 +4,51 @@ import useSWR, { Fetcher } from 'swr'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 
+/** The display modes a browser reports when the app was launched as installed. */
+const INSTALLED_DISPLAY_MODES = [
+  '(display-mode: standalone)',
+  '(display-mode: minimal-ui)',
+  '(display-mode: fullscreen)',
+  '(display-mode: window-controls-overlay)',
+]
+
+function detectInstalledPwa(): boolean {
+  if (typeof window === 'undefined') return false
+  // iOS Safari never reports a display-mode for home-screen apps; it sets this
+  // non-standard flag on navigator instead.
+  if ((window.navigator as { standalone?: boolean }).standalone === true) {
+    return true
+  }
+  return INSTALLED_DISPLAY_MODES.some((q) => window.matchMedia(q).matches)
+}
+
+/**
+ * Whether the app is running as an installed PWA rather than in a browser tab.
+ *
+ * Deliberately starts `false` and resolves in an effect. Reading `matchMedia`
+ * during the first render would be synchronous and flash-free, but this hook is
+ * used inside client components that Next also renders on the server -- where
+ * the answer is always `false` -- so a synchronous read would be a hydration
+ * mismatch. Features gated on this therefore appear a beat after load in the
+ * installed app, and never appear in a tab.
+ */
+export function useIsInstalledPwa(): boolean {
+  const [installed, setInstalled] = useState(false)
+
+  useEffect(() => {
+    const update = () => setInstalled(detectInstalledPwa())
+    update()
+
+    // The mode can change without a reload: launching an installed app from the
+    // browser, or the user installing while the page is open.
+    const lists = INSTALLED_DISPLAY_MODES.map((q) => window.matchMedia(q))
+    lists.forEach((l) => l.addEventListener('change', update))
+    return () => lists.forEach((l) => l.removeEventListener('change', update))
+  }, [])
+
+  return installed
+}
+
 export function useMediaQuery(query: string): boolean {
   const getMatches = (query: string): boolean => {
     // Prevents SSR issues
@@ -51,6 +96,30 @@ export function useBaseUrl() {
     setBaseUrl(window.location.origin)
   }, [])
   return baseUrl
+}
+
+/**
+ * Whether {@link useActiveUser} has a final answer yet.
+ *
+ * Signed out it reads localStorage, which is synchronous and therefore ready on
+ * the first render. Signed in it waits on a tRPC query, so it reports `null`
+ * for the first few renders — and a form that reads it to seed a default value
+ * would silently miss it, because both react-hook-form's `defaultValues` and
+ * Radix's uncontrolled `defaultValue` are only ever read once. Gate the form on
+ * this before mounting it.
+ */
+export function useActiveUserReady(groupId?: string) {
+  const { isSignedIn, isLoaded } = useAuth()
+  // Same query key as useActiveUser, so react-query serves both from one fetch.
+  const { isLoading } = trpc.preferences.getMembership.useQuery(
+    { groupId: groupId! },
+    { enabled: !!groupId && !!isSignedIn && isLoaded },
+  )
+
+  if (!groupId) return true
+  if (!isLoaded) return false
+  if (!isSignedIn) return true
+  return !isLoading
 }
 
 /**

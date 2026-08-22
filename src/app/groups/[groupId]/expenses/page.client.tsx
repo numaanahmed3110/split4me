@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { TrackPage } from '@/lib/analytics/track-page'
+import { useIsInstalledPwa } from '@/lib/hooks'
 import { Plus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -21,11 +22,16 @@ import { useCurrentGroup } from '../current-group-context'
 
 export default function GroupExpensesPageClient({
   enableReceiptExtract,
+  enableVoiceExpense,
 }: {
   enableReceiptExtract: boolean
+  enableVoiceExpense: boolean
 }) {
   const t = useTranslations('Expenses')
   const { groupId } = useCurrentGroup()
+  // Voice capture is offered only in the installed app, not in a browser tab.
+  // Receipt scanning stays available everywhere.
+  const isInstalledPwa = useIsInstalledPwa()
 
   return (
     <>
@@ -39,7 +45,7 @@ export default function GroupExpensesPageClient({
           <CardHeader className="p-4 sm:p-6 flex flex-row space-y-0 gap-2">
             <ExportButton groupId={groupId} />
             {enableReceiptExtract && <CreateFromReceiptButton />}
-            {enableReceiptExtract && <VoiceExpenseButton />}
+            {enableVoiceExpense && isInstalledPwa && <VoiceExpenseButton />}
             <Button asChild size="icon">
               <Link
                 href={`/groups/${groupId}/expenses/create`}

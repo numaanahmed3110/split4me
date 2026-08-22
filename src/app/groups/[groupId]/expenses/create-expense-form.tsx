@@ -1,5 +1,6 @@
 'use client'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
+import { useActiveUserReady } from '@/lib/hooks'
 import { trpc } from '@/trpc/client'
 import { useRouter } from 'next/navigation'
 import { ExpenseForm } from './expense-form'
@@ -24,7 +25,12 @@ export function CreateExpenseForm({
   const utils = trpc.useUtils()
   const router = useRouter()
 
-  if (!group || !categories) return null
+  // ExpenseForm seeds "Paid by" from the active participant, and it can only do
+  // that on the render that mounts it. Signed in, that value arrives from a tRPC
+  // query, so mounting early leaves "Paid by" empty for good.
+  const activeUserReady = useActiveUserReady(groupId)
+
+  if (!group || !categories || !activeUserReady) return null
 
   return (
     <ExpenseForm

@@ -15,7 +15,10 @@ export default defineConfig({
   // A single `next start` process serves every worker; too many just adds
   // latency and flake without adding coverage.
   workers: process.env.CI ? 2 : 4,
-  timeout: 60_000,
+  // Raised from 60s: every test now signs a Clerk user in and resets that
+  // user's server-side preferences first, which adds ~10s of setup before the
+  // body even starts.
+  timeout: 120_000,
   expect: { timeout: 10_000 },
   reporter: process.env.CI
     ? [

@@ -1,9 +1,11 @@
 import { createExpense } from '@/lib/api'
+import { notifyExpenseCreated } from '@/lib/notifications'
 import { expenseFormSchema } from '@/lib/schemas'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
+import { after } from 'next/server'
 import { z } from 'zod'
 
-export const createGroupExpenseProcedure = baseProcedure
+export const createGroupExpenseProcedure = protectedProcedure
   .input(
     z.object({
       groupId: z.string().min(1),
@@ -12,12 +14,23 @@ export const createGroupExpenseProcedure = baseProcedure
     }),
   )
   .mutation(
-    async ({ input: { groupId, expenseFormValues, participantId } }) => {
+    async ({ ctx, input: { groupId, expenseFormValues, participantId } }) => {
       const expense = await createExpense(
         expenseFormValues,
         groupId,
         participantId,
       )
+
+      // After the response: the client should not wait on OneSignal, and a
+      // push failure must not roll back an expense that is already saved.
+      after(() =>
+        notifyExpenseCreated({
+          groupId,
+          actorUserId: ctx.userId,
+          expenseTitle: expenseFormValues.title,
+        }),
+      )
+
       return { expenseId: expense.id }
     },
   )

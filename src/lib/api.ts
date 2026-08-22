@@ -184,6 +184,11 @@ export async function updateExpense(
 
   const isUpdateRecurrenceExpenseLink =
     existingExpense.recurrenceRule !== expenseFormValues.recurrenceRule &&
+    // Switching *off* recurrence is the delete case above, not an update. Both
+    // used to be true at once, which handed Prisma `update` and `delete: true`
+    // for the same nested relation -- a contradiction that silently left the
+    // expense recurring, so turning a recurrence off never stuck.
+    expenseFormValues.recurrenceRule !== RecurrenceRule.NONE &&
     // Update the exisiting RecurrenceExpenseLink only if it has not been acted upon yet
     existingExpense.recurringExpenseLink?.nextExpenseCreatedAt === null
   const isCreateRecurrenceExpenseLink =

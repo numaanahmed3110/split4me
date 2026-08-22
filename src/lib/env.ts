@@ -78,26 +78,6 @@ const envSchema = z
       interpretEnvVarAsBool,
       z.boolean().default(false),
     ),
-    // .trim() guards against a trailing CR from a CRLF (Windows) .env file: a
-    // key ending in "\r" would otherwise fail authentication with a 401.
-    OPENAI_API_KEY: z.string().trim().optional(),
-    // Optional OpenAI-compatible endpoint (a self-hosted or alternative
-    // provider). When unset the SDK's default — the official API — is used.
-    OPENAI_BASE_URL: z.preprocess(
-      interpretBlankEnvVarAsUndefined,
-      z.string().trim().url().optional(),
-    ),
-    // The models each feature uses. Both default to what the code used before
-    // they were configurable; a provider set through OPENAI_BASE_URL will
-    // almost certainly need different names.
-    OPENAI_MODEL_RECEIPT_EXTRACT: z.preprocess(
-      interpretBlankEnvVarAsUndefined,
-      z.string().trim().default('gpt-5-nano'),
-    ),
-    OPENAI_MODEL_CATEGORY_EXTRACT: z.preprocess(
-      interpretBlankEnvVarAsUndefined,
-      z.string().trim().default('gpt-5-nano'),
-    ),
     // Analytics is disabled unless a provider is selected. These are read on
     // the server and passed to the client as props, so they are deliberately
     // not `NEXT_PUBLIC_`: a single image stays configurable at container start.
@@ -197,15 +177,11 @@ const envSchema = z
           'If ENABLE_EXPENSE_DOCUMENTS is set, then S3_* must be set too',
       })
     }
-    if (
-      (enableReceiptExtract || enableCategoryExtract) &&
-      !env.OPENAI_API_KEY &&
-      !env.NVIDIA_API_KEY
-    ) {
+    if ((enableReceiptExtract || enableCategoryExtract) && !env.NVIDIA_API_KEY) {
       ctx.addIssue({
         code: ZodIssueCode.custom,
         message:
-          'If ENABLE_RECEIPT_EXTRACT or ENABLE_CATEGORY_EXTRACT is set, then OPENAI_API_KEY or NVIDIA_API_KEY must be set too',
+          'If ENABLE_RECEIPT_EXTRACT or ENABLE_CATEGORY_EXTRACT is set, then NVIDIA_API_KEY must be set too',
       })
     }
     if (env.ANALYTICS_PROVIDER === 'plausible' && !env.PLAUSIBLE_DOMAIN) {

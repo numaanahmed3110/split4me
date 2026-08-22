@@ -1,4 +1,5 @@
 import { getCurrency } from '@/lib/currency'
+import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { getExpenseShares } from '@/lib/shares'
 import { formatAmountAsDecimal, getCurrencyFromGroup } from '@/lib/utils'
@@ -36,6 +37,11 @@ export async function GET(
   req: Request,
   { params }: { params: Promise<{ groupId: string }> },
 ) {
+  // Defence in depth: the middleware already gates /groups, but these handlers
+  // stream group data straight out of the database, so they must not rely on
+  // the matcher staying correct.
+  await auth.protect()
+
   const { groupId } = await params
   const group = await prisma.group.findUnique({
     where: { id: groupId },

@@ -14,7 +14,7 @@ import {
   getTotalActiveUserShare,
   getTotalGroupSpending,
 } from '@/lib/totals'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 import { z } from 'zod'
 
 /**
@@ -25,7 +25,7 @@ import { z } from 'zod'
  * Recurring stats are range-independent (they reflect the currently active
  * subscriptions) and come from a separate query.
  */
-export const getStatsOverviewProcedure = baseProcedure
+export const getStatsOverviewProcedure = protectedProcedure
   .input(
     z.object({
       groupId: z.string().min(1),

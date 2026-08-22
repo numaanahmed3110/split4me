@@ -22,7 +22,7 @@ type NemotronOptions = {
 }
 
 /**
- * Calls NVIDIA Nemotron (OpenAI-compatible chat completions API).
+ * Calls NVIDIA Nemotron (chat completions API).
  * Structured output: prompt for JSON, then parse + Zod validate in callers.
  */
 export async function nemotronChat(options: NemotronOptions): Promise<string> {

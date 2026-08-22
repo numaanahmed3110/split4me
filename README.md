@@ -242,45 +242,43 @@ S3_UPLOAD_ENDPOINT=http://localhost:9000
 
 ### Create expense from receipt
 
-You can offer users to create expense by uploading a receipt. This feature relies on a [vision-capable OpenAI model](https://platform.openai.com/docs/guides/vision) and a public S3 storage endpoint.
+You can offer users to create an expense by uploading a receipt photo. This feature relies on a vision-capable [NVIDIA Nemotron](https://build.nvidia.com/) model. The image is sent straight to the model as a data URL, so **no S3 storage is required**.
 
 To enable the feature:
 
-- You must enable expense documents feature as well (see section above). That might change in the future, but for now we need to store images to make receipt scanning work.
-- Subscribe to OpenAI API and get access to a vision-capable model (you might need to buy credits in advance).
+- Get an NVIDIA API key from [build.nvidia.com](https://build.nvidia.com/).
 - Update your environment variables with appropriate values:
 
 ```.env
 ENABLE_RECEIPT_EXTRACT=true
-OPENAI_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+NVIDIA_API_KEY=nvapi-XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
-
-The model defaults to `gpt-5-nano` and can be changed with the optional `OPENAI_MODEL_RECEIPT_EXTRACT` variable — a larger model reads poor-quality photos more reliably, at a higher price per scan.
 
 ### Deduce category from title
 
-You can offer users to automatically deduce the expense category from the title. Since this feature relies on a OpenAI subscription, follow the signup instructions above and configure the following environment variables:
+You can offer users to automatically deduce the expense category from the title. It uses the same NVIDIA key as the receipt feature:
 
 ```.env
 ENABLE_CATEGORY_EXTRACT=true
-OPENAI_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+NVIDIA_API_KEY=nvapi-XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-The model defaults to `gpt-5-nano` and can be changed with the optional `OPENAI_MODEL_CATEGORY_EXTRACT` variable.
+### Voice expense entry
 
-### Using another OpenAI-compatible provider
-
-Both AI features above talk to the official OpenAI API by default. Set the optional `OPENAI_BASE_URL` variable to point them at a self-hosted or alternative provider instead:
+Describe an expense out loud and have it drafted for you. Transcription uses [Deepgram](https://deepgram.com/) and the transcript is turned into a draft by Nemotron:
 
 ```.env
-OPENAI_BASE_URL=http://localhost:11434/v1
-OPENAI_MODEL_RECEIPT_EXTRACT=name-of-a-vision-model
-OPENAI_MODEL_CATEGORY_EXTRACT=name-of-a-text-model
+DEEPGRAM_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+NVIDIA_API_KEY=nvapi-XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-Whichever provider you choose has to support the `json_schema` response format ([structured outputs](https://platform.openai.com/docs/guides/structured-outputs)), and the receipt feature additionally needs image input. If a response does not match the expected schema, the app reports that nothing could be extracted rather than filling the form with guesses.
+### Choosing the model
 
-If your environment file was created on Windows, make sure it uses **LF line endings**. A trailing carriage return makes `OPENAI_API_KEY` fail authentication and silently switches feature flags off.
+All three AI features share one model, set with the optional `NVIDIA_MODEL` variable (default `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`). It must accept image input for receipt scanning to work.
+
+Nemotron has no structured-output mode, so the response shape is requested in the prompt and then validated. If a response does not match the expected schema, the app reports that nothing could be extracted rather than filling the form with guesses.
+
+If your environment file was created on Windows, make sure it uses **LF line endings**. A trailing carriage return makes `NVIDIA_API_KEY` fail authentication and silently switches feature flags off.
 
 ### Analytics
 

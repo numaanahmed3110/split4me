@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { getWeekStartsOn, isSameWeek } from '@/lib/date-groups'
 import { getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
+import { useAuth } from '@clerk/nextjs'
 import dayjs, { type Dayjs } from 'dayjs'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -72,29 +73,41 @@ export function ExpenseList() {
   const [debouncedSearchText] = useDebounce(searchText, 300)
 
   const participants = group?.participants
+  const { isSignedIn, isLoaded } = useAuth()
+  // Only `mutate` is destructured: react-query keeps it referentially stable,
+  // whereas the object `useMutation()` returns is new on every render and would
+  // re-trigger the effect below forever.
+  const { mutate: setMembership } = trpc.preferences.setMembership.useMutation()
 
   useEffect(() => {
-    if (!participants) return
+    // `isLoaded` is part of the guard, not just `isSignedIn`: this effect
+    // *consumes* newGroup-activeUser. Running it while Clerk is still resolving
+    // would clear the key with `isSignedIn` still undefined, and the re-run once
+    // auth settles would find nothing left to persist.
+    if (!participants || !isLoaded) return
 
     const activeUser = localStorage.getItem('newGroup-activeUser')
     const newUser = localStorage.getItem(`${groupId}-newUser`)
     if (activeUser || newUser) {
       localStorage.removeItem('newGroup-activeUser')
       localStorage.removeItem(`${groupId}-newUser`)
-      if (activeUser === 'None') {
-        localStorage.setItem(`${groupId}-activeUser`, 'None')
-      } else {
-        const userId = participants.find(
-          (p) => p.name === (activeUser || newUser),
-        )?.id
-        if (userId) {
-          localStorage.setItem(`${groupId}-activeUser`, userId)
-        } else {
-          localStorage.setItem(`${groupId}-activeUser`, 'None')
-        }
+
+      const participantId =
+        activeUser === 'None'
+          ? null
+          : (participants.find((p) => p.name === (activeUser || newUser))?.id ??
+            null)
+
+      localStorage.setItem(`${groupId}-activeUser`, participantId ?? 'None')
+
+      // Signed in, `useActiveUser` reads the membership from the database and
+      // ignores localStorage entirely, so promoting only the local key silently
+      // dropped the participant the user picked before the group existed.
+      if (isSignedIn) {
+        setMembership({ groupId, participantId })
       }
     }
-  }, [groupId, participants])
+  }, [groupId, participants, isLoaded, isSignedIn, setMembership])
 
   return (
     <>

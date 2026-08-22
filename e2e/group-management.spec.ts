@@ -2,10 +2,12 @@ import {
   addExpense,
   createGroup,
   expectBalance,
+  EXPENSES_URL,
   openTab,
   paidForRow,
   uniqueSuffix,
 } from './app'
+import { signIn, workerEmail } from './clerk-auth'
 import { expect, test } from './fixtures'
 import { fillStable } from './ui'
 
@@ -71,13 +73,30 @@ test('lists visited groups under Recent groups', async ({ page }) => {
   await expect(page.getByRole('link', { name: second })).toBeVisible()
 })
 
-test('shows no recent groups in a fresh browser profile', async ({ page }) => {
-  // Recent groups live in localStorage, so a new context must start empty even
-  // though other tests have created groups on the same database.
-  await page.goto('/groups')
-  await expect(
-    page.getByText('You have not visited any group recently.'),
-  ).toBeVisible()
+test('keeps recent groups in a fresh browser profile', async ({
+  page,
+  browser,
+}, testInfo) => {
+  // Inverted on purpose. Recent groups used to live in localStorage, so a new
+  // browser profile started empty; now that the app requires signing in they are
+  // stored per user in the database, and the whole point is that they follow the
+  // account onto another device.
+  const name = `E2E Recent Profile ${uniqueSuffix()}`
+  await createGroup(page, { name, participants: ['Alice', 'Bob'] })
+  await expect(page).toHaveURL(EXPENSES_URL)
+
+  const fresh = await browser.newContext()
+  try {
+    const other = await fresh.newPage()
+    await signIn(other, workerEmail(testInfo.parallelIndex))
+    await other.goto('/groups')
+    await expect(
+      other.getByRole('heading', { name: 'Recent groups' }),
+    ).toBeVisible()
+    await expect(other.getByRole('link', { name, exact: true })).toBeVisible()
+  } finally {
+    await fresh.close()
+  }
 })
 
 test('records group and expense changes in the activity log', async ({

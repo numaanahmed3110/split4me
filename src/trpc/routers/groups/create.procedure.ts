@@ -3,23 +3,25 @@ import {
   createMembershipForNewGroup,
   touchRecentGroup,
 } from '@/lib/preferences-server'
-import { upsertUserFromClerk } from '@/lib/users'
 import { groupFormSchema } from '@/lib/schemas'
-import { baseProcedure } from '@/trpc/init'
+import { upsertUserFromClerk } from '@/lib/users'
+import { protectedProcedure } from '@/trpc/init'
 import { currentUser } from '@clerk/nextjs/server'
 import { z } from 'zod'
 
-export const createGroupProcedure = baseProcedure
+export const createGroupProcedure = protectedProcedure
   .input(
     z.object({
       groupFormValues: groupFormSchema,
       creatorParticipantName: z.string().optional(),
     }),
   )
-  .mutation(async ({ ctx, input: { groupFormValues, creatorParticipantName } }) => {
-    const group = await createGroup(groupFormValues)
+  .mutation(
+    async ({ ctx, input: { groupFormValues, creatorParticipantName } }) => {
+      const group = await createGroup(groupFormValues)
 
-    if (ctx.userId) {
+      // `protectedProcedure` already guarantees a signed-in user and upserts the
+      // User row, so no `if (ctx.userId)` guard is needed here any more.
       const clerkUser = await currentUser()
       if (clerkUser) {
         await upsertUserFromClerk({
@@ -46,7 +48,7 @@ export const createGroupProcedure = baseProcedure
           )
         }
       }
-    }
 
-    return { groupId: group.id, participants: group.participants }
-  })
+      return { groupId: group.id, participants: group.participants }
+    },
+  )

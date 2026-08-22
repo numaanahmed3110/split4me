@@ -1,6 +1,6 @@
 import { getGroup, getGroupExpenses } from '@/lib/api'
 import { getBalances } from '@/lib/balances'
-import { baseProcedure } from '@/trpc/init'
+import { protectedProcedure } from '@/trpc/init'
 import { z } from 'zod'
 
 /**
@@ -11,7 +11,7 @@ import { z } from 'zod'
  * and receives the participant's net balance in each group, together with the
  * group's currency so the client can group amounts by currency.
  */
-export const forUserBalancesProcedure = baseProcedure
+export const forUserBalancesProcedure = protectedProcedure
   .input(
     z.object({
       groups: z.array(
