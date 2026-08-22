@@ -4,6 +4,7 @@ import {
   RecurrenceRule,
   RecurringExpenseLink,
 } from '@/generated/prisma/client'
+import { resolveExpenseFundFields } from '@/lib/fund'
 import { prisma } from '@/lib/prisma'
 import { randomId } from '@/lib/random'
 import { ExpenseFormValues, GroupFormValues } from '@/lib/schemas'
@@ -49,6 +50,12 @@ export async function createExpense(
   }
 
   const expenseId = randomId()
+  const fundFields = await resolveExpenseFundFields(
+    groupId,
+    expenseFormValues.budgetId,
+    expenseFormValues.reserveId,
+  )
+
   await logActivity(groupId, ActivityType.CREATE_EXPENSE, {
     participantId,
     expenseId,
@@ -104,6 +111,9 @@ export async function createExpense(
         },
       },
       notes: expenseFormValues.notes,
+      fundId: fundFields.fundId,
+      budgetId: fundFields.budgetId,
+      reserveId: fundFields.reserveId,
     },
   })
 }
@@ -208,6 +218,12 @@ export async function updateExpense(
     existingExpense.expenseDate,
   )
 
+  const fundFields = await resolveExpenseFundFields(
+    groupId,
+    expenseFormValues.budgetId,
+    expenseFormValues.reserveId,
+  )
+
   return prisma.expense.update({
     where: { id: expenseId },
     data: {
@@ -284,6 +300,9 @@ export async function updateExpense(
           })),
       },
       notes: expenseFormValues.notes,
+      fundId: fundFields.fundId,
+      budgetId: fundFields.budgetId,
+      reserveId: fundFields.reserveId,
     },
   })
 }
@@ -380,7 +399,6 @@ export async function getGroupExpenses(
     take: options && options.length,
   })
 }
-
 
 /**
  * Returns the currently active recurring expenses of a group: the latest frame

@@ -1,7 +1,13 @@
 'use client'
+import {
+  BudgetWarningDialog,
+  parseBudgetWarning,
+} from '@/components/budget-warning-dialog'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
+import type { ExpenseFormValues } from '@/lib/schemas'
 import { trpc } from '@/trpc/client'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { ExpenseForm } from './expense-form'
 
 export function EditExpenseForm({
@@ -33,33 +39,92 @@ export function EditExpenseForm({
   const utils = trpc.useUtils()
   const router = useRouter()
 
+  const [warningOpen, setWarningOpen] = useState(false)
+  const [pendingSubmit, setPendingSubmit] = useState<{
+    values: ExpenseFormValues
+    participantId?: string
+  } | null>(null)
+  const [warnings, setWarnings] = useState<string[]>([])
+  const [warningMeta, setWarningMeta] = useState<{
+    freelySpendable?: number
+    exceedsBy?: number
+  }>({})
+
+  const submitExpense = async (
+    expenseFormValues: ExpenseFormValues,
+    participantId?: string,
+    ignoreWarning = false,
+  ) => {
+    await updateExpenseMutateAsync({
+      expenseId,
+      groupId,
+      expenseFormValues: {
+        ...expenseFormValues,
+        ignoreBudgetWarning: ignoreWarning,
+      },
+      participantId,
+    })
+    utils.groups.expenses.invalidate()
+    utils.groups.fund.invalidate()
+    router.push(`/groups/${groupId}`)
+  }
+
   if (!group || !categories || !expense) return null
 
   return (
-    <ExpenseForm
-      group={group}
-      expense={expense}
-      categories={categories}
-      onSubmit={async (expenseFormValues, participantId) => {
-        await updateExpenseMutateAsync({
-          expenseId,
-          groupId,
-          expenseFormValues,
-          participantId,
-        })
-        utils.groups.expenses.invalidate()
-        router.push(`/groups/${group.id}`)
-      }}
-      onDelete={async (participantId) => {
-        await deleteExpenseMutateAsync({
-          expenseId,
-          groupId,
-          participantId,
-        })
-        utils.groups.expenses.invalidate()
-        router.push(`/groups/${group.id}`)
-      }}
-      runtimeFeatureFlags={runtimeFeatureFlags}
-    />
+    <>
+      <ExpenseForm
+        group={group}
+        expense={expense}
+        categories={categories}
+        expenseId={expenseId}
+        onSubmit={async (expenseFormValues, participantId) => {
+          try {
+            await submitExpense(expenseFormValues, participantId)
+          } catch (error) {
+            const parsed = parseBudgetWarning(error)
+            if (parsed) {
+              setWarnings(parsed.warnings)
+              setWarningMeta({
+                freelySpendable: parsed.impact?.current?.freelySpendable,
+                exceedsBy: parsed.impact?.exceedsFreelySpendableBy,
+              })
+              setPendingSubmit({ values: expenseFormValues, participantId })
+              setWarningOpen(true)
+              return
+            }
+            throw error
+          }
+        }}
+        onDelete={async (participantId) => {
+          await deleteExpenseMutateAsync({
+            expenseId,
+            groupId,
+            participantId,
+          })
+          utils.groups.expenses.invalidate()
+          utils.groups.fund.invalidate()
+          router.push(`/groups/${groupId}`)
+        }}
+        runtimeFeatureFlags={runtimeFeatureFlags}
+      />
+      <BudgetWarningDialog
+        open={warningOpen}
+        onOpenChange={setWarningOpen}
+        warnings={warnings}
+        freelySpendable={warningMeta.freelySpendable}
+        exceedsBy={warningMeta.exceedsBy}
+        group={group}
+        onConfirm={async () => {
+          if (!pendingSubmit) return
+          setWarningOpen(false)
+          await submitExpense(
+            pendingSubmit.values,
+            pendingSubmit.participantId,
+            true,
+          )
+        }}
+      />
+    </>
   )
 }

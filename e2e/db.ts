@@ -36,10 +36,13 @@ export async function resetUserState(userId: string): Promise<void> {
   })
   await client.connect()
   try {
-    await client.query('DELETE FROM "UserGroupPreference" WHERE "userId" = $1', [
+    await client.query(
+      'DELETE FROM "UserGroupPreference" WHERE "userId" = $1',
+      [userId],
+    )
+    await client.query('DELETE FROM "GroupMember" WHERE "userId" = $1', [
       userId,
     ])
-    await client.query('DELETE FROM "GroupMember" WHERE "userId" = $1', [userId])
   } finally {
     await client.end()
   }

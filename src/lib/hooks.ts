@@ -1,8 +1,8 @@
+import { trpc } from '@/trpc/client'
+import { useAuth } from '@clerk/nextjs'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import useSWR, { Fetcher } from 'swr'
-import { trpc } from '@/trpc/client'
-import { useAuth } from '@clerk/nextjs'
 
 /** The display modes a browser reports when the app was launched as installed. */
 const INSTALLED_DISPLAY_MODES = [

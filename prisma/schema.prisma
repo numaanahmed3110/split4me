@@ -110,11 +110,14 @@ model Budget {
 }
 
 model FundReserve {
-  id      String    @id
-  fundId  String
-  purpose String
-  amount  Int
-  fund    GroupFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  id         String    @id
+  fundId     String
+  purpose    String
+  amount     Int
+  createdAt  DateTime  @default(now())
+  releasedAt DateTime?
+  fund       GroupFund @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  expenses   Expense[]
 
   @@index([fundId])
 }
@@ -187,6 +190,8 @@ model Expense {
   fund             GroupFund?        @relation(fields: [fundId], references: [id], onDelete: SetNull)
   budgetId         String?
   budget           Budget?           @relation(fields: [budgetId], references: [id], onDelete: SetNull)
+  reserveId        String?
+  reserve          FundReserve?      @relation(fields: [reserveId], references: [id], onDelete: SetNull)
   draftId          String?           @unique
   draft            ExpenseDraft?     @relation(fields: [draftId], references: [id], onDelete: SetNull)
   isReimbursement  Boolean           @default(false)
@@ -266,4 +271,12 @@ enum ActivityType {
   UPDATE_EXPENSE
   DELETE_EXPENSE
   MEMBER_JOINED
+  CREATE_FUND
+  UPDATE_FUND
+  CREATE_BUDGET
+  UPDATE_BUDGET
+  DELETE_BUDGET
+  CREATE_RESERVE
+  UPDATE_RESERVE
+  RELEASE_RESERVE
 }

@@ -1,7 +1,6 @@
 import 'server-only'
 
 import { prisma } from '@/lib/prisma'
-import { randomId } from '@/lib/random'
 
 export async function ensureUserPreferenceRow(userId: string, groupId: string) {
   return prisma.userGroupPreference.upsert({
@@ -169,7 +168,11 @@ export async function migrateLocalPreferences(
   }
 
   for (const [groupId, participantId] of Object.entries(data.memberships)) {
-    if (!participantId || participantId === 'None' || participantId === 'none') {
+    if (
+      !participantId ||
+      participantId === 'None' ||
+      participantId === 'none'
+    ) {
       continue
     }
     try {

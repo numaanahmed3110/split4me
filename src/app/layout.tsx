@@ -11,11 +11,7 @@ import { Analytics } from '@/lib/analytics/analytics'
 import { getAnalyticsConfig } from '@/lib/analytics/config'
 import { effectiveBaseUrl } from '@/lib/env'
 import { TRPCProvider } from '@/trpc/client'
-import {
-  ClerkProvider,
-  Show,
-  UserButton,
-} from '@clerk/nextjs'
+import { ClerkProvider, Show, UserButton } from '@clerk/nextjs'
 import { shadcn } from '@clerk/ui/themes'
 import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider, useTranslations } from 'next-intl'
@@ -203,5 +199,3 @@ export default async function RootLayout({
     </html>
   )
 }
-
-

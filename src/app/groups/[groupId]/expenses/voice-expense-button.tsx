@@ -117,7 +117,9 @@ function VoiceExpenseContent() {
       formData.append('groupId', groupId)
       formData.append('audio', blob, 'recording.webm')
 
-      const membership = await utils.preferences.getMembership.fetch({ groupId })
+      const membership = await utils.preferences.getMembership.fetch({
+        groupId,
+      })
       if (membership.participantId) {
         formData.append('payerParticipantId', membership.participantId)
       }
@@ -149,8 +151,7 @@ function VoiceExpenseContent() {
       console.error(err)
       toast({
         title: 'Voice parsing failed',
-        description:
-          err instanceof Error ? err.message : 'Please try again.',
+        description: err instanceof Error ? err.message : 'Please try again.',
         variant: 'destructive',
       })
       setStep('idle')

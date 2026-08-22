@@ -144,6 +144,9 @@ export const expenseFormSchema = z
       .default([]),
     notes: z.string().optional(),
     recurrenceRule: z.enum(RecurrenceRule).default('NONE'),
+    budgetId: z.string().nullish(),
+    reserveId: z.string().nullish(),
+    ignoreBudgetWarning: z.boolean().optional(),
   })
   .superRefine((expense, ctx) => {
     switch (expense.splitMode) {

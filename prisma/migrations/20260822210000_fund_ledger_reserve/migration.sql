@@ -1,0 +1,22 @@
+-- AlterEnum
+ALTER TYPE "ActivityType" ADD VALUE 'CREATE_FUND';
+ALTER TYPE "ActivityType" ADD VALUE 'UPDATE_FUND';
+ALTER TYPE "ActivityType" ADD VALUE 'CREATE_BUDGET';
+ALTER TYPE "ActivityType" ADD VALUE 'UPDATE_BUDGET';
+ALTER TYPE "ActivityType" ADD VALUE 'DELETE_BUDGET';
+ALTER TYPE "ActivityType" ADD VALUE 'CREATE_RESERVE';
+ALTER TYPE "ActivityType" ADD VALUE 'UPDATE_RESERVE';
+ALTER TYPE "ActivityType" ADD VALUE 'RELEASE_RESERVE';
+
+-- AlterTable
+ALTER TABLE "FundReserve" ADD COLUMN "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE "FundReserve" ADD COLUMN "releasedAt" TIMESTAMP(3);
+
+-- AlterTable
+ALTER TABLE "Expense" ADD COLUMN "reserveId" TEXT;
+
+-- AddForeignKey
+ALTER TABLE "Expense" ADD CONSTRAINT "Expense_reserveId_fkey" FOREIGN KEY ("reserveId") REFERENCES "FundReserve"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- CreateIndex
+CREATE INDEX "Expense_reserveId_idx" ON "Expense"("reserveId");

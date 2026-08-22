@@ -1,23 +1,19 @@
 'use client'
 
-import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  formatCurrency,
-  formatDate,
-  getCurrencyFromGroup,
-} from '@/lib/utils'
+import { useToast } from '@/components/ui/use-toast'
+import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
+import { formatCurrency, formatDate, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { Check, Loader2, Pencil, Sparkles, X } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import { useToast } from '@/components/ui/use-toast'
 
 type Group = NonNullable<AppRouterOutput['groups']['get']['group']>
 
@@ -304,9 +300,7 @@ export function ExpenseDraftReview({
         <Button
           type="button"
           disabled={confirmMutation.isPending}
-          onClick={() =>
-            confirmMutation.mutate({ draftId, groupId, payload })
-          }
+          onClick={() => confirmMutation.mutate({ draftId, groupId, payload })}
           className="bg-emerald-700 hover:bg-emerald-600"
         >
           {confirmMutation.isPending ? (
