@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useAuth } from '@clerk/nextjs'
+import { useEffect, useRef } from 'react'
 
 declare global {
   interface Window {
@@ -17,6 +18,8 @@ type OneSignalClient = {
     serviceWorkerPath?: string
     serviceWorkerParam?: { scope: string }
   }) => Promise<void>
+  login: (externalId: string) => Promise<void>
+  logout: () => Promise<void>
 }
 
 const SDK_SRC = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'
@@ -41,12 +44,16 @@ const SERVICE_WORKER_SCOPE = '/push/onesignal/'
 let queued = false
 
 /**
- * Initializes OneSignal web push when NEXT_PUBLIC_ONESIGNAL_APP_ID is set.
+ * Initializes OneSignal web push when NEXT_PUBLIC_ONESIGNAL_APP_ID is set, and
+ * keeps the browser's push subscription attached to the signed-in user.
+ *
  * @see https://documentation.onesignal.com/docs/web-push-quickstart
  */
 export function OneSignalInit() {
+  const { isLoaded, userId } = useAuth()
+  const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID
+
   useEffect(() => {
-    const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID
     if (!appId) return
     if (queued || document.querySelector(`script[src="${SDK_SRC}"]`)) return
     queued = true
@@ -75,7 +82,33 @@ export function OneSignalInit() {
     // Deliberately no cleanup: the SDK registers a service worker and global
     // state that outlive this component, and removing the tag would not undo
     // any of it -- it would only let a remount inject a second copy.
-  }, [])
+  }, [appId])
+
+  // Identify the subscription so the server can target it. The alias is the
+  // Clerk user id, which is what `User.id` holds, so the server can address
+  // members straight from the database with no id mapping of its own. One
+  // external id spans every browser and device the user signs in on.
+  const identifiedAs = useRef<string | null>(null)
+  useEffect(() => {
+    if (!appId || !isLoaded) return
+
+    const next = userId ?? null
+    // Skips the no-op first render for a signed-out visitor, so we never call
+    // logout() on a session that was never logged in.
+    if (identifiedAs.current === next) return
+    const previous = identifiedAs.current
+    identifiedAs.current = next
+
+    window.OneSignalDeferred = window.OneSignalDeferred || []
+    window.OneSignalDeferred.push(async (OneSignal) => {
+      try {
+        if (next) await OneSignal.login(next)
+        else if (previous) await OneSignal.logout()
+      } catch (error) {
+        console.error('[OneSignal] Failed to identify subscription', error)
+      }
+    })
+  }, [appId, isLoaded, userId])
 
   return null
 }

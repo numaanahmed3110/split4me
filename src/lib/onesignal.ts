@@ -18,6 +18,15 @@ type OneSignalNotification = {
 }
 
 /**
+ * The subset of the create-notification response we act on. `id` is absent
+ * when the API accepted the request but created nothing.
+ */
+type CreateNotificationResponse = {
+  id?: string
+  errors?: unknown
+}
+
+/**
  * Send a web push via the OneSignal REST API.
  *
  * Needs ONESIGNAL_APP_ID and ONESIGNAL_REST_API_KEY. The latter is the App API
@@ -53,7 +62,7 @@ export async function sendOneSignalPush(notification: OneSignalNotification) {
   // subscribed yet, every alias unknown -- the API still answers 200, but with
   // no `id` and the reason in `errors`. Surface that instead of reporting a
   // send that never happened.
-  const result = await response.json()
+  const result = (await response.json()) as CreateNotificationResponse
   if (!result.id) {
     console.warn('[OneSignal] No notification created:', result.errors)
     return { delivered: false as const, errors: result.errors }
