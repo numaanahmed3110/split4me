@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/drawer'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { useToast } from '@/components/ui/use-toast'
 import { useMediaQuery } from '@/lib/hooks'
 import { cn } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
@@ -109,6 +110,7 @@ function ActiveUserForm({
   close: () => void
 }) {
   const t = useTranslations('Expenses.ActiveUserModal')
+  const { toast } = useToast()
   const [selected, setSelected] = useState('none')
   const setMembership = trpc.preferences.setMembership.useMutation()
   const utils = trpc.useUtils()
@@ -123,8 +125,24 @@ function ActiveUserForm({
         const participantId = selected === 'none' ? null : selected
 
         if (isSignedIn) {
-          await setMembership.mutateAsync({ groupId, participantId })
-          await utils.preferences.getMembership.invalidate({ groupId })
+          try {
+            await setMembership.mutateAsync({ groupId, participantId })
+            await utils.preferences.getMembership.invalidate({ groupId })
+          } catch (error) {
+            // A participant can be claimed by only one account, so picking one
+            // somebody else already claimed is a normal thing to do by mistake
+            // -- and it used to reject unhandled here, leaving the dialog open
+            // with no explanation and nothing saved.
+            toast({
+              title: 'Could not save that choice',
+              description:
+                error instanceof Error
+                  ? error.message
+                  : 'Please pick a different participant.',
+              variant: 'destructive',
+            })
+            return
+          }
         }
         localStorage.setItem(
           `${group.id}-activeUser`,
