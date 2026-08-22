@@ -1,9 +1,7 @@
 'use server'
 
 import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
-import {
-  extractReceiptDraftFromBase64,
-} from '@/lib/receipt-extract'
+import { extractReceiptDraftFromBase64 } from '@/lib/receipt-extract'
 
 export async function extractExpenseInformationFromImage(
   groupId: string,
@@ -36,6 +34,5 @@ export async function extractExpenseInformationFromImage(
     draft,
   }
 }
-
 
 export type { ExpenseDraftPayload }

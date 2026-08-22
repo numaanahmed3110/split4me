@@ -28,7 +28,7 @@ function buildDraftFromExtract(
     parsed.paidByParticipantId &&
     group.participants.some((p) => p.id === parsed.paidByParticipantId)
       ? parsed.paidByParticipantId
-      : payerParticipantId ?? group.participants[0]?.id
+      : (payerParticipantId ?? group.participants[0]?.id)
 
   if (!paidBy) return null
 
@@ -87,9 +87,7 @@ export async function extractReceiptDraft(
     throw new Error('Receipt extraction is not enabled.')
   }
 
-  const imageUrl = imageSource.startsWith('data:image/')
-    ? imageSource
-    : null
+  const imageUrl = imageSource.startsWith('data:image/') ? imageSource : null
 
   if (!imageUrl) {
     if (!isAllowedUploadUrl(imageSource)) {
@@ -204,10 +202,5 @@ Use plain numbers (250 for ₹250). Assign each line item to participant ids who
   const parsed = parseModelJson(content, voiceExtractSchema)
   if (!parsed) return null
 
-  return buildDraftFromExtract(
-    group,
-    parsed,
-    payerParticipantId,
-    parsed.notes,
-  )
+  return buildDraftFromExtract(group, parsed, payerParticipantId, parsed.notes)
 }

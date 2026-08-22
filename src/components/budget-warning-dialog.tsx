@@ -9,8 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import type { Group } from '@/generated/prisma/browser'
+import { formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 
 type Props = {

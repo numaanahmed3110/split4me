@@ -85,13 +85,20 @@ export default function HomePage() {
               sign-in entry point on the page. */}
           <Show when="signed-out">
             <SignInButton mode="modal">
-              <Button size="lg" className="mt-2 px-8 h-12 text-base rounded-full">
+              <Button
+                size="lg"
+                className="mt-2 px-8 h-12 text-base rounded-full"
+              >
                 {t('button.signIn')}
               </Button>
             </SignInButton>
           </Show>
           <Show when="signed-in">
-            <Button asChild size="lg" className="mt-2 px-8 h-12 text-base rounded-full">
+            <Button
+              asChild
+              size="lg"
+              className="mt-2 px-8 h-12 text-base rounded-full"
+            >
               <Link href="/groups">{t('button.groups')}</Link>
             </Button>
           </Show>
@@ -138,7 +145,10 @@ export default function HomePage() {
           </div>
           <ol className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[1, 2, 3].map((step) => (
-              <li key={step} className="flex flex-col items-center gap-3 text-center">
+              <li
+                key={step}
+                className="flex flex-col items-center gap-3 text-center"
+              >
                 <span className="inline-flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
                   {step}
                 </span>

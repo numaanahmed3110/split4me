@@ -1,7 +1,7 @@
 'use client'
 
-import { ExpenseDraftReview } from '@/components/expense-draft-review'
 import { extractExpenseInformationFromImage } from '@/app/groups/[groupId]/expenses/create-from-receipt-button-actions'
+import { ExpenseDraftReview } from '@/components/expense-draft-review'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -157,7 +157,10 @@ function ReceiptDialogContent() {
           description: t('ErrorToast.description'),
           variant: 'destructive',
           action: (
-            <ToastAction altText={t('ErrorToast.retry')} onClick={() => process()}>
+            <ToastAction
+              altText={t('ErrorToast.retry')}
+              onClick={() => process()}
+            >
               {t('ErrorToast.retry')}
             </ToastAction>
           ),
@@ -240,7 +243,8 @@ function ReceiptDialogContent() {
         </button>
         <p className="text-xs text-muted-foreground text-center mt-3 flex items-center justify-center gap-1">
           <FileQuestion className="w-3.5 h-3.5" />
-          Image is sent directly to AI for extraction — not saved to cloud storage
+          Image is sent directly to AI for extraction — not saved to cloud
+          storage
         </p>
       </div>
     </div>

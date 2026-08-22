@@ -14,13 +14,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import type { Group } from '@/generated/prisma/browser'
+import type { ExpenseFormInput, ExpenseFormValues } from '@/lib/schemas'
 import { formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
-import type { Group } from '@/generated/prisma/browser'
 import { useLocale, useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import type { UseFormReturn } from 'react-hook-form'
-import type { ExpenseFormInput, ExpenseFormValues } from '@/lib/schemas'
 
 type Props = {
   group: Group
@@ -40,7 +40,9 @@ export function ExpenseFundFields({ group, form, expenseId }: Props) {
   const reserveId = form.watch('reserveId')
 
   const numericAmount =
-    typeof amount === 'string' ? Math.round(Number(amount) * 100) : Math.round(Number(amount) * 100)
+    typeof amount === 'string'
+      ? Math.round(Number(amount) * 100)
+      : Math.round(Number(amount) * 100)
 
   const { data: impact } = trpc.groups.fund.previewExpense.useQuery(
     {
@@ -68,15 +70,21 @@ export function ExpenseFundFields({ group, form, expenseId }: Props) {
   return (
     <div className="space-y-4 rounded-lg border p-4 bg-muted/30">
       <div className="text-sm text-muted-foreground">
-        <span className="font-medium text-foreground">{t('freelySpendable')}:</span>{' '}
+        <span className="font-medium text-foreground">
+          {t('freelySpendable')}:
+        </span>{' '}
         {formatCurrency(currency, snapshot.freelySpendable, locale)}
         {' · '}
-        <span className="font-medium text-foreground">{t('remaining')}:</span>{' '}
+        <span className="font-medium text-foreground">
+          {t('remaining')}:
+        </span>{' '}
         {formatCurrency(currency, snapshot.remaining, locale)}
         {snapshot.totalReserved > 0 && (
           <>
             {' · '}
-            <span className="font-medium text-foreground">{t('reserved')}:</span>{' '}
+            <span className="font-medium text-foreground">
+              {t('reserved')}:
+            </span>{' '}
             {formatCurrency(currency, snapshot.totalReserved, locale)}
           </>
         )}

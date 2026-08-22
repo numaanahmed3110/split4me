@@ -1,4 +1,4 @@
-import { getFundForGroup, ensureFundForGroup } from '@/lib/fund'
+import { ensureFundForGroup, getFundForGroup } from '@/lib/fund'
 import { protectedProcedure } from '@/trpc/init'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'

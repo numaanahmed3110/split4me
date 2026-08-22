@@ -8,7 +8,12 @@ const ledgerAnswerSchema = z.object({
   answer: z.string(),
   proposedAction: z
     .object({
-      type: z.enum(['create_reserve', 'release_reserve', 'update_budget', 'none']),
+      type: z.enum([
+        'create_reserve',
+        'release_reserve',
+        'update_budget',
+        'none',
+      ]),
       purpose: z.string().optional(),
       amount: z.number().optional(),
       reserveId: z.string().optional(),
@@ -117,9 +122,8 @@ export async function executeLedgerAction(
   groupId: string,
   action: NonNullable<LedgerAiResult['proposedAction']>,
 ): Promise<{ ok: boolean; message: string }> {
-  const { createReserve, releaseReserve, createOrUpdateFund } = await import(
-    '@/lib/fund'
-  )
+  const { createReserve, releaseReserve, createOrUpdateFund } =
+    await import('@/lib/fund')
 
   switch (action.type) {
     case 'create_reserve': {

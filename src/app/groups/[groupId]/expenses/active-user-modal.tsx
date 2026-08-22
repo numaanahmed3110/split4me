@@ -22,8 +22,8 @@ import { useToast } from '@/components/ui/use-toast'
 import { useMediaQuery } from '@/lib/hooks'
 import { cn } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
-import { useAuth } from '@clerk/nextjs'
 import { AppRouterOutput } from '@/trpc/routers/_app'
+import { useAuth } from '@clerk/nextjs'
 import { useTranslations } from 'next-intl'
 import { ComponentProps, useEffect, useState } from 'react'
 
@@ -144,10 +144,7 @@ function ActiveUserForm({
             return
           }
         }
-        localStorage.setItem(
-          `${group.id}-activeUser`,
-          participantId ?? 'None',
-        )
+        localStorage.setItem(`${group.id}-activeUser`, participantId ?? 'None')
         close()
       }}
     >

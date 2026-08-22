@@ -28,11 +28,7 @@ export type LedgerReserve = {
 }
 
 export type ReserveAlertLevel =
-  | 'normal'
-  | 'approaching'
-  | 'consuming'
-  | 'significant'
-  | 'exhausted'
+  'normal' | 'approaching' | 'consuming' | 'significant' | 'exhausted'
 
 export type ReserveStatus = {
   id: string
@@ -119,7 +115,10 @@ export function getOverflowReserveConsumption(
   directConsumption: Map<string, number>,
   reserves: LedgerReserve[],
 ): Map<string, number> {
-  const overflow = Math.max(0, totalSpent - Math.max(0, targetAmount - totalReserved))
+  const overflow = Math.max(
+    0,
+    totalSpent - Math.max(0, targetAmount - totalReserved),
+  )
   if (overflow <= 0) return new Map()
 
   const sorted = [...activeReserves(reserves)].sort(
@@ -183,10 +182,7 @@ export function computeFundLedger(input: {
 
   let consumedFromReserves = 0
   const reserveStatuses: ReserveStatus[] = reserves.map((reserve) => {
-    const directAmt = Math.min(
-      reserve.amount,
-      direct.get(reserve.id) ?? 0,
-    )
+    const directAmt = Math.min(reserve.amount, direct.get(reserve.id) ?? 0)
     const fifoAmt = reserve.releasedAt ? 0 : (fifo.get(reserve.id) ?? 0)
     const consumed = Math.min(reserve.amount, directAmt + fifoAmt)
     if (!reserve.releasedAt) {
@@ -240,9 +236,11 @@ export function computeFundLedger(input: {
     .map((r) => r.alertLevel)
   let overallAlertLevel: ReserveAlertLevel = 'normal'
   if (activeAlerts.includes('exhausted')) overallAlertLevel = 'exhausted'
-  else if (activeAlerts.includes('significant')) overallAlertLevel = 'significant'
+  else if (activeAlerts.includes('significant'))
+    overallAlertLevel = 'significant'
   else if (activeAlerts.includes('consuming')) overallAlertLevel = 'consuming'
-  else if (activeAlerts.includes('approaching')) overallAlertLevel = 'approaching'
+  else if (activeAlerts.includes('approaching'))
+    overallAlertLevel = 'approaching'
   else if (spent > targetAmount - totalReserved * APPROACHING_THRESHOLD) {
     overallAlertLevel = 'approaching'
   }
@@ -304,9 +302,7 @@ export function computeExpenseImpact(
   const warnings: string[] = []
   const exceedsFreelySpendableBy = Math.max(
     0,
-    expense.isReimbursement
-      ? 0
-      : expense.amount - current.freelySpendable,
+    expense.isReimbursement ? 0 : expense.amount - current.freelySpendable,
   )
   const exceedsFreelySpendable = exceedsFreelySpendableBy > 0
 
@@ -358,8 +354,14 @@ export function validateReserveAmount(input: {
   excludeReserveId?: string
   minAmount?: number
 }): { ok: true } | { ok: false; reason: string } {
-  const { amount, targetAmount, expenses, reserves, excludeReserveId, minAmount } =
-    input
+  const {
+    amount,
+    targetAmount,
+    expenses,
+    reserves,
+    excludeReserveId,
+    minAmount,
+  } = input
 
   if (amount <= 0) {
     return { ok: false, reason: 'Reserve amount must be positive.' }
@@ -408,12 +410,14 @@ export function validateTargetAmount(input: {
     }
   }
 
-  const totalReserved = activeReserves(reserves).reduce((s, r) => s + r.amount, 0)
+  const totalReserved = activeReserves(reserves).reduce(
+    (s, r) => s + r.amount,
+    0,
+  )
   if (targetAmount < spent + totalReserved) {
     return {
       ok: false,
-      reason:
-        'Budget cannot be less than spending plus active reserves.',
+      reason: 'Budget cannot be less than spending plus active reserves.',
     }
   }
 

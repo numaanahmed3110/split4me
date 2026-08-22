@@ -1,10 +1,10 @@
-import { resolveExpenseFundFields } from '@/lib/fund'
 import {
   ActivityType,
   Expense,
   RecurrenceRule,
   RecurringExpenseLink,
 } from '@/generated/prisma/client'
+import { resolveExpenseFundFields } from '@/lib/fund'
 import { prisma } from '@/lib/prisma'
 import { randomId } from '@/lib/random'
 import { ExpenseFormValues, GroupFormValues } from '@/lib/schemas'
@@ -399,7 +399,6 @@ export async function getGroupExpenses(
     take: options && options.length,
   })
 }
-
 
 /**
  * Returns the currently active recurring expenses of a group: the latest frame

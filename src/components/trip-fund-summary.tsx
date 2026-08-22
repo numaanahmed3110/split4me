@@ -1,12 +1,12 @@
 'use client'
 
+import { useCurrentGroup } from '@/app/groups/[groupId]/current-group-context'
 import { Progress } from '@/components/ui/progress'
 import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { Lock, PiggyBank } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useCurrentGroup } from '@/app/groups/[groupId]/current-group-context'
 
 export function TripFundSummary() {
   const t = useTranslations('TripFund')
@@ -44,7 +44,11 @@ export function TripFundSummary() {
             <span className="text-muted-foreground flex items-center gap-1">
               <Lock className="w-3 h-3" /> {t('freelySpendable')}
             </span>
-            <p className={cn(s.freelySpendable < s.remaining && 'text-amber-600')}>
+            <p
+              className={cn(
+                s.freelySpendable < s.remaining && 'text-amber-600',
+              )}
+            >
               {formatCurrency(currency, s.freelySpendable, locale)}
             </p>
           </div>

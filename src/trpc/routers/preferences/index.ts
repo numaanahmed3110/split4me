@@ -83,7 +83,9 @@ export const preferencesRouter = createTRPCRouter({
           const message =
             error instanceof Error ? error.message : 'Could not join the group.'
           throw new TRPCError({
-            code: message.includes('already claimed') ? 'CONFLICT' : 'BAD_REQUEST',
+            code: message.includes('already claimed')
+              ? 'CONFLICT'
+              : 'BAD_REQUEST',
             message,
           })
         }
@@ -114,9 +116,7 @@ export const preferencesRouter = createTRPCRouter({
   migrateFromLocal: protectedProcedure
     .input(
       z.object({
-        recentGroups: z.array(
-          z.object({ id: z.string(), name: z.string() }),
-        ),
+        recentGroups: z.array(z.object({ id: z.string(), name: z.string() })),
         starredGroups: z.array(z.string()),
         archivedGroups: z.array(z.string()),
         memberships: z.record(z.string(), z.string()),

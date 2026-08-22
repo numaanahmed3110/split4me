@@ -127,7 +127,10 @@ const envSchema = z
     ),
     NVIDIA_MODEL: z.preprocess(
       interpretBlankEnvVarAsUndefined,
-      z.string().trim().default('nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'),
+      z
+        .string()
+        .trim()
+        .default('nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'),
     ),
     // Deepgram speech-to-text (voice expense entry)
     DEEPGRAM_API_KEY: z.preprocess(
@@ -177,7 +180,10 @@ const envSchema = z
           'If ENABLE_EXPENSE_DOCUMENTS is set, then S3_* must be set too',
       })
     }
-    if ((enableReceiptExtract || enableCategoryExtract) && !env.NVIDIA_API_KEY) {
+    if (
+      (enableReceiptExtract || enableCategoryExtract) &&
+      !env.NVIDIA_API_KEY
+    ) {
       ctx.addIssue({
         code: ZodIssueCode.custom,
         message:

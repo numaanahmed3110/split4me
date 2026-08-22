@@ -24,7 +24,11 @@ export function LedgerAssistant({ groupId }: { groupId: string }) {
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
   const [messages, setMessages] = useState<
-    { role: 'user' | 'assistant'; text: string; action?: LedgerAiResult['proposedAction'] }[]
+    {
+      role: 'user' | 'assistant'
+      text: string
+      action?: LedgerAiResult['proposedAction']
+    }[]
   >([])
   const utils = trpc.useUtils()
 
@@ -38,13 +42,14 @@ export function LedgerAssistant({ groupId }: { groupId: string }) {
       const result = await askLedgerQuestion(groupId, q)
       setMessages((m) => [
         ...m,
-        { role: 'assistant', text: result.answer, action: result.proposedAction },
+        {
+          role: 'assistant',
+          text: result.answer,
+          action: result.proposedAction,
+        },
       ])
     } catch {
-      setMessages((m) => [
-        ...m,
-        { role: 'assistant', text: t('error') },
-      ])
+      setMessages((m) => [...m, { role: 'assistant', text: t('error') }])
     } finally {
       setLoading(false)
     }
@@ -55,10 +60,7 @@ export function LedgerAssistant({ groupId }: { groupId: string }) {
     setLoading(true)
     try {
       const result = await executeLedgerAction(groupId, action)
-      setMessages((m) => [
-        ...m,
-        { role: 'assistant', text: result.message },
-      ])
+      setMessages((m) => [...m, { role: 'assistant', text: result.message }])
       if (result.ok) {
         utils.groups.fund.invalidate()
       }

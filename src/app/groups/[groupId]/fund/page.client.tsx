@@ -153,34 +153,71 @@ export function TripFundPageClient() {
               <PiggyBank className="w-5 h-5" />
               {t('tripFund')}
             </CardTitle>
-            <Button variant="outline" size="sm" onClick={() => {
-              setFundAmount((snapshot.targetAmount / 100).toString())
-              setFundDialog(true)
-            }}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setFundAmount((snapshot.targetAmount / 100).toString())
+                setFundDialog(true)
+              }}
+            >
               {t('editBudget')}
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
-            <Stat label={t('totalBudget')} value={formatCurrency(currency, snapshot.targetAmount, locale)} />
-            <Stat label={t('spent')} value={formatCurrency(currency, snapshot.totalSpent, locale)} />
-            <Stat label={t('remaining')} value={formatCurrency(currency, snapshot.remaining, locale)} />
-            <Stat label={t('reserved')} value={formatCurrency(currency, snapshot.totalReserved, locale)} icon={<Lock className="w-3 h-3" />} />
-            <Stat label={t('freelySpendable')} value={formatCurrency(currency, snapshot.freelySpendable, locale)} highlight />
-            <Stat label={t('used')} value={`${snapshot.percentConsumed.toFixed(1)}%`} />
+            <Stat
+              label={t('totalBudget')}
+              value={formatCurrency(currency, snapshot.targetAmount, locale)}
+            />
+            <Stat
+              label={t('spent')}
+              value={formatCurrency(currency, snapshot.totalSpent, locale)}
+            />
+            <Stat
+              label={t('remaining')}
+              value={formatCurrency(currency, snapshot.remaining, locale)}
+            />
+            <Stat
+              label={t('reserved')}
+              value={formatCurrency(currency, snapshot.totalReserved, locale)}
+              icon={<Lock className="w-3 h-3" />}
+            />
+            <Stat
+              label={t('freelySpendable')}
+              value={formatCurrency(currency, snapshot.freelySpendable, locale)}
+              highlight
+            />
+            <Stat
+              label={t('used')}
+              value={`${snapshot.percentConsumed.toFixed(1)}%`}
+            />
           </div>
 
-          <Progress value={Math.min(100, snapshot.percentConsumed)} className="h-2" />
+          <Progress
+            value={Math.min(100, snapshot.percentConsumed)}
+            className="h-2"
+          />
 
-          <p className={cn('text-sm font-medium', snapshot.withinBudget ? 'text-green-600' : 'text-red-600')}>
+          <p
+            className={cn(
+              'text-sm font-medium',
+              snapshot.withinBudget ? 'text-green-600' : 'text-red-600',
+            )}
+          >
             {alertEmoji(snapshot.overallAlertLevel)} {statusLabel}
           </p>
 
           {snapshot.consumedFromReserves > 0 && (
             <p className="text-sm text-amber-600">
-              ⚠️ {t('reserveConsumed', {
-                amount: formatCurrency(currency, snapshot.consumedFromReserves, locale),
+              ⚠️{' '}
+              {t('reserveConsumed', {
+                amount: formatCurrency(
+                  currency,
+                  snapshot.consumedFromReserves,
+                  locale,
+                ),
               })}
             </p>
           )}
@@ -191,24 +228,34 @@ export function TripFundPageClient() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-base">{t('allocations')}</CardTitle>
-            <Button size="sm" variant="outline" onClick={() => setBudgetDialog(true)}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setBudgetDialog(true)}
+            >
               <Plus className="w-4 h-4" />
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
           {snapshot.budgets.length === 0 ? (
-            <p className="text-sm text-muted-foreground">{t('noAllocations')}</p>
+            <p className="text-sm text-muted-foreground">
+              {t('noAllocations')}
+            </p>
           ) : (
             snapshot.budgets.map((b) => (
               <div key={b.id} className="space-y-1">
                 <div className="flex justify-between text-sm">
                   <span>{b.name}</span>
                   <span>
-                    {formatCurrency(currency, b.spent, locale)} / {formatCurrency(currency, b.allocatedAmount, locale)}
+                    {formatCurrency(currency, b.spent, locale)} /{' '}
+                    {formatCurrency(currency, b.allocatedAmount, locale)}
                   </span>
                 </div>
-                <Progress value={Math.min(100, b.percentConsumed)} className="h-1.5" />
+                <Progress
+                  value={Math.min(100, b.percentConsumed)}
+                  className="h-1.5"
+                />
                 {b.overAllocation && (
                   <p className="text-xs text-red-600">{t('overAllocation')}</p>
                 )}
@@ -216,7 +263,9 @@ export function TripFundPageClient() {
                   variant="ghost"
                   size="sm"
                   className="h-7 text-xs"
-                  onClick={() => deleteBudget.mutateAsync({ groupId, budgetId: b.id })}
+                  onClick={() =>
+                    deleteBudget.mutateAsync({ groupId, budgetId: b.id })
+                  }
                 >
                   <Trash2 className="w-3 h-3 mr-1" /> {t('delete')}
                 </Button>
@@ -230,7 +279,11 @@ export function TripFundPageClient() {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-base">{t('reserves')}</CardTitle>
-            <Button size="sm" variant="outline" onClick={() => setReserveDialog(true)}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setReserveDialog(true)}
+            >
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -249,18 +302,24 @@ export function TripFundPageClient() {
                         <Lock className="w-3 h-3" /> {r.purpose}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {formatCurrency(currency, r.remaining, locale)} {t('remaining')}
+                        {formatCurrency(currency, r.remaining, locale)}{' '}
+                        {t('remaining')}
                         {' · '}
                         {r.percentConsumed.toFixed(0)}% {t('used')}
                       </p>
                     </div>
                     <span>{alertEmoji(r.alertLevel)}</span>
                   </div>
-                  <Progress value={Math.min(100, r.percentConsumed)} className="h-1.5" />
+                  <Progress
+                    value={Math.min(100, r.percentConsumed)}
+                    className="h-1.5"
+                  />
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => releaseReserve.mutateAsync({ groupId, reserveId: r.id })}
+                    onClick={() =>
+                      releaseReserve.mutateAsync({ groupId, reserveId: r.id })
+                    }
                   >
                     {t('releaseReserve')}
                   </Button>
@@ -280,10 +339,18 @@ export function TripFundPageClient() {
           <CardContent>
             <ul className="space-y-2 text-sm">
               {history.map((entry) => (
-                <li key={entry.id} className="flex justify-between gap-2 border-b pb-2">
+                <li
+                  key={entry.id}
+                  className="flex justify-between gap-2 border-b pb-2"
+                >
                   <span className="truncate">{entry.label}</span>
                   {entry.amount !== undefined && (
-                    <span className={cn('shrink-0', entry.amount < 0 ? 'text-red-600' : 'text-green-600')}>
+                    <span
+                      className={cn(
+                        'shrink-0',
+                        entry.amount < 0 ? 'text-red-600' : 'text-green-600',
+                      )}
+                    >
                       {entry.amount > 0 ? '+' : ''}
                       {formatCurrency(currency, Math.abs(entry.amount), locale)}
                     </span>
@@ -370,7 +437,9 @@ function Stat({
         {icon}
         {label}
       </p>
-      <p className={cn('font-semibold', highlight && 'text-primary')}>{value}</p>
+      <p className={cn('font-semibold', highlight && 'text-primary')}>
+        {value}
+      </p>
     </div>
   )
 }
@@ -400,8 +469,16 @@ function FundDialog({
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <div className="space-y-2">
-          <Label>{t('amount')} ({currencyLabel})</Label>
-          <Input type="number" min="0" step="0.01" value={amount} onChange={(e) => onAmountChange(e.target.value)} />
+          <Label>
+            {t('amount')} ({currencyLabel})
+          </Label>
+          <Input
+            type="number"
+            min="0"
+            step="0.01"
+            value={amount}
+            onChange={(e) => onAmountChange(e.target.value)}
+          />
         </div>
         <DialogFooter>
           <Button onClick={onSave}>{t('save')}</Button>
@@ -438,11 +515,20 @@ function BudgetDialog({
         <div className="space-y-3">
           <div>
             <Label>{t('name')}</Label>
-            <Input value={name} onChange={(e) => onNameChange(e.target.value)} />
+            <Input
+              value={name}
+              onChange={(e) => onNameChange(e.target.value)}
+            />
           </div>
           <div>
             <Label>{t('amount')}</Label>
-            <Input type="number" min="0" step="0.01" value={amount} onChange={(e) => onAmountChange(e.target.value)} />
+            <Input
+              type="number"
+              min="0"
+              step="0.01"
+              value={amount}
+              onChange={(e) => onAmountChange(e.target.value)}
+            />
           </div>
         </div>
         <DialogFooter>
@@ -484,16 +570,26 @@ function ReserveDialog({
           <DialogTitle>{t('addReserve')}</DialogTitle>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">
-          {t('freelySpendable')}: {formatCurrency(currency, freelySpendable, locale)}
+          {t('freelySpendable')}:{' '}
+          {formatCurrency(currency, freelySpendable, locale)}
         </p>
         <div className="space-y-3">
           <div>
             <Label>{t('purpose')}</Label>
-            <Input value={purpose} onChange={(e) => onPurposeChange(e.target.value)} />
+            <Input
+              value={purpose}
+              onChange={(e) => onPurposeChange(e.target.value)}
+            />
           </div>
           <div>
             <Label>{t('amount')}</Label>
-            <Input type="number" min="0" step="0.01" value={amount} onChange={(e) => onAmountChange(e.target.value)} />
+            <Input
+              type="number"
+              min="0"
+              step="0.01"
+              value={amount}
+              onChange={(e) => onAmountChange(e.target.value)}
+            />
           </div>
         </div>
         <DialogFooter>

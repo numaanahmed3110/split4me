@@ -42,4 +42,3 @@ export const receiptExtractSchema = z.object({
   lineItems: z.array(receiptLineItemSchema),
   paidByParticipantId: z.string().optional(),
 })
-

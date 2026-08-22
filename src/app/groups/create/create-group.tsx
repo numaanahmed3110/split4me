@@ -19,7 +19,7 @@ export const CreateGroup = ({
       onSubmit={async (groupFormValues) => {
         const activeUserName =
           typeof window !== 'undefined'
-            ? localStorage.getItem('newGroup-activeUser') ?? undefined
+            ? (localStorage.getItem('newGroup-activeUser') ?? undefined)
             : undefined
         const { groupId } = await mutateAsync({
           groupFormValues,

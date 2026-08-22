@@ -140,7 +140,12 @@ describe('computeExpenseImpact', () => {
         budgets: [],
         reserves: [reserve('r1', 200_000)],
       },
-      { amount: 120_000, isReimbursement: false, budgetId: null, reserveId: null },
+      {
+        amount: 120_000,
+        isReimbursement: false,
+        budgetId: null,
+        reserveId: null,
+      },
     )
 
     expect(impact.exceedsFreelySpendable).toBe(true)

@@ -67,7 +67,10 @@ export async function getFundLedgerContext(groupId: string) {
   }
 }
 
-export async function ensureFundForGroup(groupId: string, targetAmount: number) {
+export async function ensureFundForGroup(
+  groupId: string,
+  targetAmount: number,
+) {
   const existing = await getFundForGroup(groupId)
   if (existing) return existing
 
