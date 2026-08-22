@@ -167,6 +167,12 @@ const envSchema = z
       interpretBlankEnvVarAsUndefined,
       z.string().trim().optional(),
     ),
+    // Safari issues a separate Web Push id per site, handed out with the app
+    // id. Only Safari reads it; other browsers ignore it entirely.
+    NEXT_PUBLIC_ONESIGNAL_SAFARI_WEB_ID: z.preprocess(
+      interpretBlankEnvVarAsUndefined,
+      z.string().trim().optional(),
+    ),
   })
   .superRefine((env, ctx) => {
     // Either spelling enables the feature, so either has to satisfy the
