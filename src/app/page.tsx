@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
-// lucide-react v1 dropped its brand icons, so the GitHub mark comes from Radix.
 import { TrackPage } from '@/lib/analytics/track-page'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { Show, SignInButton, SignUpButton } from '@clerk/nextjs'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
@@ -26,15 +25,22 @@ export default function HomePage() {
             })}
           </p>
           <div className="flex gap-2">
-            <Button asChild>
-              <Link href="/groups">{t('Homepage.button.groups')}</Link>
-            </Button>
-            <Button asChild variant="secondary">
-              <Link href="https://github.com/spliit-app/spliit">
-                <GitHubLogoIcon className="w-4 h-4 mr-2" />
-                {t('Homepage.button.github')}
-              </Link>
-            </Button>
+            {/* Groups are behind auth, so the call to action opens the sign-in
+                modal for a visitor rather than sending them to /groups just to
+                be bounced back by the middleware. */}
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <Button>{t('Homepage.button.groups')}</Button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button variant="secondary">Sign up</Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <Button asChild>
+                <Link href="/groups">{t('Homepage.button.groups')}</Link>
+              </Button>
+            </Show>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import { ApplePwaSplash } from '@/app/apple-pwa-splash'
-import { PreferencesMigration } from '@/components/preferences-migration'
-import { OneSignalInit } from '@/components/onesignal-init'
 import { LocaleSwitcher } from '@/components/locale-switcher'
+import { OneSignalInit } from '@/components/onesignal-init'
+import { PreferencesMigration } from '@/components/preferences-migration'
 import { ProgressBar } from '@/components/progress-bar'
 import { ServiceWorkerRegistration } from '@/components/service-worker-registration'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -125,16 +125,6 @@ function Content({ children }: { children: React.ReactNode }) {
         <div role="navigation" aria-label="Menu" className="flex">
           <ul className="flex items-center text-sm">
             <li>
-              <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className="-my-3 text-primary"
-              >
-                <Link href="/groups">{t('Header.groups')}</Link>
-              </Button>
-            </li>
-            <li>
               <LocaleSwitcher />
             </li>
             <li>
@@ -218,7 +208,9 @@ export default async function RootLayout({
     >
       <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
       <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
-        <ClerkProvider appearance={{ theme: shadcn, variables: clerkVariables }}>
+        <ClerkProvider
+          appearance={{ theme: shadcn, variables: clerkVariables }}
+        >
           <OneSignalInit />
           <NextIntlClientProvider messages={messages}>
             {/* Rendered inside the provider because it reads translations via

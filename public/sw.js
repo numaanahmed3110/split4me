@@ -17,7 +17,7 @@
  * Bump CACHE_VERSION to invalidate all previously cached content on deploy.
  */
 
-const CACHE_VERSION = 'v1'
+const CACHE_VERSION = 'v2'
 const PRECACHE = `spliit-precache-${CACHE_VERSION}`
 const RUNTIME = `spliit-runtime-${CACHE_VERSION}`
 const IMAGE_CACHE = `spliit-images-${CACHE_VERSION}`
@@ -103,6 +103,29 @@ async function networkFirst(request, cacheName) {
   }
 }
 
+// Pages safe to cache: identical for every visitor. Everything else sits
+// behind auth and is personalized, and caching it means a later network blip
+// serves one user's groups to whoever is at the browser next -- including a
+// signed-out visitor. Match on pathname only, so a query string cannot smuggle
+// a private page into the allowlist.
+const PUBLIC_PAGES = new Set(['/', '/sign-in', '/sign-up'])
+
+function isPublicPage(url) {
+  return PUBLIC_PAGES.has(url.pathname)
+}
+
+// Network-only, falling back to the offline page. Nothing is written to or
+// read from the cache, so a private page never outlives its session.
+async function networkOnly(request) {
+  try {
+    return await fetch(request)
+  } catch (err) {
+    const offline = await caches.match(OFFLINE_URL)
+    if (offline) return offline
+    throw err
+  }
+}
+
 function isStaticAsset(url) {
   return (
     url.pathname.startsWith('/_next/static/') ||
@@ -123,9 +146,11 @@ self.addEventListener('fetch', (event) => {
   // Never cache dynamic data — always go to the network.
   if (url.pathname.startsWith('/api/')) return
 
-  // Page navigations: network-first with offline fallback.
+  // Page navigations: only public pages may be cached (see isPublicPage).
   if (request.mode === 'navigate') {
-    event.respondWith(networkFirst(request, RUNTIME))
+    event.respondWith(
+      isPublicPage(url) ? networkFirst(request, RUNTIME) : networkOnly(request),
+    )
     return
   }
 
