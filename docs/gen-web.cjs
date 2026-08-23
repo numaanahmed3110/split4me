@@ -260,6 +260,20 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .side-card{position:sticky;top:26px;}
 .hero-band{background:linear-gradient(120deg,var(--yellow),var(--purple-l) 55%,var(--teal));border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:26px;box-shadow:var(--shadow-sm);}
 
+/* ---------- Alignment normalisation v3 ---------- */
+.main{margin:0 auto;padding-left:clamp(24px,4vw,52px);padding-right:clamp(24px,4vw,52px);}
+.topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;}
+.topbar h1{font-size:24px !important;}
+.form-card{max-width:720px;width:100%;}
+.form-card .field{margin-bottom:18px;}
+.list{width:100%;}
+.receipt{width:100%;max-width:520px;}
+h2{letter-spacing:-0.3px;}
+.two-col,.sum-grid,.group-grid{width:100%;}
+.empty{max-width:560px;margin:0 auto;}
+.tabs{margin-left:0;}
+.hero-band,.card,.list,.sum{border:1px solid var(--line);}
+
 /* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
