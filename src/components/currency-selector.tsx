@@ -1,3 +1,5 @@
+'use client'
+
 import { ChevronDown, Loader2 } from 'lucide-react'
 
 import { Button, ButtonProps } from '@/components/ui/button'
@@ -38,15 +40,23 @@ export function CurrencySelector({
   const [value, setValue] = useState<string>(defaultValue)
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
-  // allow overwriting currently selected currency from outside
   useEffect(() => {
     setValue(defaultValue)
     onValueChange(defaultValue)
+    // Intentionally not depending on onValueChange: parents often pass an
+    // inline callback, and re-firing it every render would reset the form.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue])
 
   const selectedCurrency =
     currencies.find((currency) => (currency.code ?? '') === value) ??
     currencies[0]
+
+  const pick = (code: Currency['code']) => {
+    setValue(code)
+    onValueChange(code)
+    setOpen(false)
+  }
 
   if (isDesktop) {
     return (
@@ -58,22 +68,22 @@ export function CurrencySelector({
             isLoading={isLoading}
           />
         </PopoverTrigger>
-        <PopoverContent className="p-0" align="start">
-          <CurrencyCommand
-            currencies={currencies}
-            onValueChange={(code) => {
-              setValue(code)
-              onValueChange(code)
-              setOpen(false)
-            }}
-          />
+        <PopoverContent className="p-0 w-[min(100vw-2rem,22rem)]" align="start">
+          <CurrencyCommand currencies={currencies} onValueChange={pick} />
         </PopoverContent>
       </Popover>
     )
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer
+      open={open}
+      onOpenChange={setOpen}
+      // Only the grab handle dismisses the sheet, so the list can scroll
+      // and taps on a currency are not stolen as a swipe-to-close.
+      handleOnly
+      repositionInputs={false}
+    >
       <DrawerTrigger asChild>
         <CurrencyButton
           currency={selectedCurrency}
@@ -81,15 +91,8 @@ export function CurrencySelector({
           isLoading={isLoading}
         />
       </DrawerTrigger>
-      <DrawerContent className="p-0">
-        <CurrencyCommand
-          currencies={currencies}
-          onValueChange={(id) => {
-            setValue(id)
-            onValueChange(id)
-            setOpen(false)
-          }}
-        />
+      <DrawerContent className="p-0 max-h-[85dvh]">
+        <CurrencyCommand currencies={currencies} onValueChange={pick} />
       </DrawerContent>
     </Drawer>
   )
@@ -104,6 +107,7 @@ function CurrencyCommand({
 }) {
   const currencyGroup = (currency: Currency) => {
     switch (currency.code) {
+      case 'INR':
       case 'USD':
       case 'EUR':
       case 'JPY':
@@ -125,29 +129,36 @@ function CurrencyCommand({
     }),
     {},
   )
+  const groupOrder = ['common', 'other', 'custom']
 
   return (
-    <Command>
+    <Command className="flex flex-col max-h-[min(70dvh,28rem)]">
       <CommandInput placeholder={t('search')} className="text-base" />
-      <CommandList>
+      <CommandList className="max-h-[min(60dvh,24rem)] overflow-y-auto overscroll-contain touch-pan-y">
         <CommandEmpty>{t('noCurrency')}</CommandEmpty>
-        {Object.entries(currenciesByGroup).map(
-          ([group, groupCurrencies], index) => (
-            <CommandGroup key={index} heading={t(`${group}.heading`)}>
-              {groupCurrencies.map((currency) => (
+        {groupOrder
+          .filter((group) => currenciesByGroup[group]?.length)
+          .map((group) => (
+            <CommandGroup key={group} heading={t(`${group}.heading`)}>
+              {currenciesByGroup[group].map((currency) => (
                 <CommandItem
-                  key={currency.code}
-                  value={`${currency.code} ${currency.name} ${currency.symbol}`}
-                  onSelect={(currentValue) => {
+                  key={currency.code || 'custom'}
+                  value={`${currency.code} ${currency.name} ${currency.symbol} ${currency.name_plural}`}
+                  className="cursor-pointer py-3"
+                  onPointerDown={(event) => {
+                    // cmdk + vaul: mobile keyboards fire onSelect from the
+                    // keyboard but swallow the tap. Pointer-down selects first.
+                    if (event.button !== 0) return
+                    event.preventDefault()
                     onValueChange(currency.code)
                   }}
+                  onSelect={() => onValueChange(currency.code)}
                 >
                   <CurrencyLabel currency={currency} />
                 </CommandItem>
               ))}
             </CommandGroup>
-          ),
-        )}
+          ))}
       </CommandList>
     </Command>
   )
@@ -166,6 +177,7 @@ const CurrencyButton = forwardRef<HTMLButtonElement, CurrencyButtonProps>(
     const iconClassName = 'ml-2 h-4 w-4 shrink-0 opacity-50'
     return (
       <Button
+        type="button"
         variant="outline"
         role="combobox"
         aria-expanded={open}
@@ -186,9 +198,13 @@ const CurrencyButton = forwardRef<HTMLButtonElement, CurrencyButtonProps>(
 CurrencyButton.displayName = 'CurrencyButton'
 
 function CurrencyLabel({ currency }: { currency: Currency }) {
-  const flagUrl = `https://flagcdn.com/h24/${
-    currency?.code.length ? currency.code.slice(0, 2).toLowerCase() : 'un'
-  }.png`
+  const region =
+    currency?.code === 'INR'
+      ? 'in'
+      : currency?.code.length
+        ? currency.code.slice(0, 2).toLowerCase()
+        : 'un'
+  const flagUrl = `https://flagcdn.com/h24/${region}.png`
   return (
     <div className="flex items-center gap-3">
       <img src={flagUrl} className="w-4" alt="" />

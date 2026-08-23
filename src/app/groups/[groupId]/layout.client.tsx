@@ -1,5 +1,6 @@
 'use client'
 
+import { GroupPageSkeleton } from '@/components/page-skeleton'
 import { useToast } from '@/components/ui/use-toast'
 import { trpc } from '@/trpc/client'
 import { useTranslations } from 'next-intl'
@@ -34,7 +35,7 @@ export function GroupLayoutClient({
     return (
       <CurrentGroupProvider {...props}>
         <GroupHeader />
-        {children}
+        <GroupPageSkeleton />
       </CurrentGroupProvider>
     )
   }

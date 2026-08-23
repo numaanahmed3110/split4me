@@ -25,6 +25,15 @@ export function toastRetrying(description: string): ToastHandle {
   return toast({
     title: 'Retrying…',
     description,
+    duration: 60_000,
+  })
+}
+
+export function toastWorking(title: string, description: string): ToastHandle {
+  return toast({
+    title,
+    description,
+    duration: 60_000,
   })
 }
 

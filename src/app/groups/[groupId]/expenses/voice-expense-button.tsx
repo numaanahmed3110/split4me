@@ -27,11 +27,18 @@ import {
   toastError,
   toastRetrying,
   toastSuccess,
+  toastWorking,
 } from '@/lib/toast-feedback'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 import { AlertCircle, Loader2, Mic, RotateCcw, Square } from 'lucide-react'
-import { PropsWithChildren, ReactNode, useRef, useState } from 'react'
+import {
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useCurrentGroup } from '../current-group-context'
 
 type Step = 'idle' | 'recording' | 'processing' | 'failed' | 'review'
@@ -84,8 +91,13 @@ function VoiceExpenseContent() {
   const storedBlobRef = useRef<Blob | null>(null)
   const storedTranscriptRef = useRef<string | null>(null)
   const retryToastRef = useRef<ReturnType<typeof toastRetrying> | null>(null)
+  const payerIdRef = useRef<string | undefined>(undefined)
 
   const createDraft = trpc.drafts.create.useMutation()
+
+  useEffect(() => {
+    void utils.preferences.getMembership.prefetch({ groupId })
+  }, [groupId, utils])
 
   const clearRetryToast = () => {
     dismissToast(retryToastRef.current)
@@ -98,8 +110,10 @@ function VoiceExpenseContent() {
   }
 
   const getPayerParticipantId = async () => {
+    if (payerIdRef.current) return payerIdRef.current
     const membership = await utils.preferences.getMembership.fetch({ groupId })
-    return membership.participantId ?? undefined
+    payerIdRef.current = membership.participantId ?? undefined
+    return payerIdRef.current
   }
 
   const transcribeRecording = async (
@@ -199,8 +213,13 @@ function VoiceExpenseContent() {
 
     storedBlobRef.current = blob
     setFailureMessage(null)
-    setStatusMessage(null)
+    setStatusMessage('Listening and turning this into an expense…')
     setStep('processing')
+    clearRetryToast()
+    retryToastRef.current = toastWorking(
+      'Working on it…',
+      'Transcribing your voice. This can take a few seconds.',
+    )
 
     try {
       let transcriptText: string | null = null
