@@ -128,6 +128,10 @@ function ActiveUserForm({
           try {
             await setMembership.mutateAsync({ groupId, participantId })
             await utils.preferences.getMembership.invalidate({ groupId })
+            toast({
+              title: 'Saved',
+              description: 'Your participant choice was saved.',
+            })
           } catch (error) {
             // A participant can be claimed by only one account, so picking one
             // somebody else already claimed is a normal thing to do by mistake

@@ -3,6 +3,7 @@ import {
   BudgetWarningDialog,
   parseBudgetWarning,
 } from '@/components/budget-warning-dialog'
+import { useToast } from '@/components/ui/use-toast'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
 import type { ExpenseFormValues } from '@/lib/schemas'
 import { trpc } from '@/trpc/client'
@@ -38,6 +39,7 @@ export function EditExpenseForm({
 
   const utils = trpc.useUtils()
   const router = useRouter()
+  const { toast } = useToast()
 
   const [warningOpen, setWarningOpen] = useState(false)
   const [pendingSubmit, setPendingSubmit] = useState<{
@@ -66,6 +68,10 @@ export function EditExpenseForm({
     })
     utils.groups.expenses.invalidate()
     utils.groups.fund.invalidate()
+    toast({
+      title: 'Expense updated',
+      description: `"${expenseFormValues.title}" was saved.`,
+    })
     router.push(`/groups/${groupId}`)
   }
 
@@ -104,6 +110,10 @@ export function EditExpenseForm({
           })
           utils.groups.expenses.invalidate()
           utils.groups.fund.invalidate()
+          toast({
+            title: 'Expense deleted',
+            description: 'The expense was removed from this trip.',
+          })
           router.push(`/groups/${groupId}`)
         }}
         runtimeFeatureFlags={runtimeFeatureFlags}

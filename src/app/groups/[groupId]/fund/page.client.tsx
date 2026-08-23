@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Progress } from '@/components/ui/progress'
+import { useToast } from '@/components/ui/use-toast'
 import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { Lock, PiggyBank, Plus, Trash2 } from 'lucide-react'
@@ -51,6 +52,7 @@ export function TripFundPageClient() {
   const locale = useLocale()
   const { groupId, group } = useCurrentGroup()
   const currency = group ? getCurrencyFromGroup(group) : undefined
+  const { toast } = useToast()
 
   const utils = trpc.useUtils()
   const { data, isLoading } = trpc.groups.fund.getSnapshot.useQuery({ groupId })
@@ -60,22 +62,49 @@ export function TripFundPageClient() {
   })
 
   const createFund = trpc.groups.fund.create.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({
+        title: 'Trip budget created',
+        description: 'Your budget is ready.',
+      })
+    },
   })
   const updateFund = trpc.groups.fund.update.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({ title: 'Budget updated', description: 'Trip budget saved.' })
+    },
   })
   const createBudget = trpc.groups.fund.createBudget.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({
+        title: 'Allocation added',
+        description: 'Budget category saved.',
+      })
+    },
   })
   const deleteBudget = trpc.groups.fund.deleteBudget.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({ title: 'Allocation removed' })
+    },
   })
   const createReserve = trpc.groups.fund.createReserve.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({ title: 'Reserve created', description: 'Money set aside.' })
+    },
   })
   const releaseReserve = trpc.groups.fund.releaseReserve.useMutation({
-    onSuccess: () => utils.groups.fund.invalidate(),
+    onSuccess: () => {
+      utils.groups.fund.invalidate()
+      toast({
+        title: 'Reserve released',
+        description: 'Funds returned to spendable budget.',
+      })
+    },
   })
 
   const [budgetDialog, setBudgetDialog] = useState(false)

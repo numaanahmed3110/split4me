@@ -3,6 +3,7 @@ import {
   BudgetWarningDialog,
   parseBudgetWarning,
 } from '@/components/budget-warning-dialog'
+import { useToast } from '@/components/ui/use-toast'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
 import { useActiveUserReady } from '@/lib/hooks'
 import type { ExpenseFormValues } from '@/lib/schemas'
@@ -30,6 +31,7 @@ export function CreateExpenseForm({
 
   const utils = trpc.useUtils()
   const router = useRouter()
+  const { toast } = useToast()
 
   const [warningOpen, setWarningOpen] = useState(false)
   const [pendingSubmit, setPendingSubmit] = useState<{
@@ -59,6 +61,10 @@ export function CreateExpenseForm({
     })
     utils.groups.expenses.invalidate()
     utils.groups.fund.invalidate()
+    toast({
+      title: 'Expense added',
+      description: `"${expenseFormValues.title}" was saved.`,
+    })
     router.push(`/groups/${groupId}`)
   }
 

@@ -150,6 +150,10 @@ function ReceiptDialogContent() {
         })
         setDraftId(created.draftId)
         setDraftPayload(extracted.draft)
+        toast({
+          title: 'Receipt scanned',
+          description: 'Review the extracted expense below.',
+        })
       } catch (err) {
         console.error(err)
         toast({
