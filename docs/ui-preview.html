@@ -939,6 +939,9 @@
     <a href="#s20">Group Settings</a>
     <a href="#s21">Empty States</a>
     <a href="#s22">Dark Mode</a>
+    <span class="sep">|</span>
+    <a href="#s23">Install Prompt</a>
+    <a href="#s24">Notifications</a>
 </nav>
 
 <!-- ============================================================
@@ -2401,8 +2404,55 @@
     </div>
 </section>
 
+
+<section class="screen-section" id="s23">
+    <div class="screen-label">Screen 23 <span>Install Prompt — Mobile Browser, right after Sign In</span></div>
+    <div class="phone">
+        <div class="phone-inner" style="position:relative;min-height:660px;padding:0">
+            <!-- dimmed dashboard behind the sheet -->
+            <div style="position:absolute;inset:0;background:#FFFFFF;opacity:.4"></div>
+
+            <!-- bottom sheet -->
+            <div style="position:absolute;left:10px;right:10px;bottom:10px;background:var(--screen-bg);border-radius:30px;padding:24px 22px 20px;box-shadow:0 -14px 44px rgba(29,28,34,0.22);text-align:center">
+                <div style="width:46px;height:5px;border-radius:10px;background:var(--light-grey);margin:0 auto 20px"></div>
+                <div style="width:68px;height:68px;border-radius:22px;background:var(--yellow);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 8px 20px rgba(230,215,153,0.55)">💸</div>
+                <h3 style="font-size:18px;font-weight:800;color:var(--text-dark)">Add split4me to your<br>Home screen?</h3>
+                <p style="font-size:13px;color:var(--text-grey);line-height:1.55;margin-top:8px">It works just like an app — opens full&nbsp;screen, works offline, and is always one tap away.</p>
+                <div style="display:flex;justify-content:center;gap:8px;margin:14px 0 18px">
+                    <span style="font-size:11px;font-weight:600;color:var(--text-dark);background:var(--purple-light);padding:6px 12px;border-radius:100px">⚡ Fast</span>
+                    <span style="font-size:11px;font-weight:600;color:var(--text-dark);background:var(--teal);padding:6px 12px;border-radius:100px">📴 Works offline</span>
+                    <span style="font-size:11px;font-weight:600;color:var(--text-dark);background:var(--yellow);padding:6px 12px;border-radius:100px">🔔 Notifications</span>
+                </div>
+                <button class="btn-dark" style="width:100%">📲 Install App</button>
+                <button class="btn-outline" style="width:100%;margin-top:10px;border:none;color:#6E6E73">Not now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="screen-section" id="s24">
+    <div class="screen-label">Screen 24 <span>Enable Notifications — first launch inside the installed PWA, after onboarding</span></div>
+    <div class="phone">
+        <div class="phone-inner" style="justify-content:center;align-items:center;text-align:center;padding:36px 28px">
+            <div style="position:relative;margin-bottom:22px">
+                <div style="width:104px;height:104px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:48px">🔔</div>
+                <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--teal);border:3px solid var(--screen-bg)"></div>
+            </div>
+            <h2 style="font-size:21px;font-weight:800;color:var(--text-dark)">Never miss<br>a settlement</h2>
+            <p style="font-size:13px;color:var(--text-grey);line-height:1.6;margin-top:10px;max-width:260px">Get a gentle nudge when friends add expenses, pay you back, or invite you to a trip. You're in control — change this anytime in Settings.</p>
+            <div style="width:100%;background:#FFFFFF;border-radius:20px;padding:6px 18px;margin:20px 0 22px;text-align:left">
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--light-grey);font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--purple);color:var(--screen-bg);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Expense added by friends</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--light-grey);font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--teal);color:var(--text-dark);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Payment received</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--yellow);color:var(--text-dark);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Trip &amp; group invitations</div>
+            </div>
+            <button class="btn-dark" style="width:100%">🔔 Enable Notifications</button>
+            <button class="btn-outline" style="width:100%;margin-top:10px;border:none;color:#6E6E73">Maybe later</button>
+        </div>
+    </div>
+</section>
+
 <div style="text-align:center;color:rgba(255,255,255,0.2);font-size:12px;padding:40px 0 20px">
-    split4me UI Preview · 22 Screens · Poppins + Pastel Design System
+    split4me UI Preview · 24 Screens · Poppins + Pastel Design System
 </div>
 
 </body>

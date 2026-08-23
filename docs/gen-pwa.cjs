@@ -20,6 +20,7 @@ const names = {
   14: 'activity', 15: 'ocr-preview', 16: 'split-now', 17: 'create-group',
   18: 'split-modes', 19: 'receipt-scan', 20: 'group-settings', 21: 'empty-states',
   22: 'dark-mode',
+  23: 'pwa-install', 24: 'notification-permission',
 };
 
 // Extract every <section class="screen-section" id="sN"> ... </section>

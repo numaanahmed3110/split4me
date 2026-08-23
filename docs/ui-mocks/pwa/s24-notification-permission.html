@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>split4me · PWA · stats</title>
+    <title>split4me · PWA · notification-permission</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -911,81 +911,22 @@
 </head>
 <body style="background:#1a1a2e;padding:40px 20px;min-height:100vh">
 
-    <div class="screen-label">Screen 12 <span>Statistics</span></div>
+    <div class="screen-label">Screen 24 <span>Enable Notifications — first launch inside the installed PWA, after onboarding</span></div>
     <div class="phone">
-        <div class="phone-inner">
-            <div class="nav-bar">
-                <div class="nav-back">←</div>
-                <div class="nav-title">Statistics</div>
+        <div class="phone-inner" style="justify-content:center;align-items:center;text-align:center;padding:36px 28px">
+            <div style="position:relative;margin-bottom:22px">
+                <div style="width:104px;height:104px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;font-size:48px">🔔</div>
+                <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--teal);border:3px solid var(--screen-bg)"></div>
             </div>
-
-            <div class="group-tabs" style="margin-bottom:20px">
-                <div class="group-tab active">This Month</div>
-                <div class="group-tab">3 Months</div>
-                <div class="group-tab">All Time</div>
+            <h2 style="font-size:21px;font-weight:800;color:var(--text-dark)">Never miss<br>a settlement</h2>
+            <p style="font-size:13px;color:var(--text-grey);line-height:1.6;margin-top:10px;max-width:260px">Get a gentle nudge when friends add expenses, pay you back, or invite you to a trip. You're in control — change this anytime in Settings.</p>
+            <div style="width:100%;background:#FFFFFF;border-radius:20px;padding:6px 18px;margin:20px 0 22px;text-align:left">
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--light-grey);font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--purple);color:var(--screen-bg);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Expense added by friends</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--light-grey);font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--teal);color:var(--text-dark);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Payment received</div>
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 0;font-size:13px;color:var(--text-dark)"><span style="width:22px;height:22px;border-radius:50%;background:var(--yellow);color:var(--text-dark);font-size:12px;display:flex;align-items:center;justify-content:center">✓</span>Trip &amp; group invitations</div>
             </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-                <div class="stat-card">
-                    <div class="stat-card-title">Total Expenses</div>
-                    <div class="stat-card-value" style="color:var(--text-dark)">$320<span style="font-size:14px;font-weight:500">,00</span></div>
-                    <div class="stat-card-sub">12 expenses</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-title">Your Share</div>
-                    <div class="stat-card-value" style="color:#16A34A">$85<span style="font-size:14px;font-weight:500">,25</span></div>
-                    <div class="stat-card-sub">26.6% of total</div>
-                </div>
-            </div>
-
-            <h3 class="section-title">Spending Over Time</h3>
-            <div style="background:#FFFFFF;border-radius:20px;padding:20px;margin-bottom:20px">
-                <div class="bar-chart">
-                    <div class="bar" style="height:40%;background:var(--teal)"><div class="bar-label">Mon</div></div>
-                    <div class="bar" style="height:65%;background:var(--purple)"><div class="bar-label">Tue</div></div>
-                    <div class="bar" style="height:30%;background:var(--teal)"><div class="bar-label">Wed</div></div>
-                    <div class="bar" style="height:85%;background:var(--purple)"><div class="bar-label">Thu</div></div>
-                    <div class="bar" style="height:55%;background:var(--yellow)"><div class="bar-label">Fri</div></div>
-                    <div class="bar" style="height:95%;background:var(--dark-card)"><div class="bar-label">Sat</div></div>
-                    <div class="bar" style="height:45%;background:var(--teal)"><div class="bar-label">Sun</div></div>
-                </div>
-            </div>
-
-            <h3 class="section-title">By Category</h3>
-            <div style="background:#FFFFFF;border-radius:20px;padding:18px">
-                <div class="category-item">
-                    <div class="cat-icon" style="background:var(--yellow)">🍔</div>
-                    <div class="cat-info">
-                        <div class="cat-name">Food & Drink</div>
-                        <div class="cat-bar"><div class="cat-bar-fill" style="width:75%;background:var(--yellow-dark)"></div></div>
-                    </div>
-                    <div class="cat-amount">$145.00</div>
-                </div>
-                <div class="category-item">
-                    <div class="cat-icon" style="background:var(--teal)">🚗</div>
-                    <div class="cat-info">
-                        <div class="cat-name">Transport</div>
-                        <div class="cat-bar"><div class="cat-bar-fill" style="width:40%;background:var(--teal-dark)"></div></div>
-                    </div>
-                    <div class="cat-amount">$65.00</div>
-                </div>
-                <div class="category-item">
-                    <div class="cat-icon" style="background:var(--purple-light)">🏨</div>
-                    <div class="cat-info">
-                        <div class="cat-name">Accommodation</div>
-                        <div class="cat-bar"><div class="cat-bar-fill" style="width:55%;background:var(--purple)"></div></div>
-                    </div>
-                    <div class="cat-amount">$95.00</div>
-                </div>
-                <div class="category-item" style="border:none">
-                    <div class="cat-icon" style="background:var(--yellow)">🛍️</div>
-                    <div class="cat-info">
-                        <div class="cat-name">Shopping</div>
-                        <div class="cat-bar"><div class="cat-bar-fill" style="width:18%;background:var(--yellow-dark)"></div></div>
-                    </div>
-                    <div class="cat-amount">$15.00</div>
-                </div>
-            </div>
+            <button class="btn-dark" style="width:100%">🔔 Enable Notifications</button>
+            <button class="btn-outline" style="width:100%;margin-top:10px;border:none;color:#6E6E73">Maybe later</button>
         </div>
     </div>
 
