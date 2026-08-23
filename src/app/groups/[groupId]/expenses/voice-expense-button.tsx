@@ -19,9 +19,15 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { useToast } from '@/components/ui/use-toast'
 import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
 import { useMediaQuery } from '@/lib/hooks'
+import {
+  dismissToast,
+  getErrorMessage,
+  toastError,
+  toastRetrying,
+  toastSuccess,
+} from '@/lib/toast-feedback'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 import { AlertCircle, Loader2, Mic, RotateCcw, Square } from 'lucide-react'
@@ -64,7 +70,6 @@ export function VoiceExpenseButton() {
 function VoiceExpenseContent() {
   const { groupId, group } = useCurrentGroup()
   const { isSignedIn } = useAuth()
-  const { toast } = useToast()
   const utils = trpc.useUtils()
 
   const [step, setStep] = useState<Step>('idle')
@@ -78,8 +83,19 @@ function VoiceExpenseContent() {
   const chunksRef = useRef<Blob[]>([])
   const storedBlobRef = useRef<Blob | null>(null)
   const storedTranscriptRef = useRef<string | null>(null)
+  const retryToastRef = useRef<ReturnType<typeof toastRetrying> | null>(null)
 
   const createDraft = trpc.drafts.create.useMutation()
+
+  const clearRetryToast = () => {
+    dismissToast(retryToastRef.current)
+    retryToastRef.current = null
+  }
+
+  const showRetryToast = (description: string) => {
+    clearRetryToast()
+    retryToastRef.current = toastRetrying(description)
+  }
 
   const getPayerParticipantId = async () => {
     const membership = await utils.preferences.getMembership.fetch({ groupId })
@@ -150,6 +166,7 @@ function VoiceExpenseContent() {
     transcriptText: string,
     draft: ExpenseDraftPayload,
   ) => {
+    clearRetryToast()
     setTranscript(transcriptText)
     storedTranscriptRef.current = transcriptText
     const created = await createDraft.mutateAsync({ groupId, payload: draft })
@@ -158,10 +175,23 @@ function VoiceExpenseContent() {
     setFailureMessage(null)
     setStatusMessage(null)
     setStep('review')
-    toast({
-      title: 'Voice captured',
-      description: 'Review the draft expense below.',
-    })
+    toastSuccess('Voice captured', 'Review the draft expense below.')
+  }
+
+  const failProcessing = (
+    err: unknown,
+    context: 'auto' | 'manual' = 'auto',
+  ) => {
+    clearRetryToast()
+    const message = getErrorMessage(err, 'Could not process voice expense')
+    setFailureMessage(message)
+    setStep('failed')
+    toastError(
+      context === 'manual' ? 'Still could not parse' : 'Voice parsing failed',
+      storedTranscriptRef.current
+        ? `${message} Tap Try again to parse your saved transcript.`
+        : message,
+    )
   }
 
   const processRecording = async (blob: Blob) => {
@@ -176,7 +206,10 @@ function VoiceExpenseContent() {
       let transcriptText: string | null = null
 
       for (let attempt = 0; attempt < 2; attempt++) {
-        if (attempt === 1) setStatusMessage('Retrying transcription…')
+        if (attempt === 1) {
+          setStatusMessage('Retrying transcription…')
+          showRetryToast('Transcribing your voice again…')
+        }
         try {
           const data = await transcribeRecording(blob)
           if (data.draft && data.transcript) {
@@ -190,8 +223,16 @@ function VoiceExpenseContent() {
           if (attempt === 1) {
             throw new Error(data.error ?? 'Could not transcribe audio')
           }
+          toastError(
+            'Transcription issue',
+            'Could not understand the audio — retrying…',
+          )
         } catch (transcribeError) {
           if (attempt === 1) throw transcribeError
+          toastError(
+            'Transcription issue',
+            'Could not understand the audio — retrying…',
+          )
         }
       }
 
@@ -200,28 +241,25 @@ function VoiceExpenseContent() {
       }
 
       for (let attempt = 0; attempt < 2; attempt++) {
-        if (attempt === 1) setStatusMessage('Retrying expense parsing…')
+        if (attempt === 1) {
+          setStatusMessage('Retrying expense parsing…')
+          showRetryToast('Parsing your expense from the transcript…')
+        }
         try {
           const draft = await parseTranscript(transcriptText)
           await finishWithDraft(transcriptText, draft)
           return
         } catch (parseError) {
           if (attempt === 1) throw parseError
+          toastError(
+            'Parsing issue',
+            'Could not build the expense yet — retrying with your transcript…',
+          )
         }
       }
     } catch (err) {
       console.error(err)
-      const message =
-        err instanceof Error ? err.message : 'Could not process voice expense'
-      setFailureMessage(message)
-      setStep('failed')
-      toast({
-        title: 'Voice parsing failed',
-        description: storedTranscriptRef.current
-          ? 'We saved what you said — tap Try again to parse it once more.'
-          : message,
-        variant: 'destructive',
-      })
+      failProcessing(err)
     } finally {
       setStatusMessage(null)
     }
@@ -232,15 +270,13 @@ function VoiceExpenseContent() {
       setStep('processing')
       setFailureMessage(null)
       setStatusMessage('Retrying expense parsing…')
+      showRetryToast('Parsing your expense from the saved transcript…')
       try {
         const draft = await parseTranscript(storedTranscriptRef.current)
         await finishWithDraft(storedTranscriptRef.current, draft)
       } catch (err) {
         console.error(err)
-        setFailureMessage(
-          err instanceof Error ? err.message : 'Could not parse voice expense',
-        )
-        setStep('failed')
+        failProcessing(err, 'manual')
       } finally {
         setStatusMessage(null)
       }
@@ -253,6 +289,7 @@ function VoiceExpenseContent() {
   }
 
   const reset = () => {
+    clearRetryToast()
     setStep('idle')
     setDraftId(null)
     setPayload(null)
@@ -264,11 +301,10 @@ function VoiceExpenseContent() {
 
   const startRecording = async () => {
     if (!isSignedIn) {
-      toast({
-        title: 'Sign in required',
-        description: 'Please sign in to use voice expense entry.',
-        variant: 'destructive',
-      })
+      toastError(
+        'Sign in required',
+        'Please sign in to use voice expense entry.',
+      )
       return
     }
 
@@ -293,11 +329,10 @@ function VoiceExpenseContent() {
       recorder.start()
       setStep('recording')
     } catch {
-      toast({
-        title: 'Microphone unavailable',
-        description: 'Allow microphone access to record a voice expense.',
-        variant: 'destructive',
-      })
+      toastError(
+        'Microphone unavailable',
+        'Allow microphone access to record a voice expense.',
+      )
     }
   }
 

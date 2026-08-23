@@ -3,9 +3,9 @@ import {
   BudgetWarningDialog,
   parseBudgetWarning,
 } from '@/components/budget-warning-dialog'
-import { useToast } from '@/components/ui/use-toast'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
 import type { ExpenseFormValues } from '@/lib/schemas'
+import { getErrorMessage, toastError, toastSuccess } from '@/lib/toast-feedback'
 import { trpc } from '@/trpc/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -39,7 +39,6 @@ export function EditExpenseForm({
 
   const utils = trpc.useUtils()
   const router = useRouter()
-  const { toast } = useToast()
 
   const [warningOpen, setWarningOpen] = useState(false)
   const [pendingSubmit, setPendingSubmit] = useState<{
@@ -68,10 +67,7 @@ export function EditExpenseForm({
     })
     utils.groups.expenses.invalidate()
     utils.groups.fund.invalidate()
-    toast({
-      title: 'Expense updated',
-      description: `"${expenseFormValues.title}" was saved.`,
-    })
+    toastSuccess('Expense updated', `"${expenseFormValues.title}" was saved.`)
     router.push(`/groups/${groupId}`)
   }
 
@@ -99,22 +95,32 @@ export function EditExpenseForm({
               setWarningOpen(true)
               return
             }
-            throw error
+            toastError(
+              'Could not update expense',
+              getErrorMessage(error, 'Something went wrong.'),
+            )
           }
         }}
         onDelete={async (participantId) => {
-          await deleteExpenseMutateAsync({
-            expenseId,
-            groupId,
-            participantId,
-          })
-          utils.groups.expenses.invalidate()
-          utils.groups.fund.invalidate()
-          toast({
-            title: 'Expense deleted',
-            description: 'The expense was removed from this trip.',
-          })
-          router.push(`/groups/${groupId}`)
+          try {
+            await deleteExpenseMutateAsync({
+              expenseId,
+              groupId,
+              participantId,
+            })
+            utils.groups.expenses.invalidate()
+            utils.groups.fund.invalidate()
+            toastSuccess(
+              'Expense deleted',
+              'The expense was removed from this trip.',
+            )
+            router.push(`/groups/${groupId}`)
+          } catch (error) {
+            toastError(
+              'Could not delete expense',
+              getErrorMessage(error, 'Something went wrong.'),
+            )
+          }
         }}
         runtimeFeatureFlags={runtimeFeatureFlags}
       />
@@ -128,11 +134,18 @@ export function EditExpenseForm({
         onConfirm={async () => {
           if (!pendingSubmit) return
           setWarningOpen(false)
-          await submitExpense(
-            pendingSubmit.values,
-            pendingSubmit.participantId,
-            true,
-          )
+          try {
+            await submitExpense(
+              pendingSubmit.values,
+              pendingSubmit.participantId,
+              true,
+            )
+          } catch (error) {
+            toastError(
+              'Could not update expense',
+              getErrorMessage(error, 'Something went wrong.'),
+            )
+          }
         }}
       />
     </>

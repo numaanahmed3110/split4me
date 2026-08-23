@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/components/ui/use-toast'
 import type { ExpenseDraftPayload } from '@/lib/draft-schemas'
+import { toastError, toastSuccess } from '@/lib/toast-feedback'
 import { formatCurrency, formatDate, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
@@ -40,14 +40,13 @@ export function ExpenseDraftReview({
 }) {
   const locale = useLocale()
   const router = useRouter()
-  const { toast } = useToast()
   const [payload, setPayload] = useState(initialPayload)
   const [editing, setEditing] = useState(false)
 
   const preview = trpc.drafts.preview.useQuery({ payload })
   const confirmMutation = trpc.drafts.confirm.useMutation({
     onSuccess: () => {
-      toast({ title: 'Expense added', description: 'Your expense was saved.' })
+      toastSuccess('Expense added', 'Your expense was saved.')
       // `/groups/<id>/expenses/<expenseId>` is not a route -- only
       // `.../<expenseId>/edit` exists -- so confirming a receipt or voice draft
       // used to create the expense and then drop the user on a 404. Go where the
@@ -56,11 +55,7 @@ export function ExpenseDraftReview({
       router.refresh()
     },
     onError: (err) => {
-      toast({
-        title: 'Could not save expense',
-        description: err.message,
-        variant: 'destructive',
-      })
+      toastError('Could not save expense', err.message)
     },
   })
 

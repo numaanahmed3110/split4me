@@ -3,10 +3,10 @@ import {
   BudgetWarningDialog,
   parseBudgetWarning,
 } from '@/components/budget-warning-dialog'
-import { useToast } from '@/components/ui/use-toast'
 import { RuntimeFeatureFlags } from '@/lib/featureFlags'
 import { useActiveUserReady } from '@/lib/hooks'
 import type { ExpenseFormValues } from '@/lib/schemas'
+import { getErrorMessage, toastError, toastSuccess } from '@/lib/toast-feedback'
 import { trpc } from '@/trpc/client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -31,7 +31,6 @@ export function CreateExpenseForm({
 
   const utils = trpc.useUtils()
   const router = useRouter()
-  const { toast } = useToast()
 
   const [warningOpen, setWarningOpen] = useState(false)
   const [pendingSubmit, setPendingSubmit] = useState<{
@@ -61,10 +60,7 @@ export function CreateExpenseForm({
     })
     utils.groups.expenses.invalidate()
     utils.groups.fund.invalidate()
-    toast({
-      title: 'Expense added',
-      description: `"${expenseFormValues.title}" was saved.`,
-    })
+    toastSuccess('Expense added', `"${expenseFormValues.title}" was saved.`)
     router.push(`/groups/${groupId}`)
   }
 
@@ -90,7 +86,10 @@ export function CreateExpenseForm({
               setWarningOpen(true)
               return
             }
-            throw error
+            toastError(
+              'Could not add expense',
+              getErrorMessage(error, 'Something went wrong.'),
+            )
           }
         }}
         runtimeFeatureFlags={runtimeFeatureFlags}
@@ -105,11 +104,18 @@ export function CreateExpenseForm({
         onConfirm={async () => {
           if (!pendingSubmit) return
           setWarningOpen(false)
-          await submitExpense(
-            pendingSubmit.values,
-            pendingSubmit.participantId,
-            true,
-          )
+          try {
+            await submitExpense(
+              pendingSubmit.values,
+              pendingSubmit.participantId,
+              true,
+            )
+          } catch (error) {
+            toastError(
+              'Could not add expense',
+              getErrorMessage(error, 'Something went wrong.'),
+            )
+          }
         }}
       />
     </>
