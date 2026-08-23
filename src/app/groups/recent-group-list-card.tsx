@@ -79,13 +79,16 @@ export function RecentGroupListCard({
     <li key={group.id}>
       <Button
         variant="secondary"
-        className="h-fit w-full py-3 rounded-lg border bg-card shadow-sm"
+        className="h-fit w-full py-3 rounded-3xl border-border/70 bg-card shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
         asChild
       >
         <div
-          className="text-base"
+          className="text-base flex items-center gap-3"
           onClick={() => router.push(`/groups/${group.id}`)}
         >
+          <div className="shrink-0 w-11 h-11 rounded-2xl bg-gradient-to-br from-[#E8E2FC] to-[#FCEFF6] flex items-center justify-center text-lg font-bold text-[#6B5BD2]">
+            {(group.name || '?').charAt(0).toUpperCase()}
+          </div>
           <div className="w-full flex flex-col gap-1">
             <div className="text-base flex gap-2 justify-between">
               <Link

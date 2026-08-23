@@ -96,14 +96,18 @@ function GlobalBalanceCard_({
   const isSettledUp = currencyBalances.every(({ amount }) => amount === 0)
 
   return (
-    <Card className="mb-4">
+    <Card className="mb-6 overflow-hidden border-0 bg-gradient-to-br from-[#3A3340] to-[#211F2B] text-white shadow-lg">
       <CardHeader>
-        <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
+        <CardTitle className="text-white/85 text-xs font-semibold uppercase tracking-wider">
+          {t('title')}
+        </CardTitle>
+        <CardDescription className="text-white/55">
+          {t('description')}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {isSettledUp ? (
-          <p className="text-muted-foreground text-sm">{t('settledUp')}</p>
+          <p className="text-white/80 text-sm">{t('settledUp')}</p>
         ) : (
           <ul className="flex flex-col gap-1">
             {currencyBalances.map(({ currency, amount }) => {
@@ -118,13 +122,13 @@ function GlobalBalanceCard_({
                   key={currency.code || currency.symbol}
                   className="flex justify-between items-baseline gap-2 text-sm"
                 >
-                  <span className="text-muted-foreground">
+                  <span className="text-white/70">
                     {amount > 0 ? t('owedToYou') : t('youOwe')}
                   </span>
                   <span
                     className={cn(
-                      'font-semibold tabular-nums',
-                      amount > 0 ? 'text-green-600' : 'text-red-600',
+                      'font-bold tabular-nums text-base',
+                      amount > 0 ? 'text-[#9FE9CC]' : 'text-[#FBC7CE]',
                     )}
                   >
                     {formatted}

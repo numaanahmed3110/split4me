@@ -116,7 +116,7 @@ function RecentGroupList_({
 
       {starredGroupInfo.length > 0 && (
         <>
-          <h2 className="mb-2">{t('starred')}</h2>
+          <h2 className="text-lg font-semibold tracking-tight mt-8 mb-3">{t('starred')}</h2>
           <GroupList
             groups={starredGroupInfo}
             groupDetails={data.groups}
@@ -130,7 +130,7 @@ function RecentGroupList_({
 
       {groupInfo.length > 0 && (
         <>
-          <h2 className="mt-6 mb-2">{t('recent')}</h2>
+          <h2 className="text-lg font-semibold tracking-tight mt-8 mb-3">{t('recent')}</h2>
           <GroupList
             groups={groupInfo}
             groupDetails={data.groups}
@@ -144,7 +144,7 @@ function RecentGroupList_({
 
       {archivedGroupInfo.length > 0 && (
         <>
-          <h2 className="mt-6 mb-2 opacity-50">{t('archived')}</h2>
+          <h2 className="text-lg font-semibold tracking-tight mt-8 mb-3 opacity-50">{t('archived')}</h2>
           <div className="opacity-50">
             <GroupList
               groups={archivedGroupInfo}
@@ -203,7 +203,7 @@ function GroupsPage({
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <h1 className="font-bold text-2xl flex-1">
+        <h1 className="font-bold text-2xl flex-1 tracking-tight">
           <Link href="/groups">{t('myGroups')}</Link>
         </h1>
         <div className="flex gap-2">
