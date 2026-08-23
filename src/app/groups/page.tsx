@@ -14,7 +14,15 @@ export default async function GroupsPage() {
   return (
     <>
       <TrackPage path="/groups" />
-      <RecentGroupList />
+      <div className="mx-auto w-full max-w-5xl px-5 py-8">
+        <header className="mb-6">
+          <h1 className="text-2xl font-bold tracking-tight">Your groups</h1>
+          <p className="text-sm text-muted-foreground">
+            Trips, flats and parties — all your shared expenses in one place.
+          </p>
+        </header>
+        <RecentGroupList />
+      </div>
     </>
   )
 }
