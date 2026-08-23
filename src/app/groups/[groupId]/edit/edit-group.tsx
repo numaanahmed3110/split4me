@@ -1,6 +1,7 @@
 'use client'
 
 import { GroupForm } from '@/components/group-form'
+import { FormSkeleton } from '@/components/page-skeleton'
 import { getErrorMessage, toastError, toastSuccess } from '@/lib/toast-feedback'
 import { trpc } from '@/trpc/client'
 import { useCurrentGroup } from '../current-group-context'
@@ -11,7 +12,7 @@ export const EditGroup = () => {
   const { mutateAsync } = trpc.groups.update.useMutation()
   const utils = trpc.useUtils()
 
-  if (isLoading) return <></>
+  if (isLoading) return <FormSkeleton />
 
   return (
     <GroupForm

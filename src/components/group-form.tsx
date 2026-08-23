@@ -59,7 +59,7 @@ export function GroupForm({
   group,
   onSubmit,
   protectedParticipantIds = [],
-  defaultCurrencyCode = 'USD',
+  defaultCurrencyCode = 'INR',
 }: Props) {
   const locale = useLocale()
   const t = useTranslations('GroupForm')

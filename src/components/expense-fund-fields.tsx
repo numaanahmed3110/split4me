@@ -69,25 +69,25 @@ export function ExpenseFundFields({ group, form, expenseId }: Props) {
 
   return (
     <div className="space-y-4 rounded-lg border p-4 bg-muted/30">
-      <div className="text-sm text-muted-foreground">
-        <span className="font-medium text-foreground">
-          {t('freelySpendable')}:
-        </span>{' '}
-        {formatCurrency(currency, snapshot.freelySpendable, locale)}
-        {' · '}
-        <span className="font-medium text-foreground">
-          {t('remaining')}:
-        </span>{' '}
-        {formatCurrency(currency, snapshot.remaining, locale)}
-        {snapshot.totalReserved > 0 && (
-          <>
-            {' · '}
-            <span className="font-medium text-foreground">
-              {t('reserved')}:
-            </span>{' '}
-            {formatCurrency(currency, snapshot.totalReserved, locale)}
-          </>
-        )}
+      <div className="text-sm space-y-1">
+        <p>
+          <span className="font-medium text-foreground">
+            {t('freelySpendable')}:
+          </span>{' '}
+          {formatCurrency(currency, snapshot.freelySpendable, locale)}
+        </p>
+        <p className="text-muted-foreground text-xs">{t('safeToSpendHint')}</p>
+        <p className="text-muted-foreground">
+          {t('remaining')}:{' '}
+          {formatCurrency(currency, snapshot.remaining, locale)}
+          {snapshot.totalReserved > 0 && (
+            <>
+              {' · '}
+              {t('reserved')}:{' '}
+              {formatCurrency(currency, snapshot.totalReserved, locale)}
+            </>
+          )}
+        </p>
       </div>
 
       {data.fund.budgets.length > 0 && (

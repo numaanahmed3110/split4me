@@ -2,10 +2,10 @@
 import { AddGroupByUrlButton } from '@/app/groups/add-group-by-url-button'
 import type { RecentGroups } from '@/app/groups/recent-groups-helpers'
 import { useRecentGroupsState } from '@/app/groups/use-recent-groups'
+import { GroupCardsSkeleton } from '@/components/page-skeleton'
 import { Button } from '@/components/ui/button'
 import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
-import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
@@ -43,7 +43,13 @@ function sortGroups({
 export function RecentGroupList() {
   const state = useRecentGroupsState()
 
-  if (state.status === 'pending') return null
+  if (state.status === 'pending') {
+    return (
+      <GroupsPage reload={() => undefined}>
+        <GroupCardsSkeleton />
+      </GroupsPage>
+    )
+  }
 
   return (
     <RecentGroupList_
@@ -77,10 +83,7 @@ function RecentGroupList_({
   if (isLoading || !data) {
     return (
       <GroupsPage reload={refreshGroupsFromStorage}>
-        <p>
-          <Loader2 className="w-4 m-4 mr-2 inline animate-spin" />{' '}
-          {t('loadingRecent')}
-        </p>
+        <GroupCardsSkeleton />
       </GroupsPage>
     )
   }

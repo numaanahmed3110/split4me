@@ -2,6 +2,7 @@
 
 import { useCurrentGroup } from '@/app/groups/[groupId]/current-group-context'
 import { LedgerAssistant } from '@/components/ledger-assistant'
+import { FundPageSkeleton } from '@/components/page-skeleton'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -138,7 +139,7 @@ export function TripFundPageClient() {
   }
 
   if (isLoading) {
-    return <p className="text-muted-foreground p-4">{t('loading')}</p>
+    return <FundPageSkeleton />
   }
 
   if (!fund || !snapshot) {
@@ -194,8 +195,20 @@ export function TripFundPageClient() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+        <CardContent className="space-y-5">
+          <div className="rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/70 dark:border-emerald-900 p-4">
+            <p className="text-xs uppercase tracking-wide text-emerald-800 dark:text-emerald-300 font-medium">
+              {t('freelySpendable')}
+            </p>
+            <p className="text-3xl font-semibold tabular-nums mt-1">
+              {formatCurrency(currency, snapshot.freelySpendable, locale)}
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              {t('safeToSpendHint')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 text-sm">
             <Stat
               label={t('totalBudget')}
               value={formatCurrency(currency, snapshot.targetAmount, locale)}
@@ -213,26 +226,35 @@ export function TripFundPageClient() {
               value={formatCurrency(currency, snapshot.totalReserved, locale)}
               icon={<Lock className="w-3 h-3" />}
             />
-            <Stat
-              label={t('freelySpendable')}
-              value={formatCurrency(currency, snapshot.freelySpendable, locale)}
-              highlight
-            />
-            <Stat
-              label={t('used')}
-              value={`${snapshot.percentConsumed.toFixed(1)}%`}
-            />
           </div>
 
-          <Progress
-            value={Math.min(100, snapshot.percentConsumed)}
-            className="h-2"
-          />
+          {snapshot.totalReserved > 0 && (
+            <p className="text-sm text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/40 rounded-lg px-3 py-2">
+              {t('lockedHint', {
+                amount: formatCurrency(
+                  currency,
+                  snapshot.totalReserved,
+                  locale,
+                ),
+              })}
+            </p>
+          )}
+
+          <div>
+            <div className="flex justify-between text-xs text-muted-foreground mb-1">
+              <span>{t('used')}</span>
+              <span>{snapshot.percentConsumed.toFixed(0)}%</span>
+            </div>
+            <Progress
+              value={Math.min(100, snapshot.percentConsumed)}
+              className="h-2"
+            />
+          </div>
 
           <p
             className={cn(
               'text-sm font-medium',
-              snapshot.withinBudget ? 'text-green-600' : 'text-red-600',
+              snapshot.withinBudget ? 'text-green-700' : 'text-red-600',
             )}
           >
             {alertEmoji(snapshot.overallAlertLevel)} {statusLabel}
@@ -256,7 +278,12 @@ export function TripFundPageClient() {
       <Card>
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">{t('allocations')}</CardTitle>
+            <div>
+              <CardTitle className="text-base">{t('allocations')}</CardTitle>
+              <p className="text-xs text-muted-foreground font-normal mt-1">
+                {t('allocationsHint')}
+              </p>
+            </div>
             <Button
               size="sm"
               variant="outline"
@@ -307,7 +334,12 @@ export function TripFundPageClient() {
       <Card>
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">{t('reserves')}</CardTitle>
+            <div>
+              <CardTitle className="text-base">{t('reserves')}</CardTitle>
+              <p className="text-xs text-muted-foreground font-normal mt-1">
+                {t('reservesHint')}
+              </p>
+            </div>
             <Button
               size="sm"
               variant="outline"
@@ -364,6 +396,10 @@ export function TripFundPageClient() {
         <Card>
           <CardHeader>
             <CardTitle className="text-base">{t('history')}</CardTitle>
+            <CardDescription>
+              Every budget, lock, and expense that changed this trip&apos;s
+              money.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2 text-sm">
