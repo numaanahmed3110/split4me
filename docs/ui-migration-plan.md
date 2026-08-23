@@ -401,13 +401,18 @@ theme: {
 | `docs/gen-web.cjs` | Generator script for the web mocks (design system + 22 screens) |
 | `docs/gen-pwa.cjs` | Generator script that splits `ui-preview.html` into per-screen PWA files |
 
-### 9.2 Web design system (reused tokens)
+### 9.2 Web design system — 「生成りと墨」 kinari & sumi
 
-- **Canvas:** warm off-white `#F4F1EA`; **cards:** `#FFFFFF`; **text:** `#1C1C1E`; **muted:** `#8A8A8E`.
-- **Accents:** yellow `#FDECAD`, purple `#D8CEFA`, teal `#E0F4F5`; **dark surface:** `#1D1C22`.
-- **Radii:** `--r: 28px`, `--r-lg: 36px`, `--pill: 100px`.
-- **Shadows:** `--shadow: 0 24px 60px rgba(0,0,0,0.07)`, `--shadow-sm: 0 8px 24px rgba(0,0,0,0.05)`.
-- **Layout primitives:** `.wnav` sticky top nav (logo + links + CTA), `.wrap` max-width 1180px, `.btn` pill button system (`btn-dark`, `btn-primary`=purple, `btn-yellow`, `btn-teal`, `btn-outline`), `.app` sidebar app shell (`.sidebar` + `.main` + `.topbar`) for in-app screens 7–22, `.dark-app` scoped dark theme for Screen 22.
+Palette follows traditional Japanese colour principles (kinari 生成り warm unbleached paper, sumi 墨 ink text, shibui 渋い restrained accents) combined with modern practice: semantic tokens that flip per theme (Material M3 style), tinted-warm neutrals instead of pure greys (Refactoring UI), and WCAG AA contrast for every text node.
+
+- **Light canvas:** kinari `#F6F2E9`; **cards/surfaces:** `#FFFFFF` (`--surface`, flips in dark); **text:** sumi `#211F1B`.
+- **Muted:** `#665F53` (≥ 4.5:1 on card, canvas *and* pastel chips); **faint:** `#98948A` (decorative only).
+- **Accents:** yamabuki yellow `#FDECAD`, fuji purple `#D8CEFA`, asagi teal `#E0F4F5`; text-on-pastel uses matching deep "ink" tokens (`--yellow-ink #6F5A14`, `--purple-ink #564787`, `--teal-ink #23555B`); ink-on-pastel is always sumi.
+- **Semantic:** success `#1B7A47` / danger `#DC2626` (light) → `#5FD68F` / `#E5766C` (dark).
+- **Dark theme (夜 yoru, Screen 22):** scoped `.dark-app` re-declares every token **and re-applies `color`/`background`** — surfaces `#141319 / #201F27 / #2A2833`, moonlit text `#F1EFE8`, muted `#A6A2AE`; pastel accents stay bright for contrast.
+- **Radii:** `--r: 28px`, `--r-lg: 36px`, `--pill: 100px`. **Shadows:** warm-tinted (`rgba(33,31,27,…)`).
+- **Layout primitives:** `.wnav` sticky nav, `.wrap` max-width 1180px, `.btn` pill system, `.app` sidebar shell; gallery preview frames each screen in a `.scr` kinari card (Ma 間 negative space).
+- **Accessibility:** verified programmatically — 0 WCAG AA contrast failures across all 1,021 text nodes in light + dark; focus-visible ring on every interactive element.
 - **Responsive:** collapses to single column and hides sidebar/links under 980px.
 
 ### 9.3 Web screen → route mapping
