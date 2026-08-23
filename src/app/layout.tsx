@@ -67,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#047857',
+  themeColor: '#1D1C22',
 }
 
 // Clerk's `shadcn` theme reads our design tokens as finished colors, e.g.
@@ -98,7 +98,7 @@ function Content({ children }: { children: React.ReactNode }) {
   return (
     <TRPCProvider>
       <PreferencesMigration />
-      <header className="fixed top-0 left-0 right-0 h-16 flex justify-between bg-white dark:bg-gray-950 bg-opacity-50 dark:bg-opacity-50 p-2 border-b backdrop-blur-sm z-50">
+      <header className="fixed top-0 left-0 right-0 h-16 flex justify-between bg-background/70 dark:bg-background/70 border-b border-border backdrop-blur-md p-2 z-50">
         <Link
           className="flex items-center gap-2 hover:scale-105 transition-transform"
           href="/"
@@ -132,7 +132,7 @@ function Content({ children }: { children: React.ReactNode }) {
 
       <div className="pt-16 flex-1 flex flex-col">{children}</div>
 
-      <footer className="sm:p-8 md:p-16 sm:mt-16 sm:text-sm md:text-base md:mt-32 bg-slate-50 dark:bg-card shadow-sm border-t p-6 mt-8 flex flex-col sm:flex-row sm:justify-between gap-4 text-xs [&_a]:underline">
+      <footer className="sm:p-8 md:p-16 sm:mt-16 sm:text-sm md:text-base md:mt-32 bg-background border-t border-border shadow-sm p-6 mt-8 flex flex-col sm:flex-row sm:justify-between gap-4 text-xs [&_a]:underline">
         <div className="flex flex-col space-y-2">
           <div className="sm:text-lg font-semibold text-base flex space-x-2 items-center">
             <Link className="flex items-center gap-2" href="/">
@@ -169,8 +169,8 @@ export default async function RootLayout({
       dir={['ar', 'he'].includes(locale) ? 'rtl' : 'ltr'}
       suppressHydrationWarning
     >
-      <ApplePwaSplash icon="/logo-with-text.png" color="#047857" />
-      <body className="min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background">
+      <ApplePwaSplash icon="/logo-with-text.png" color="#1D1C22" />
+      <body className="min-h-[100dvh] flex flex-col items-stretch bg-background">
         <ClerkProvider
           appearance={{ theme: shadcn, variables: clerkVariables }}
         >

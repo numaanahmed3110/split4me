@@ -136,7 +136,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="pb-24 md:pb-32 border-t bg-slate-50 dark:bg-card shadow-sm py-16 md:py-24 mt-auto">
+      <section className="pb-24 md:pb-32 border-t bg-background border-border shadow-sm py-16 md:py-24 mt-auto">
         <div className="container max-w-screen-md mx-auto px-4">
           <div className="text-center mb-10 md:mb-14">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
