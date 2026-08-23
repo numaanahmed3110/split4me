@@ -14,13 +14,15 @@ const WEB_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  --bg:#F4F1EA;
+  --bg:#EBEBEB;
   --card:#FFFFFF;
   --text:#1C1C1E;
-  --muted:#8A8A8E;
-  --yellow:#FDECAD;  --yellow-d:#EAD89A;
-  --purple:#D8CEFA;  --purple-l:#ECE7FD;
-  --teal:#E0F4F5;    --teal-d:#BFE6E9;
+  --muted:#9CA3AF;
+  --success:#16A34A;
+  --danger:#DC2626;
+  --yellow:#FDECAD;  --yellow-d:#E6D799;
+  --purple:#D8CEFA;  --purple-l:#E8E2FC;
+  --teal:#E0F4F5;    --teal-d:#CDE6E8;
   --dark:#1D1C22;
   --line:rgba(28,28,30,0.08);
   --shadow:0 24px 60px rgba(0,0,0,0.07);
