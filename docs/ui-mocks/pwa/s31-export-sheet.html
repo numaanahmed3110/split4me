@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>split4me · PWA · dark-mode</title>
+    <title>split4me · PWA · export-sheet</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -911,41 +911,24 @@
 </head>
 <body style="background:#1a1a2e;padding:40px 20px;min-height:100vh">
 
-    <div class="screen-label">Screen 22 <span>Dark Mode — Dashboard</span></div>
-    <div class="phone dark">
-        <div class="phone-inner">
-            <div class="dm-greeting">Good morning,</div>
-            <div class="dm-title">Mank Kasep 👋</div>
-
-            <div class="dm-balance">
-                <div class="dm-bc-label">Total balance across groups</div>
-                <div class="dm-bc-amount">$45.50 <span class="pos">you are owed</span></div>
-            </div>
-
-            <div class="dm-section-label">Recent groups</div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--teal)">🏝️</div>
-                <div><div class="dm-gc-name">Bali Trip 2025</div><div class="dm-gc-meta">4 members · 12 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--purple)">🍽️</div>
-                <div><div class="dm-gc-name">Roommates</div><div class="dm-gc-meta">3 members · 28 expenses</div></div>
-                <div class="dm-gc-amt">$890</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--yellow)">🎉</div>
-                <div><div class="dm-gc-name">Birthday Party</div><div class="dm-gc-meta">8 members · 5 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-
-            <div style="flex:1"></div>
-            <div class="dm-bottom-bar">
-                <div class="dm-bb-item active"><div class="dm-bb-icon">🏠</div>Home</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">📊</div>Stats</div>
-                <div class="dm-fab">+</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">🔔</div>Alerts</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">👤</div>You</div>
+    <div class="screen-label">Screen 31 <span>Export — CSV / JSON bottom sheet</span></div>
+    <div class="phone">
+        <div class="phone-inner" style="position:relative;min-height:660px;padding:0">
+            <div style="position:absolute;inset:0;background:#FFFFFF;opacity:.4"></div>
+            <div style="position:absolute;left:10px;right:10px;bottom:10px;background:var(--screen-bg);border-radius:30px;padding:24px 22px 20px;box-shadow:0 -14px 44px rgba(29,28,34,.22)">
+                <div style="width:46px;height:5px;border-radius:10px;background:var(--light-grey);margin:0 auto 18px"></div>
+                <h3 style="font-size:17px;font-weight:800;text-align:center">Export Expenses</h3>
+                <p style="font-size:12px;color:var(--text-grey);text-align:center;margin:4px 0 16px">Bali Trip 2025 · 12 expenses · Aug 2025</p>
+                <div style="display:flex;align-items:center;gap:12px;background:#FFFFFF;border:2px solid var(--purple);border-radius:16px;padding:14px;margin-bottom:10px">
+                    <span style="font-size:26px">📊</span><div style="flex:1"><div style="font-size:14px;font-weight:700">CSV</div><div style="font-size:11px;color:var(--text-grey)">Spreadsheet-friendly · ~2 KB</div></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;color:var(--screen-bg);font-size:12px">✓</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;background:#FFFFFF;border:2px solid var(--line);border-radius:16px;padding:14px;margin-bottom:18px">
+                    <span style="font-size:26px">🧾</span><div style="flex:1"><div style="font-size:14px;font-weight:700">JSON</div><div style="font-size:11px;color:var(--text-grey)">Raw data · ~5 KB</div></div>
+                    <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--light-grey)"></div>
+                </div>
+                <button class="btn-dark" style="width:100%">⬇ Export CSV</button>
+                <button class="btn-outline" style="width:100%;margin-top:10px;border:none;color:var(--text-grey)">Cancel</button>
             </div>
         </div>
     </div>

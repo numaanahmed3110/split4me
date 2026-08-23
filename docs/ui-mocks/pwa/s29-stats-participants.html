@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>split4me · PWA · dark-mode</title>
+    <title>split4me · PWA · stats-participants</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -911,42 +911,21 @@
 </head>
 <body style="background:#1a1a2e;padding:40px 20px;min-height:100vh">
 
-    <div class="screen-label">Screen 22 <span>Dark Mode — Dashboard</span></div>
-    <div class="phone dark">
+    <div class="screen-label">Screen 29 <span>Stats — Participant Spending & drill-in</span></div>
+    <div class="phone">
         <div class="phone-inner">
-            <div class="dm-greeting">Good morning,</div>
-            <div class="dm-title">Mank Kasep 👋</div>
-
-            <div class="dm-balance">
-                <div class="dm-bc-label">Total balance across groups</div>
-                <div class="dm-bc-amount">$45.50 <span class="pos">you are owed</span></div>
+            <div class="nav-bar"><div class="nav-back">←</div><div class="nav-title">Participants</div></div>
+            <h3 class="section-title">Who spent what · this month</h3>
+            <div style="background:#FFFFFF;border-radius:20px;padding:18px;margin-bottom:18px">
+                <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>🏖️ Jhony</span><b>$110 · 34%</b></div><div style="height:9px;background:var(--light-grey);border-radius:10px"><div style="width:34%;height:100%;background:var(--purple);border-radius:10px"></div></div></div>
+                <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>🧑 You (Mank)</span><b>$85 · 26%</b></div><div style="height:9px;background:var(--light-grey);border-radius:10px"><div style="width:26%;height:100%;background:var(--teal-dark);border-radius:10px"></div></div></div>
+                <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>👩 Rehan</span><b>$75 · 23%</b></div><div style="height:9px;background:var(--light-grey);border-radius:10px"><div style="width:23%;height:100%;background:var(--yellow-dark);border-radius:10px"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>🧔 Ujang</span><b>$50 · 16%</b></div><div style="height:9px;background:var(--light-grey);border-radius:10px"><div style="width:16%;height:100%;background:var(--dark-card);border-radius:10px"></div></div></div>
             </div>
-
-            <div class="dm-section-label">Recent groups</div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--teal)">🏝️</div>
-                <div><div class="dm-gc-name">Bali Trip 2025</div><div class="dm-gc-meta">4 members · 12 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--purple)">🍽️</div>
-                <div><div class="dm-gc-name">Roommates</div><div class="dm-gc-meta">3 members · 28 expenses</div></div>
-                <div class="dm-gc-amt">$890</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--yellow)">🎉</div>
-                <div><div class="dm-gc-name">Birthday Party</div><div class="dm-gc-meta">8 members · 5 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-
-            <div style="flex:1"></div>
-            <div class="dm-bottom-bar">
-                <div class="dm-bb-item active"><div class="dm-bb-icon">🏠</div>Home</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">📊</div>Stats</div>
-                <div class="dm-fab">+</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">🔔</div>Alerts</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">👤</div>You</div>
-            </div>
+            <h3 class="section-title">Jhony's expenses · tap to drill in</h3>
+            <div class="expense-item"><div class="expense-icon ei-teal">🚕</div><div class="expense-info"><div class="expense-name">Taxi to Beach</div><div class="expense-meta">Today</div></div><div class="expense-amount">$38.00</div></div>
+            <div class="expense-item"><div class="expense-icon ei-purple">🏨</div><div class="expense-info"><div class="expense-name">Villa deposit</div><div class="expense-meta">Yesterday</div></div><div class="expense-amount">$72.00</div></div>
+            <button class="btn-outline" style="margin-top:14px">See all 4 expenses</button>
         </div>
     </div>
 

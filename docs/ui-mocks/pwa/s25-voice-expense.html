@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>split4me · PWA · dark-mode</title>
+    <title>split4me · PWA · voice-expense</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -911,42 +911,23 @@
 </head>
 <body style="background:#1a1a2e;padding:40px 20px;min-height:100vh">
 
-    <div class="screen-label">Screen 22 <span>Dark Mode — Dashboard</span></div>
-    <div class="phone dark">
-        <div class="phone-inner">
-            <div class="dm-greeting">Good morning,</div>
-            <div class="dm-title">Mank Kasep 👋</div>
-
-            <div class="dm-balance">
-                <div class="dm-bc-label">Total balance across groups</div>
-                <div class="dm-bc-amount">$45.50 <span class="pos">you are owed</span></div>
+    <div class="screen-label">Screen 25 <span>Voice Expense — capture → transcript → confirm</span></div>
+    <div class="phone">
+        <div class="phone-inner" style="justify-content:center;align-items:center;text-align:center;padding:36px 28px">
+            <div style="width:128px;height:128px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:8px;box-shadow:0 0 0 14px rgba(253,236,173,.35)">🎤</div>
+            <p style="font-size:13px;color:var(--text-grey);margin-bottom:18px">Listening… tap to stop</p>
+            <div style="width:100%;background:#FFFFFF;border-radius:20px;padding:16px;margin-bottom:16px">
+                <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--text-grey);text-transform:uppercase;text-align:left;margin-bottom:6px">Transcript</div>
+                <p style="font-size:14px;color:var(--text-dark);font-style:italic;text-align:left">"Lunch at Warung, fifteen dollars, split three ways"</p>
             </div>
-
-            <div class="dm-section-label">Recent groups</div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--teal)">🏝️</div>
-                <div><div class="dm-gc-name">Bali Trip 2025</div><div class="dm-gc-meta">4 members · 12 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
+            <div style="width:100%;background:#FFFFFF;border-radius:20px;padding:14px 16px;margin-bottom:20px;text-align:left">
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text-grey)">Title</span><b>Lunch at Warung</b></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text-grey)">Amount</span><b>$15.50</b></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text-grey)">Paid by</span><b>You</b></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:var(--text-grey)">Split with</span><b>3 people</b></div>
             </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--purple)">🍽️</div>
-                <div><div class="dm-gc-name">Roommates</div><div class="dm-gc-meta">3 members · 28 expenses</div></div>
-                <div class="dm-gc-amt">$890</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--yellow)">🎉</div>
-                <div><div class="dm-gc-name">Birthday Party</div><div class="dm-gc-meta">8 members · 5 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-
-            <div style="flex:1"></div>
-            <div class="dm-bottom-bar">
-                <div class="dm-bb-item active"><div class="dm-bb-icon">🏠</div>Home</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">📊</div>Stats</div>
-                <div class="dm-fab">+</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">🔔</div>Alerts</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">👤</div>You</div>
-            </div>
+            <button class="btn-dark" style="width:100%">✓ Confirm &amp; Add Expense</button>
+            <button class="btn-outline" style="width:100%;margin-top:10px;border:none;color:var(--text-grey)">Try again</button>
         </div>
     </div>
 

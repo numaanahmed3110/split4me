@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>split4me · PWA · dark-mode</title>
+    <title>split4me · PWA · stats-recurring</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -911,42 +911,16 @@
 </head>
 <body style="background:#1a1a2e;padding:40px 20px;min-height:100vh">
 
-    <div class="screen-label">Screen 22 <span>Dark Mode — Dashboard</span></div>
-    <div class="phone dark">
+    <div class="screen-label">Screen 30 <span>Stats — Recurring Spending</span></div>
+    <div class="phone">
         <div class="phone-inner">
-            <div class="dm-greeting">Good morning,</div>
-            <div class="dm-title">Mank Kasep 👋</div>
-
-            <div class="dm-balance">
-                <div class="dm-bc-label">Total balance across groups</div>
-                <div class="dm-bc-amount">$45.50 <span class="pos">you are owed</span></div>
-            </div>
-
-            <div class="dm-section-label">Recent groups</div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--teal)">🏝️</div>
-                <div><div class="dm-gc-name">Bali Trip 2025</div><div class="dm-gc-meta">4 members · 12 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--purple)">🍽️</div>
-                <div><div class="dm-gc-name">Roommates</div><div class="dm-gc-meta">3 members · 28 expenses</div></div>
-                <div class="dm-gc-amt">$890</div>
-            </div>
-            <div class="dm-group-card">
-                <div class="dm-gc-icon" style="background:var(--yellow)">🎉</div>
-                <div><div class="dm-gc-name">Birthday Party</div><div class="dm-gc-meta">8 members · 5 expenses</div></div>
-                <div class="dm-gc-amt">$320</div>
-            </div>
-
-            <div style="flex:1"></div>
-            <div class="dm-bottom-bar">
-                <div class="dm-bb-item active"><div class="dm-bb-icon">🏠</div>Home</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">📊</div>Stats</div>
-                <div class="dm-fab">+</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">🔔</div>Alerts</div>
-                <div class="dm-bb-item"><div class="dm-bb-icon">👤</div>You</div>
-            </div>
+            <div class="nav-bar"><div class="nav-back">←</div><div class="nav-title">Recurring</div></div>
+            <div class="stat-card" style="margin-bottom:18px"><div class="stat-card-title">Recurring per month</div><div class="stat-card-value" style="color:var(--text-dark)">$680.99</div><div class="stat-card-sub">4 subscriptions in Roommates</div></div>
+            <div class="expense-item"><div class="expense-icon ei-purple">🏠</div><div class="expense-info"><div class="expense-name">Rent</div><div class="expense-meta">Monthly · next Sep 1</div></div><div class="expense-amount">$640.00</div></div>
+            <div class="expense-item"><div class="expense-icon ei-teal">📺</div><div class="expense-info"><div class="expense-name">Netflix</div><div class="expense-meta">Monthly · next Aug 30</div></div><div class="expense-amount">$15.99</div></div>
+            <div class="expense-item"><div class="expense-icon ei-yellow">💪</div><div class="expense-info"><div class="expense-name">Gym pass</div><div class="expense-meta">Monthly · next Sep 5</div></div><div class="expense-amount">$25.00</div></div>
+            <div class="expense-item"><div class="expense-icon ei-yellow">☁️</div><div class="expense-info"><div class="expense-name">iCloud storage</div><div class="expense-meta">Yearly · next Nov 12</div></div><div class="expense-amount">$2.99</div></div>
+            <button class="btn-outline" style="margin-top:14px">＋ Mark expense as recurring</button>
         </div>
     </div>
 

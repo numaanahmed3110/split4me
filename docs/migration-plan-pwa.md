@@ -30,7 +30,7 @@
 | Empty states | various | ✅ s21 |
 | Dark theme | globals | ✅ s22 |
 
-## 2. Gap screens to create (new mocks, philosophy-compliant)
+## 2. Gap screens — **BUILT & VERIFIED ✅ (s25–s32 shipped)**
 
 | New # | Slug | Covers | Spec sketch |
 |---|---|---|---|

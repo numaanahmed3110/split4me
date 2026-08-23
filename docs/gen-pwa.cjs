@@ -21,6 +21,8 @@ const names = {
   18: 'split-modes', 19: 'receipt-scan', 20: 'group-settings', 21: 'empty-states',
   22: 'dark-mode',
   23: 'pwa-install', 24: 'notification-permission',
+  25: 'voice-expense', 26: 'group-fund', 27: 'share-group', 28: 'expense-documents',
+  29: 'stats-participants', 30: 'stats-recurring', 31: 'export-sheet', 32: 'join-group',
 };
 
 // Extract every <section class="screen-section" id="sN"> ... </section>
