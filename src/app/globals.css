@@ -3,73 +3,75 @@
 @import '@clerk/ui/themes/shadcn.css';
 @config '../../tailwind.config.js';
 
-@layer base {
-  :root {
-    --background: 40 44% 94%;
-    --foreground: 30 12% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 235 11% 12%;
-    --primary-foreground: 0 100% 100%;
-    --secondary: 250 71% 96%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 34 10% 38%;
-    --accent: 181 47% 95%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 33 14% 87%;
-    --input: 33 14% 87%;
-    --ring: 250 71% 83%;
-    --radius: 1rem;
-    --chart-1: 52 85% 84%;
-    --chart-2: 250 82% 91%;
-    --chart-3: 181 45% 89%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
+/* Token overrides are intentionally UNLAYERED so they win over
+   @clerk/ui/themes/shadcn.css (which defines the same vars unlayered). */
+:root {
+  --background: 40 44% 94%;
+  --foreground: 30 12% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 235 11% 12%;
+  --primary-foreground: 0 100% 100%;
+  --secondary: 250 71% 96%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 34 10% 38%;
+  --accent: 181 47% 95%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 33 14% 87%;
+  --input: 33 14% 87%;
+  --ring: 250 71% 83%;
+  --radius: 1rem;
+  --chart-1: 52 85% 84%;
+  --chart-2: 250 82% 91%;
+  --chart-3: 181 45% 89%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+}
 
-  .dark {
-    --background: 245 15% 8%;
-    --foreground: 43 22% 93%;
-    --card: 244 11% 14%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 254 62% 86%;
-    --primary-foreground: 245 15% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 253 8% 70%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 0 0% 98%;
-    /* --destructive: 0 62.8% 30.6%; */
-    --destructive: 0 87% 47%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 254 62% 80%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+.dark {
+  --background: 245 15% 8%;
+  --foreground: 43 22% 93%;
+  --card: 244 11% 14%;
+  --card-foreground: 0 0% 95%;
+  --popover: 0 0% 9%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 254 62% 86%;
+  --primary-foreground: 245 15% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 253 8% 70%;
+  --accent: 12 6.5% 15.1%;
+  --accent-foreground: 0 0% 98%;
+  /* --destructive: 0 62.8% 30.6%; */
+  --destructive: 0 87% 47%;
+  --destructive-foreground: 0 85.7% 97.3%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 254 62% 80%;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
+}
+
+/* Unlayered so it beats @clerk/ui/themes/shadcn.css body styles. */
+body {
+  @apply bg-background text-foreground;
+  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .landing-header {
