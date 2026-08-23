@@ -98,7 +98,7 @@ function Content({ children }: { children: React.ReactNode }) {
   return (
     <TRPCProvider>
       <PreferencesMigration />
-      <header className="fixed top-0 left-0 right-0 h-16 flex justify-between bg-background/70 dark:bg-background/70 border-b border-border backdrop-blur-md p-2 z-50">
+      <header className="fixed top-0 left-0 right-0 h-16 flex justify-between bg-background border-b border-border backdrop-blur-md p-2 z-50">
         <Link
           className="flex items-center gap-2 hover:scale-105 transition-transform"
           href="/"
