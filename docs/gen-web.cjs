@@ -783,7 +783,7 @@ function buildPage(inner, title){
 
 // Per-screen standalone files
 let count = 0;
-for (const s of SCREENS){
+for (const s of SCREENS.filter(x => x.n === 1)){
   const file = `s${String(s.n).padStart(2,'0')}-${s.slug}.html`;
   fs.writeFileSync(path.join(outDir, file), buildPage(s.html, s.title), 'utf8');
   console.log('Wrote', file);
@@ -791,7 +791,7 @@ for (const s of SCREENS){
 }
 
 // All-in-one web preview
-const sections = SCREENS.map(s =>
+const sections = SCREENS.filter(s => s.n === 1).map(s =>
   `<section class="wsec" id="s${s.n}">\n<div class="wlabel">Screen ${s.n} <span>${s.label}</span></div>\n<div class="scr">\n${s.html}\n</div>\n</section>`
 ).join('\n');
 const preview = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>split4me — Web UI Preview (All Screens)</title>\n<style>\n${WEB_CSS}\n</style>\n</head>\n<body class="prev-body">\n<nav class="prev-nav"><span class="lab">split4me · Web</span>${SCREENS.map(s=>`<a href="#s${s.n}">${s.n}. ${s.title}</a>`).join('<span class="sep">·</span>')}</nav>\n${sections}\n</body>\n</html>\n`;

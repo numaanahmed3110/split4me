@@ -1,0 +1,42 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260823224213
+Username: DESKTOP-JR5FJSB\ASUS
+RunAs User: DESKTOP-JR5FJSB\ASUS
+Configuration Name: 
+Machine: DESKTOP-JR5FJSB (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.EXE -NoLogo -NoProfile -NonInteractive -Command Start-Transcript -Path docs\mcp-check.txt -Force; echo "=== context7 ==="; npx -y @upstash/context7-mcp --help 2>&1 | Select-Object -First 5; echo "=== chrome-devtools ==="; npx -y chrome-devtools-mcp@latest --help 2>&1 | Select-Object -First 8; Stop-Transcript
+Process ID: 8928
+PSVersion: 5.1.26100.9168
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9168
+BuildVersion: 10.0.26100.9168
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is docs\mcp-check.txt
+=== context7 ===
+Usage: index [options]
+
+Options:
+  -v, --version             output the current version
+  --transport <stdio|http>  transport type (default: "stdio")
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+=== chrome-devtools ===
+Options:
+      --autoConnect                            If specified, automatically connects to a browser (Chrome 144+) running locally from the user data directory identified by the channel param (default channel is stable). Requires the remote debugging server to be started in the Chrome instance via chrome://inspect/#remote-debugging.  [boolean] [default: false]
+  -u, --browserUrl                             Connect to a running, debuggable Chrome instance (e.g. `http://127.0.0.1:9222`). For more details see: https://github.com/ChromeDevTools/chrome-devtools-mcp#connecting-to-a-running-chrome-instance.  [string]
+  -w, --wsEndpoint                             WebSocket endpoint to connect to a running Chrome instance (e.g., ws://127.0.0.1:9222/devtools/browser/<id>). Alternative to --browserUrl.  [string]
+      --wsHeaders                              Custom headers for WebSocket connection in JSON format (e.g., '{"Authorization":"Bearer token"}'). Only works with --wsEndpoint.  [string]
+      --headless                               Whether to run in headless (no UI) mode.  [boolean] [default: false]
+  -e, --executablePath                         Path to custom Chrome executable.  [string]
+      --isolated                               If specified, creates a temporary user-data-dir that is automatically cleaned up after the browser is closed. Defaults to false.  [boolean]
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+**********************
+Windows PowerShell transcript end
+End time: 20260823224236
+**********************
