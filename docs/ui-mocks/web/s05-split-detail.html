@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Sign In</title>
+<title>split4me · Web · Split The Bill</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,30 +259,28 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;min-height:70vh">
-  <div style="padding-right:60px">
-    <div class="chip chip-p" style="margin-bottom:18px">Welcome back ðŸ‘‹</div>
-    <h2 class="h-sec">Sign in to split4me</h2>
-    <p class="lead" style="text-align:left;margin:16px 0 30px">Pick up right where you left off â€” your groups and balances are waiting.</p>
-    <div style="display:flex;flex-direction:column;gap:12px;max-width:340px">
-      <button class="btn btn-outline btn-lg" style="justify-content:flex-start;gap:12px">ðŸ” Continue with Google</button>
-      <button class="btn btn-outline btn-lg" style="justify-content:flex-start;gap:12px">ðŸŽ Continue with Apple</button>
-    </div>
-  </div>
-  <div class="form-card" style="margin:0 auto">
-    <h3 style="font-size:20px;font-weight:600;margin-bottom:22px">Sign in</h3>
-    <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
-    <div class="field"><label>Password</label><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"></div>
-    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:6px">Sign in</button>
-    <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:18px">New here? <a href="#" style="color:var(--text);font-weight:600">Create an account</a></p>
-  </div>
-</div></section>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Split The Bill</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div><div class="actions"><button class="btn btn-primary">Split Now</button></div></div>
+<div class="sum-grid" style="grid-template-columns:1fr 1fr;margin-bottom:26px">
+  <div class="sum"><div class="lbl">My Balance</div><div class="val">$40.000<span>,00</span></div></div>
+  <div class="sum"><div class="lbl">Total Bill</div><div class="val">$20.15<span>,00</span></div></div>
+</div>
+<div class="card" style="margin-bottom:26px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+  <div><div class="lbl" style="color:var(--muted);font-size:13px;margin-bottom:10px">Split With</div>
+    <div style="display:flex;align-items:center;gap:10px"><div class="av-stack"><span class="avatar" style="background:var(--yellow)">🧑</span><span class="avatar" style="background:var(--purple-l)">👩</span><span class="avatar" style="background:var(--teal)">🧔</span><span class="avatar" style="background:var(--yellow)">👨</span></div><span class="avatar" style="background:var(--bg);color:var(--muted)">+</span></div></div>
+  <button class="btn btn-dark">Split Now</button>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Nearby Friend</h2>
+<div class="grid-3" style="margin-bottom:26px">
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--teal);margin:0 auto 10px">🧑</span><div style="font-weight:600">Jhony</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--purple-l);margin:0 auto 10px">👩</span><div style="font-weight:600">Rehan</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--yellow);margin:0 auto 10px">🧔</span><div style="font-weight:600">Ujang</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Detail Split Bill</h2>
+<div class="list">
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🧑</span><div class="grow"><div class="t">Mank Kasep</div><div class="s">20%</div></div><div class="amt">$5.15<span style="font-size:12px;color:var(--muted)">,00</span></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Andi Saputra</div><div class="s">30%</div></div><div class="amt">$7.05<span style="font-size:12px;color:var(--muted)">,00</span></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--teal)">🧔</span><div class="grow"><div class="t">You</div><div class="s">50%</div></div><div class="amt" style="color:var(--success)">$7.95<span style="font-size:12px">,00</span></div></div>
+</div>
 
 </body>
 </html>

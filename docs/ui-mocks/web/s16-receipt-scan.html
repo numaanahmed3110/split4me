@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Sign Up</title>
+<title>split4me · Web · Scan Receipt</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,34 +259,31 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;min-height:70vh">
-  <div class="form-card" style="margin:0 auto;order:2">
-    <h3 style="font-size:20px;font-weight:600;margin-bottom:22px">Create your account</h3>
-    <div class="field"><label>Name</label><input placeholder="Your name"></div>
-    <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
-    <div class="field"><label>Password</label><input type="password" placeholder="Create a password"></div>
-    <button class="btn btn-dark" style="width:100%;justify-content:center">Get started free</button>
-    <div style="display:flex;gap:10px;margin-top:14px">
-      <button class="btn btn-outline" style="flex:1;justify-content:center">ðŸ” Google</button>
-      <button class="btn btn-outline" style="flex:1;justify-content:center">ðŸŽ Apple</button>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Scan Receipt</h1></div></div>
+<div class="hero-grid" style="grid-template-columns:1fr 1fr;align-items:start">
+  <div class="card" style="padding:28px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px"><b style="font-size:16px">Upload Receipt</b><span class="chip chip-y" style="padding:4px 12px;font-size:11px">BETA</span></div>
+    <div style="border:2px dashed var(--line);border-radius:20px;padding:38px 20px;text-align:center;margin-bottom:18px">
+      <div style="font-size:34px;margin-bottom:10px">📸</div>
+      <div style="font-weight:600;font-size:15px">Take a photo or upload</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px">We'll read the items &amp; total for you</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:12px">JPEG · PNG · WebP · max 5MB</div>
+    </div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center">Analyze Receipt</button>
+  </div>
+  <div>
+    <div style="font-size:13px;color:var(--muted);font-weight:600;margin-bottom:12px">AI extracted →</div>
+    <div class="receipt" style="max-width:none">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><span class="avatar" style="background:var(--yellow);border-radius:14px">🧾</span><div class="field" style="flex:1;margin:0"><input type="text" value="Warung Made" style="padding:10px 12px"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px dashed var(--line)"><span>Nasi Goreng <span style="color:var(--muted);font-size:12px">· A-2</span></span><b>$8.00</b></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px dashed var(--line)"><span>Ice Tea <span style="color:var(--muted);font-size:12px">· A-3</span></span><b>$4.50</b></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0"><span>Sate Ayam <span style="color:var(--muted);font-size:12px">· A-1</span></span><b>$6.00</b></div>
+      <div style="display:flex;justify-content:space-between;font-weight:800;font-size:16px;margin-top:10px"><span>Total</span><span>$18.50</span></div>
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-top:16px">Edit in full form</button>
+      <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:10px">Confirm &amp; Add</button>
     </div>
   </div>
-  <div style="padding-left:60px;order:1">
-    <div class="chip chip-y" style="margin-bottom:18px">Free forever plan</div>
-    <h2 class="h-sec">Join in 30 seconds.</h2>
-    <ul style="list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:24px">
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Unlimited groups</b><br><span style="color:var(--muted);font-size:14px">No caps, no credit card.</span></div></li>
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Voice & receipt scan</b><br><span style="color:var(--muted);font-size:14px">Log expenses instantly.</span></div></li>
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Cross-device sync</b><br><span style="color:var(--muted);font-size:14px">Web, iOS and Android.</span></div></li>
-    </ul>
-  </div>
-</div></section>
+</div>
 
 </body>
 </html>

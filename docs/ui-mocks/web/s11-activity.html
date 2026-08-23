@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Receipt Scan & AI Draft</title>
+<title>split4me · Web · Activity</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,32 +259,18 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>AI draft review</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Discard</button><button class="btn btn-dark btn-sm">Save expense</button></div></div>
-    <div class="card" style="max-width:620px">
-     <div class="chip chip-t" style="margin-bottom:16px">ðŸ¤– AI drafted from receipt</div>
-     <div class="field"><label>Description</label><input value="Goa Cafe dinner"></div>
-     <div class="two-col"><div class="field"><label>Amount</label><input value="â‚¹1,240"></div><div class="field"><label>Category</label><select><option>Food</option><option>Travel</option></select></div></div>
-     <div class="field"><label>Split</label><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip-p">Aarav âœ“</span><span class="chip chip-y">Meera âœ“</span><span class="chip chip-t">Sam âœ“</span></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Activity</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="list" style="max-width:760px">
+  <div class="grp-lbl" style="padding:14px 18px 4px;font-size:12px;color:var(--muted);font-weight:600">Today</div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> added expense <b>"Lunch at Warung"</b> for $15.50</div><div class="s">2 hours ago</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--purple);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Jhony</b> joined the group</div><div class="s">4 hours ago</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Rehan</b> added expense <b>"Taxi to Beach"</b> for $8.25</div><div class="s">5 hours ago</div></div></div>
+  <div class="grp-lbl" style="padding:18px 18px 4px;font-size:12px;color:var(--muted);font-weight:600;border-top:1px solid var(--line)">Yesterday</div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--yellow-d);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> edited expense <b>"Hotel Booking"</b></div><div class="s">Yesterday, 6:30 PM</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Ujang</b> added expense <b>"Dinner at Jimbaran"</b> for $32.00</div><div class="s">Yesterday, 8:15 PM</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--purple);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Rehan</b> paid <b>$12.50</b> to Mank Kasep</div><div class="s">Yesterday, 3:00 PM</div></div></div>
+  <div class="row" style="border:none"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> created the group <b>"Bali Trip 2025"</b></div><div class="s">Aug 15, 10:00 AM</div></div></div>
 </div>
+
 </body>
 </html>

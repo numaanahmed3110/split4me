@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Empty States</title>
+<title>split4me · Web · Group Info</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,31 +259,24 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Empty states</h1></div></div>
-    <div class="group-grid">
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ½ï¸</div><h3>No expenses yet</h3><p>Add the first expense to get started.</p><button class="btn btn-dark btn-sm">ï¼‹ Add expense</button></div></div></div>
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ‘¥</div><h3>No groups</h3><p>Create a group to split with friends.</p><button class="btn btn-dark btn-sm">ï¼‹ New group</button></div></div></div>
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ“Š</div><h3>Nothing to report</h3><p>Stats appear once you log spend.</p></div></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Group Info</h1></div><div class="actions"><button class="btn btn-outline" style="color:#B91C1C;border-color:var(--danger)">Leave Group</button></div></div>
+<div class="center" style="margin-bottom:30px">
+  <span class="avatar" style="width:72px;height:72px;border-radius:24px;background:var(--teal);font-size:36px;margin:0 auto 12px;display:flex">🏖️</span>
+  <h2 style="font-size:22px;font-weight:700">Bali Trip 2025</h2>
+  <p style="font-size:13px;color:var(--muted);margin-top:4px">Created by Mank Kasep</p>
 </div>
+<div class="two-col" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:30px">
+  <div class="sum"><div class="lbl">Currency</div><div class="val" style="font-size:20px">USD ($)</div></div>
+  <div class="sum"><div class="lbl">Created</div><div class="val" style="font-size:20px">Aug 15, 2025</div></div>
+  <div class="sum"><div class="lbl">Total Expenses</div><div class="val" style="font-size:20px">12</div></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Members (4)</h2>
+<div class="list" style="max-width:640px">
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🧑</span><div class="grow"><div class="t">Mank Kasep</div><div class="s">Owner</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">Jhony</div><div class="s">jhony@email.com</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div><div class="s">rehan@email.com</div></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div><div class="s">ujang@email.com</div></div></div>
+</div>
+
 </body>
 </html>

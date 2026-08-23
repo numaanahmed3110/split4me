@@ -388,17 +388,17 @@ theme: {
 
 ## 9. Web-View Mock Screens (Desktop)
 
-> The reference screens in §2 are phone-frame (PWA/mobile) mocks. This section adds the **desktop / web-view** counterparts, built with the **same design philosophy** (Poppins, pastel yellow/purple/teal, large radii, pill buttons, stacked cards, soft shadows) but laid out for a desktop browser. The web landing page is a **completely new design** informed by modern SaaS landing-page best practices (sticky nav, hero with floating mockup cards, logo bar, feature grid, "how it works" steps, testimonials, dark CTA band, footer).
+> The reference screens in §2 are phone-frame (PWA/mobile) mocks. This section adds the **desktop / web-view** counterparts. **The PWA is the design source of truth:** every web app screen replicates its PWA counterpart 1:1 (same content, components, data) and only changes *format* — sidebar shell, multi-column grids, desktop nav. The web flow is: **Landing → Sign in → Dashboard (previous trips/events + add more)**; onboarding screens are **PWA-only**, the landing page is **web-only** (a new reference design for it is pending).
 
 ### 9.1 Mock files produced
 
 | File | Contents |
 |---|---|
-| `docs/ui-preview-web.html` | **All-in-one web preview** — 22 web screens with a sticky section nav |
-| `docs/ui-mocks/web/s01-landing.html` … `s22-dark-mode.html` | **Per-screen web files** (self-contained HTML+CSS), adjacent naming `sNN-<slug>` |
-| `docs/ui-preview.html` | All-in-one **PWA/mobile** preview (pre-existing) |
+| `docs/ui-preview-web.html` | **All-in-one web preview** — 19 web screens with a sticky section nav |
+| `docs/ui-mocks/web/s01-landing.html` … `s19-dark-mode.html` | **Per-screen web files** (self-contained HTML+CSS), adjacent naming `sNN-<slug>` |
+| `docs/ui-preview.html` | All-in-one **PWA/mobile** preview (pre-existing; includes onboarding s02–s04) |
 | `docs/ui-mocks/pwa/s01-landing.html` … `s22-dark-mode.html` | **Per-screen PWA files** (self-contained) |
-| `docs/gen-web.cjs` | Generator script for the web mocks (design system + 22 screens) |
+| `docs/gen-web.cjs` | Generator script for the web mocks (design system + 19 screens) |
 | `docs/gen-pwa.cjs` | Generator script that splits `ui-preview.html` into per-screen PWA files |
 
 ### 9.2 Web design system — 「生成りと墨」 kinari & sumi
@@ -415,36 +415,35 @@ Palette follows traditional Japanese colour principles (kinari 生成り warm un
 - **Accessibility:** verified programmatically — 0 WCAG AA contrast failures across all 1,021 text nodes in light + dark; focus-visible ring on every interactive element.
 - **Responsive:** collapses to single column and hides sidebar/links under 980px.
 
-### 9.3 Web screen → route mapping
+### 9.3 Web screen → route mapping (flow order)
 
-| # | Web file | Title | Corresponding app route / component |
-|---|---|---|---|
-| 1 | `s01-landing.html` | Landing (new design) | `src/app/page.tsx` + `src/components/landing/*` |
-| 2 | `s02-onboard-voice.html` | AI Voice Expense | Feature spotlight (marketing) |
-| 3 | `s03-onboard-ledger.html` | Shared Ledger | Feature spotlight (marketing) |
-| 4 | `s04-onboard-split.html` | Smart Split & Analytics | Feature spotlight (marketing) |
-| 5 | `s05-signin.html` | Sign In | `src/app/sign-in/[[...sign-in]]/page.tsx` |
-| 6 | `s06-signup.html` | Sign Up | `src/app/sign-up/[[...sign-up]]/page.tsx` |
-| 7 | `s07-dashboard.html` | Groups Dashboard | `src/app/groups/page.tsx` (web shell) |
-| 8 | `s08-split-detail.html` | Split Bill Detail | `src/app/groups/[groupId]/balances/*` |
-| 9 | `s09-expenses.html` | Expenses List | `src/app/groups/[groupId]/expenses/*` |
-| 10 | `s10-create-expense.html` | Create Expense | `.../expenses/expense-form.tsx` |
-| 11 | `s11-balances.html` | Balances & Reimbursements | `.../balances/balances-and-reimbursements.tsx` |
-| 12 | `s12-stats.html` | Statistics | `.../stats/*` |
-| 13 | `s13-group-info.html` | Group Information | `.../information/*` |
-| 14 | `s14-activity.html` | Activity Log | `.../activity/*` |
-| 15 | `s15-ocr-preview.html` | OCR Receipt Preview | `.../create-from-receipt/*` |
-| 16 | `s16-split-now.html` | Split Now (sliders) | `.../expenses/split-now` |
-| 17 | `s17-create-group.html` | Create Group | `src/app/groups/create/*` |
-| 18 | `s18-split-modes.html` | Split Modes | expense form split selector |
-| 19 | `s19-receipt-scan.html` | Receipt Scan & AI Draft | `.../create-from-receipt/*` |
-| 20 | `s20-group-settings.html` | Group Settings | `.../edit/*` + settings |
-| 21 | `s21-empty-states.html` | Empty States | shared empty-state components |
-| 22 | `s22-dark-mode.html` | Dark Mode | `.dark-app` scoped theme |
+| # | Web file | Title | PWA twin | Corresponding app route / component |
+|---|---|---|---|---|
+| 1 | `s01-landing.html` | Landing *(placeholder — new reference design pending)* | — (web-only) | `src/app/page.tsx` + `src/components/landing/*` |
+| 2 | `s02-signin.html` | Sign In | pwa s05 | `src/app/sign-in/[[...sign-in]]/page.tsx` |
+| 3 | `s03-signup.html` | Sign Up | pwa s06 | `src/app/sign-up/[[...sign-up]]/page.tsx` |
+| 4 | `s04-dashboard.html` | Dashboard — Previous Trips & Events | pwa s07 | `src/app/groups/page.tsx` (web shell) |
+| 5 | `s05-split-detail.html` | Split The Bill | pwa s08 | `src/app/groups/[groupId]/balances/*` |
+| 6 | `s06-expenses.html` | Expenses List | pwa s09 | `src/app/groups/[groupId]/expenses/*` |
+| 7 | `s07-create-expense.html` | New Expense | pwa s10 | `.../expenses/expense-form.tsx` |
+| 8 | `s08-balances.html` | Balances & Settle Up | pwa s11 | `.../balances/balances-and-reimbursements.tsx` |
+| 9 | `s09-stats.html` | Statistics | pwa s12 | `.../stats/*` |
+| 10 | `s10-group-info.html` | Group Info | pwa s13 | `.../information/*` |
+| 11 | `s11-activity.html` | Activity Log | pwa s14 | `.../activity/*` |
+| 12 | `s12-ocr-preview.html` | Receipt Scan (OCR) | pwa s15 | `.../create-from-receipt/*` |
+| 13 | `s13-split-now.html` | Split Now (sliders) | pwa s16 | `.../expenses/split-now` |
+| 14 | `s14-create-group.html` | Create Group | pwa s17 | `src/app/groups/create/*` |
+| 15 | `s15-split-modes.html` | Split Modes | pwa s18 | expense form split selector |
+| 16 | `s16-receipt-scan.html` | Scan Receipt & AI Draft | pwa s19 | `.../create-from-receipt/*` |
+| 17 | `s17-group-settings.html` | Group Settings | pwa s20 | `.../edit/*` + settings |
+| 18 | `s18-empty-states.html` | Empty States | pwa s21 | shared empty-state components |
+| 19 | `s19-dark-mode.html` | Dark Mode — Dashboard | pwa s22 | `.dark-app` scoped theme |
+
+> **Onboarding (pwa s02–s04)** exists only in the mobile/PWA flow and has no web counterpart.
 
 ### 9.4 How to use these mocks
 
-1. Open `docs/ui-preview-web.html` in a browser to scroll all 22 web screens.
+1. Open `docs/ui-preview-web.html` in a browser to scroll all 19 web screens.
 2. Open any `docs/ui-mocks/web/sNN-*.html` for an isolated, referenceable screen (e.g. hand to the implementer recreating `src/app/groups/page.tsx`).
 3. The PWA equivalents live under `docs/ui-mocks/pwa/` for the mobile layout.
 4. To tweak the system, edit `docs/gen-web.cjs` (`WEB_CSS` / `SCREENS`) and re-run `node docs/gen-web.cjs`.

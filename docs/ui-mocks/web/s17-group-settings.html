@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Onboarding â€” AI Voice</title>
+<title>split4me · Web · Group Settings</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,47 +259,25 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap">
-  <div class="hero-grid">
-    <div>
-      <div class="chip chip-p" style="margin-bottom:18px">Feature spotlight</div>
-      <h2 class="h-sec">Log expenses by voice in two seconds.</h2>
-      <p class="lead" style="text-align:left;margin:20px 0 26px">No typing, no forms. Just speak naturally and split4me understands the amount, who paid, and how to split it.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
-        <li style="display:flex;gap:12px"><span style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Hands-free logging</b><br><span style="color:var(--muted);font-size:14px">Perfect while commuting or cooking.</span></div></li>
-        <li style="display:flex;gap:12px"><span style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Smart parsing</b><br><span style="color:var(--muted);font-size:14px">"Coffee â‚¹180 for me and Sam" â†’ done.</span></div></li>
-      </ul>
-      <a class="btn btn-dark btn-lg" href="#">Try it now</a>
-    </div>
-    <div style="background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:34px;text-align:center">
-      <div style="width:90px;height:90px;border-radius:50%;background:var(--purple-l);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 20px;animation:pulse 2s infinite">ðŸŽ¤</div>
-      <div style="font-weight:600;margin-bottom:6px">Listeningâ€¦</div>
-      <div style="color:var(--muted);font-size:14px;margin-bottom:20px">"Dinner â‚¹1,200, split 4 ways"</div>
-      <div style="background:var(--bg);border-radius:18px;padding:18px;text-align:left;font-size:14px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>Dinner</span><b>â‚¹1,200</b></div>
-        <div style="display:flex;justify-content:space-between;color:var(--muted)"><span>Split 4 ways</span><span>â‚¹300 each</span></div>
-      </div>
-    </div>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Group Settings</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="form-card" style="max-width:640px">
+  <div class="field"><label>Group name</label><input type="text" value="Bali Trip 2025"></div>
+  <div class="two-col">
+    <div class="field"><label>Currency</label><select><option>🇺🇸 USD ($)</option></select></div>
+    <div class="field"><label>Theme color</label><div style="display:flex;gap:12px;padding-top:4px"><span class="avatar avatar-sm" style="background:var(--yellow)"></span><span class="avatar avatar-sm" style="background:var(--teal);border:3px solid var(--text)">✓</span><span class="avatar avatar-sm" style="background:var(--purple)"></span></div></div>
   </div>
-</div></section>
-<style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}</style>
-
-<footer class="foot"><div class="wrap">
-  <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
-    <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
-    <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
-    <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
+  <div class="field"><label>Description</label><input type="text" value="Our 2025 Bali adventure"></div>
+  <div class="field"><label>Members</label>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">You</div><div class="s">Owner</div></div></div>
+    <div class="row" style="padding:12px 0"><span class="avatar avatar-sm" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div><div class="s">2 expenses</div></div><span style="color:var(--faint)" title="Has expenses">🗑</span></div>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div><div class="s">no expenses</div></div><span style="color:var(--muted);cursor:pointer">🗑</span></div>
+    <button class="btn btn-outline btn-sm" style="margin-top:8px">＋ Invite member</button>
   </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
-</div></footer>
+  <div style="display:flex;gap:14px;margin-top:24px">
+    <button class="btn btn-outline" style="flex:1;justify-content:center">Archive</button>
+    <button class="btn btn-dark" style="flex:2;justify-content:center;background:var(--danger)">Save Changes</button>
+  </div>
+</div>
 
 </body>
 </html>

@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me â€” Web UI Preview (All Screens)</title>
+<title>split4me — Web UI Preview (All Screens)</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -258,38 +258,38 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </style>
 </head>
 <body class="prev-body">
-<nav class="prev-nav"><span class="lab">split4me Â· Web</span><a href="#s1">1. Landing</a><span class="sep">Â·</span><a href="#s2">2. Onboarding â€” AI Voice</a><span class="sep">Â·</span><a href="#s3">3. Onboarding â€” Shared Ledger</a><span class="sep">Â·</span><a href="#s4">4. Onboarding â€” Smart Split</a><span class="sep">Â·</span><a href="#s5">5. Sign In</a><span class="sep">Â·</span><a href="#s6">6. Sign Up</a><span class="sep">Â·</span><a href="#s7">7. Groups Dashboard</a><span class="sep">Â·</span><a href="#s8">8. Split Bill Detail</a><span class="sep">Â·</span><a href="#s9">9. Expenses List</a><span class="sep">Â·</span><a href="#s10">10. Create Expense</a><span class="sep">Â·</span><a href="#s11">11. Balances</a><span class="sep">Â·</span><a href="#s12">12. Statistics</a><span class="sep">Â·</span><a href="#s13">13. Group Information</a><span class="sep">Â·</span><a href="#s14">14. Activity Log</a><span class="sep">Â·</span><a href="#s15">15. OCR Receipt Preview</a><span class="sep">Â·</span><a href="#s16">16. Split Now</a><span class="sep">Â·</span><a href="#s17">17. Create Group</a><span class="sep">Â·</span><a href="#s18">18. Split Modes</a><span class="sep">Â·</span><a href="#s19">19. Receipt Scan & AI Draft</a><span class="sep">Â·</span><a href="#s20">20. Group Settings</a><span class="sep">Â·</span><a href="#s21">21. Empty States</a><span class="sep">Â·</span><a href="#s22">22. Dark Mode</a></nav>
+<nav class="prev-nav"><span class="lab">split4me · Web</span><a href="#s1">1. Landing</a><span class="sep">·</span><a href="#s2">2. Sign In</a><span class="sep">·</span><a href="#s3">3. Sign Up</a><span class="sep">·</span><a href="#s4">4. Dashboard</a><span class="sep">·</span><a href="#s5">5. Split The Bill</a><span class="sep">·</span><a href="#s6">6. Expenses</a><span class="sep">·</span><a href="#s7">7. New Expense</a><span class="sep">·</span><a href="#s8">8. Balances & Settle Up</a><span class="sep">·</span><a href="#s9">9. Statistics</a><span class="sep">·</span><a href="#s10">10. Group Info</a><span class="sep">·</span><a href="#s11">11. Activity</a><span class="sep">·</span><a href="#s12">12. Receipt Scan (OCR)</a><span class="sep">·</span><a href="#s13">13. Split Now — Sliders</a><span class="sep">·</span><a href="#s14">14. Create Group</a><span class="sep">·</span><a href="#s15">15. Split Modes</a><span class="sep">·</span><a href="#s16">16. Scan Receipt</a><span class="sep">·</span><a href="#s17">17. Group Settings</a><span class="sep">·</span><a href="#s18">18. Empty States</a><span class="sep">·</span><a href="#s19">19. Dark Mode — Dashboard</a></nav>
 <section class="wsec" id="s1">
 <div class="wlabel">Screen 1 <span>Landing / Marketing</span></div>
 <div class="scr">
 
 
 <nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
+  <a class="wlogo" href="#"><span class="mark">💸</span> split4me</a>
   <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
   <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
 </div></nav>
 <header class="hero"><div class="wrap">
   <div class="hero-grid">
     <div>
-      <div class="chip chip-p" style="margin-bottom:18px">âœ¨ Now with AI voice & receipt scan</div>
+      <div class="chip chip-p" style="margin-bottom:18px">✨ Now with AI voice & receipt scan</div>
       <h1 class="h-hero">Split bills without the awkward maths.</h1>
-      <p class="lead" style="margin:22px 0 30px;text-align:left">Track shared expenses, split costs fairly, and settle up in seconds â€” with voice, photos, and smart analytics.</p>
+      <p class="lead" style="margin:22px 0 30px;text-align:left">Track shared expenses, split costs fairly, and settle up in seconds — with voice, photos, and smart analytics.</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <a class="btn btn-dark btn-lg" href="#">Get started â€” it's free</a>
-        <a class="btn btn-outline btn-lg" href="#">â–¶ Watch demo</a>
+        <a class="btn btn-dark btn-lg" href="#">Get started — it's free</a>
+        <a class="btn btn-outline btn-lg" href="#">▶ Watch demo</a>
       </div>
       <div style="display:flex;gap:10px;margin-top:26px;flex-wrap:wrap">
-        <span class="pill-stat">â­ 4.9 App Store</span>
-        <span class="pill-stat">ðŸ”’ Bank-grade security</span>
-        <span class="pill-stat">ðŸŒ 30+ currencies</span>
+        <span class="pill-stat">⭐ 4.9 App Store</span>
+        <span class="pill-stat">🔒 Bank-grade security</span>
+        <span class="pill-stat">🌍 30+ currencies</span>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-blob blob1"></div><div class="hero-blob blob2"></div>
-      <div class="float-card fcy"><div style="font-size:12px;color:var(--yellow-ink);margin-bottom:6px">Trip to Goa</div><div style="font-weight:700;font-size:22px">â‚¹4,820 owed</div><div style="margin-top:12px;height:8px;background:var(--line);border-radius:10px"><div style="width:62%;height:100%;background:var(--dark);border-radius:10px"></div></div></div>
-      <div class="float-card fcp"><div style="font-size:12px;color:var(--purple-ink);margin-bottom:6px">ðŸŽ¤ "Dinner â‚¹1,200, split 4 ways"</div><div style="font-weight:700;font-size:18px">Added in 2s</div></div>
-      <div class="float-card fct"><div style="font-size:12px;color:var(--teal-ink);margin-bottom:6px">Settled up</div><div style="font-weight:700;font-size:20px">You're all square âœ…</div></div>
+      <div class="float-card fcy"><div style="font-size:12px;color:var(--yellow-ink);margin-bottom:6px">Trip to Goa</div><div style="font-weight:700;font-size:22px">₹4,820 owed</div><div style="margin-top:12px;height:8px;background:var(--line);border-radius:10px"><div style="width:62%;height:100%;background:var(--dark);border-radius:10px"></div></div></div>
+      <div class="float-card fcp"><div style="font-size:12px;color:var(--purple-ink);margin-bottom:6px">🎤 "Dinner ₹1,200, split 4 ways"</div><div style="font-weight:700;font-size:18px">Added in 2s</div></div>
+      <div class="float-card fct"><div style="font-size:12px;color:var(--teal-ink);margin-bottom:6px">Settled up</div><div style="font-weight:700;font-size:20px">You're all square ✅</div></div>
     </div>
   </div>
 </div></header>
@@ -302,12 +302,12 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
   <p class="lead" style="margin-top:14px">From a quick coffee to a month-long trip, split4me keeps every rupee accounted for.</p>
 </div>
 <div class="wrap" style="margin-top:50px"><div class="grid-3">
-  <div class="feature"><div class="ficon" style="background:var(--purple-l)">ðŸŽ¤</div><h3>AI Voice Expenses</h3><p>Just say it â€” "Taxi â‚¹350, split between 3" â€” and it's logged instantly.</p></div>
-  <div class="feature"><div class="ficon" style="background:var(--yellow)">ðŸ“·</div><h3>Receipt Scan (OCR)</h3><p>Snap a bill, we read the items and draft the split for you to confirm.</p></div>
-  <div class="feature"><div class="ficon" style="background:var(--teal)">âš–ï¸</div><h3>Smart Splits</h3><p>Evenly, by shares, by percentage, or exact amounts â€” your call.</p></div>
-  <div class="feature"><div class="ficon" style="background:var(--teal)">ðŸ“’</div><h3>Shared Ledger</h3><p>One transparent record everyone in the group can see and trust.</p></div>
-  <div class="feature"><div class="ficon" style="background:var(--purple-l)">ðŸ“Š</div><h3>Analytics</h3><p>See who owes what and where your money goes, month by month.</p></div>
-  <div class="feature"><div class="ficon" style="background:var(--yellow)">ðŸŒ</div><h3>Multi-currency</h3><p>Trips abroad? Track in 30+ currencies with live conversion.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--purple-l)">🎤</div><h3>AI Voice Expenses</h3><p>Just say it — "Taxi ₹350, split between 3" — and it's logged instantly.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--yellow)">📷</div><h3>Receipt Scan (OCR)</h3><p>Snap a bill, we read the items and draft the split for you to confirm.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--teal)">⚖️</div><h3>Smart Splits</h3><p>Evenly, by shares, by percentage, or exact amounts — your call.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--teal)">📒</div><h3>Shared Ledger</h3><p>One transparent record everyone in the group can see and trust.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--purple-l)">📊</div><h3>Analytics</h3><p>See who owes what and where your money goes, month by month.</p></div>
+  <div class="feature"><div class="ficon" style="background:var(--yellow)">🌍</div><h3>Multi-currency</h3><p>Trips abroad? Track in 30+ currencies with live conversion.</p></div>
 </div></div></section>
 
 <section class="section" style="background:var(--card)"><div class="wrap center">
@@ -316,13 +316,13 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </div>
 <div class="wrap" style="margin-top:46px"><div class="steps">
   <div class="step"><div class="n" style="background:var(--purple)">1</div><h3>Create a group</h3><p>Add friends, flatmates or trip-mates. No one needs to install anything to view.</p></div>
-  <div class="step"><div class="n" style="background:var(--yellow)">2</div><h3>Add expenses</h3><p>Log spend by voice, photo, or tap â€” and pick how to split it.</p></div>
+  <div class="step"><div class="n" style="background:var(--yellow)">2</div><h3>Add expenses</h3><p>Log spend by voice, photo, or tap — and pick how to split it.</p></div>
   <div class="step"><div class="n" style="background:var(--teal)">3</div><h3>Settle up</h3><p>See balances at a glance and pay back with one tap.</p></div>
 </div></div></section>
 
 <section class="section"><div class="wrap"><div class="grid-3">
   <div class="quote"><p>"Settling our Goa trip used to take a week of spreadsheets. split4me did it in minutes."</p><div class="who"><span class="avatar" style="background:var(--purple)">M</span><div><b>Meera</b><br><span style="color:var(--muted);font-size:13px">Trip planner</span></div></div></div>
-  <div class="quote"><p>"The voice feature is wild â€” I log expenses while cooking dinner."</p><div class="who"><span class="avatar" style="background:var(--yellow)">R</span><div><b>Rohan</b><br><span style="color:var(--muted);font-size:13px">Flatmate</span></div></div></div>
+  <div class="quote"><p>"The voice feature is wild — I log expenses while cooking dinner."</p><div class="who"><span class="avatar" style="background:var(--yellow)">R</span><div><b>Rohan</b><br><span style="color:var(--muted);font-size:13px">Flatmate</span></div></div></div>
   <div class="quote"><p>"Finally an app that makes splitting fair and actually fun."</p><div class="who"><span class="avatar" style="background:var(--teal)">A</span><div><b>Aisha</b><br><span style="color:var(--muted);font-size:13px">Freelancer</span></div></div></div>
 </div></div></section>
 
@@ -338,810 +338,475 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
+    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">💸</span> split4me</a>
+      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up — without the awkward maths.</p></div>
     <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
     <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
     <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
   </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
+  <div class="foot-bottom"><span>© 2025 split4me. All rights reserved.</span><span>Made with 💜 for fair splits.</span></div>
 </div></footer>
 
 </div>
 </section>
 <section class="wsec" id="s2">
-<div class="wlabel">Screen 2 <span>Onboarding â€” AI Voice Expense Tracking</span></div>
+<div class="wlabel">Screen 2 <span>Sign In</span></div>
 <div class="scr">
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap">
-  <div class="hero-grid">
-    <div>
-      <div class="chip chip-p" style="margin-bottom:18px">Feature spotlight</div>
-      <h2 class="h-sec">Log expenses by voice in two seconds.</h2>
-      <p class="lead" style="text-align:left;margin:20px 0 26px">No typing, no forms. Just speak naturally and split4me understands the amount, who paid, and how to split it.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
-        <li style="display:flex;gap:12px"><span style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Hands-free logging</b><br><span style="color:var(--muted);font-size:14px">Perfect while commuting or cooking.</span></div></li>
-        <li style="display:flex;gap:12px"><span style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Smart parsing</b><br><span style="color:var(--muted);font-size:14px">"Coffee â‚¹180 for me and Sam" â†’ done.</span></div></li>
-      </ul>
-      <a class="btn btn-dark btn-lg" href="#">Try it now</a>
+<div class="wrap center" style="padding-top:70px;padding-bottom:80px">
+  <div class="form-card" style="margin:0 auto">
+    <div style="text-align:center;margin-bottom:26px">
+      <a class="wlogo" href="#" style="justify-content:center;display:inline-flex;margin-bottom:18px"><span class="mark">💸</span> split4me</a>
+      <h2 style="font-size:26px;font-weight:700">Welcome Back!</h2>
+      <p style="font-size:14px;color:var(--muted);margin-top:6px">Sign in to continue to split4me</p>
     </div>
-    <div style="background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:34px;text-align:center">
-      <div style="width:90px;height:90px;border-radius:50%;background:var(--purple-l);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 20px;animation:pulse 2s infinite">ðŸŽ¤</div>
-      <div style="font-weight:600;margin-bottom:6px">Listeningâ€¦</div>
-      <div style="color:var(--muted);font-size:14px;margin-bottom:20px">"Dinner â‚¹1,200, split 4 ways"</div>
-      <div style="background:var(--bg);border-radius:18px;padding:18px;text-align:left;font-size:14px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>Dinner</span><b>â‚¹1,200</b></div>
-        <div style="display:flex;justify-content:space-between;color:var(--muted)"><span>Split 4 ways</span><span>â‚¹300 each</span></div>
-      </div>
-    </div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;font-weight:600">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+    <div style="display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--muted);font-size:13px"><span style="flex:1;height:1px;background:var(--line)"></span>or<span style="flex:1;height:1px;background:var(--line)"></span></div>
+    <div class="field"><label>Email address <span class="chip chip-y" style="padding:3px 10px;font-size:11px;margin-left:6px">Last used</span></label><input type="email" placeholder="Enter your email address"></div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:20px">Continue →</button>
+    <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:20px">Don't have an account? <a href="#" style="color:var(--text);font-weight:600">Sign up</a></p>
   </div>
-</div></section>
-<style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}</style>
-
-<footer class="foot"><div class="wrap">
-  <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
-    <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
-    <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
-    <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
-  </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
-</div></footer>
+</div>
 
 </div>
 </section>
 <section class="wsec" id="s3">
-<div class="wlabel">Screen 3 <span>Onboarding â€” Shared Ledger</span></div>
+<div class="wlabel">Screen 3 <span>Sign Up</span></div>
 <div class="scr">
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap">
-  <div class="hero-grid">
-    <div style="order:2">
-      <div class="chip chip-t" style="margin-bottom:18px">Feature spotlight</div>
-      <h2 class="h-sec">One ledger everyone can trust.</h2>
-      <p class="lead" style="text-align:left;margin:20px 0 26px">Every expense, payment and adjustment in a single transparent timeline â€” no "did you log that?" ever again.</p>
-      <a class="btn btn-dark btn-lg" href="#">Create a ledger</a>
+<div class="wrap center" style="padding-top:60px;padding-bottom:80px">
+  <div class="form-card" style="margin:0 auto">
+    <div style="text-align:center;margin-bottom:24px">
+      <span class="chip chip-p" style="margin-bottom:14px">🚀 New here?</span>
+      <h2 style="font-size:26px;font-weight:700">Create Account</h2>
+      <p style="font-size:14px;color:var(--muted);margin-top:6px">Join split4me and start splitting bills</p>
     </div>
-    <div class="list" style="order:1">
-      <div class="row"><span class="avatar" style="background:var(--yellow)">S</span><div class="grow"><div class="t">Sam paid Â· Groceries</div><div class="s">Today Â· Flatmates</div></div><div class="amt">+â‚¹640</div></div>
-      <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Meera paid Â· Electricity</div><div class="s">Yesterday</div></div><div class="amt">+â‚¹1,200</div></div>
-      <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">Aarav settled up</div><div class="s">2 days ago</div></div><div class="amt" style="color:var(--success)">âœ“</div></div>
-    </div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;font-weight:600">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+    <div style="display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--muted);font-size:13px"><span style="flex:1;height:1px;background:var(--line)"></span>or<span style="flex:1;height:1px;background:var(--line)"></span></div>
+    <div class="field"><label>Full name</label><input type="text" placeholder="Enter your full name"></div>
+    <div class="field"><label>Email address</label><input type="email" placeholder="Enter your email address"></div>
+    <div class="field"><label>Password</label><input type="password" placeholder="Create a password"></div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:20px;background:var(--purple);color:var(--text)">Create Account →</button>
+    <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:20px">Already have an account? <a href="#" style="color:var(--text);font-weight:600">Sign in</a></p>
   </div>
-</div></section>
-
-<footer class="foot"><div class="wrap">
-  <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
-    <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
-    <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
-    <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
-  </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
-</div></footer>
+</div>
 
 </div>
 </section>
 <section class="wsec" id="s4">
-<div class="wlabel">Screen 4 <span>Onboarding â€” Smart Split & Analytics</span></div>
+<div class="wlabel">Screen 4 <span>Dashboard — Previous Trips & Events</span></div>
 <div class="scr">
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap">
-  <div class="hero-grid">
-    <div>
-      <div class="chip chip-y" style="margin-bottom:18px">Feature spotlight</div>
-      <h2 class="h-sec">Split any way you like.</h2>
-      <p class="lead" style="text-align:left;margin:20px 0 26px">Evenly, by shares, by percentage, or exact amounts â€” plus beautiful analytics so you always know where money goes.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px">
-        <span class="chip chip-p">âš–ï¸ Evenly</span><span class="chip chip-y">ðŸ”¢ Shares</span><span class="chip chip-t">% Percentage</span><span class="chip chip-soft">â‚¹ Exact</span>
-      </div>
-      <a class="btn btn-dark btn-lg" href="#">See analytics</a>
-    </div>
-    <div class="card"><div class="lbl" style="color:var(--muted);font-size:13px;margin-bottom:16px">This month Â· Goa Trip</div>
-      <div class="bars">
-        <div class="bar y" style="height:60%"><span class="bl">Food</span></div>
-        <div class="bar" style="height:90%"><span class="bl">Stay</span></div>
-        <div class="bar t" style="height:45%"><span class="bl">Travel</span></div>
-        <div class="bar" style="height:70%"><span class="bl">Fun</span></div>
-        <div class="bar y" style="height:35%"><span class="bl">Misc</span></div>
-      </div>
-      <div class="legend"><span><i style="background:var(--purple)"></i>You</span><span><i style="background:var(--yellow)"></i>Sam</span><span><i style="background:var(--teal)"></i>Meera</span></div>
-    </div>
+<div class="topbar">
+  <div><h1 style="font-size:22px;font-weight:700">Good morning, <span style="color:var(--purple-ink)">Mank Kasep</span> 👋</h1><div style="font-size:13px;color:var(--muted)">Here's what's happening across your trips</div></div>
+  <div class="actions" style="display:flex;gap:12px;align-items:center">
+    <div class="search" style="width:300px">🔍 Search groups &amp; expenses</div>
+    <button class="btn btn-dark">＋ New Group</button>
   </div>
-</div></section>
-
-<footer class="foot"><div class="wrap">
-  <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
-    <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
-    <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
-    <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
-  </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
-</div></footer>
+</div>
+<div class="sum-grid" style="grid-template-columns:1.4fr 1fr 1fr;margin-bottom:26px">
+  <div class="sum"><div class="lbl">Your total balance · Across all groups</div><div class="val">$45.50 <span style="font-size:14px;font-weight:500;color:var(--success)">you are owed</span></div>
+    <div style="display:flex;gap:18px;margin-top:10px;font-size:13px;font-weight:600"><span style="color:var(--success)">▲ $120.00 owed to you</span><span style="color:var(--danger)">▼ $74.50 you owe</span></div></div>
+  <div class="sum"><div class="lbl">Quick action</div><button class="btn btn-yellow" style="width:100%;justify-content:center">🔗 Join / QR</button><div style="height:10px"></div><button class="btn btn-teal" style="width:100%;justify-content:center">＋ Add Event</button></div>
+  <div class="sum"><div class="lbl">This month</div><div class="val" style="font-size:24px">$320<span style="font-size:14px;font-weight:500">,00</span></div><div class="sub">12 expenses · 4 groups</div></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Recent Groups</h2>
+<div class="group-grid">
+  <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">🏖️</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Bali Trip 2025</b><b>$2.450</b></div><div class="meta"><span>6 members · 12 expenses</span><span>You're owed</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--purple-l)"><span class="avatar avatar-lg" style="background:#fff">🏠</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Roommates</b><b>$890</b></div><div class="meta"><span>3 members · 28 expenses</span><span>You owe</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">🎉</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Birthday Party</b><b>$320</b></div><div class="meta"><span>8 members · 5 expenses</span><span>Settled up</span></div></div></div>
+</div>
 
 </div>
 </section>
 <section class="wsec" id="s5">
-<div class="wlabel">Screen 5 <span>Sign In</span></div>
+<div class="wlabel">Screen 5 <span>Split The Bill</span></div>
 <div class="scr">
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;min-height:70vh">
-  <div style="padding-right:60px">
-    <div class="chip chip-p" style="margin-bottom:18px">Welcome back ðŸ‘‹</div>
-    <h2 class="h-sec">Sign in to split4me</h2>
-    <p class="lead" style="text-align:left;margin:16px 0 30px">Pick up right where you left off â€” your groups and balances are waiting.</p>
-    <div style="display:flex;flex-direction:column;gap:12px;max-width:340px">
-      <button class="btn btn-outline btn-lg" style="justify-content:flex-start;gap:12px">ðŸ” Continue with Google</button>
-      <button class="btn btn-outline btn-lg" style="justify-content:flex-start;gap:12px">ðŸŽ Continue with Apple</button>
-    </div>
-  </div>
-  <div class="form-card" style="margin:0 auto">
-    <h3 style="font-size:20px;font-weight:600;margin-bottom:22px">Sign in</h3>
-    <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
-    <div class="field"><label>Password</label><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"></div>
-    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:6px">Sign in</button>
-    <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:18px">New here? <a href="#" style="color:var(--text);font-weight:600">Create an account</a></p>
-  </div>
-</div></section>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Split The Bill</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div><div class="actions"><button class="btn btn-primary">Split Now</button></div></div>
+<div class="sum-grid" style="grid-template-columns:1fr 1fr;margin-bottom:26px">
+  <div class="sum"><div class="lbl">My Balance</div><div class="val">$40.000<span>,00</span></div></div>
+  <div class="sum"><div class="lbl">Total Bill</div><div class="val">$20.15<span>,00</span></div></div>
+</div>
+<div class="card" style="margin-bottom:26px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+  <div><div class="lbl" style="color:var(--muted);font-size:13px;margin-bottom:10px">Split With</div>
+    <div style="display:flex;align-items:center;gap:10px"><div class="av-stack"><span class="avatar" style="background:var(--yellow)">🧑</span><span class="avatar" style="background:var(--purple-l)">👩</span><span class="avatar" style="background:var(--teal)">🧔</span><span class="avatar" style="background:var(--yellow)">👨</span></div><span class="avatar" style="background:var(--bg);color:var(--muted)">+</span></div></div>
+  <button class="btn btn-dark">Split Now</button>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Nearby Friend</h2>
+<div class="grid-3" style="margin-bottom:26px">
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--teal);margin:0 auto 10px">🧑</span><div style="font-weight:600">Jhony</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--purple-l);margin:0 auto 10px">👩</span><div style="font-weight:600">Rehan</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+  <div class="card" style="text-align:center;padding:22px"><span class="avatar avatar-lg" style="background:var(--yellow);margin:0 auto 10px">🧔</span><div style="font-weight:600">Ujang</div><button class="btn btn-sm btn-primary" style="margin-top:12px">＋</button></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Detail Split Bill</h2>
+<div class="list">
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🧑</span><div class="grow"><div class="t">Mank Kasep</div><div class="s">20%</div></div><div class="amt">$5.15<span style="font-size:12px;color:var(--muted)">,00</span></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Andi Saputra</div><div class="s">30%</div></div><div class="amt">$7.05<span style="font-size:12px;color:var(--muted)">,00</span></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--teal)">🧔</span><div class="grow"><div class="t">You</div><div class="s">50%</div></div><div class="amt" style="color:var(--success)">$7.95<span style="font-size:12px">,00</span></div></div>
+</div>
 
 </div>
 </section>
 <section class="wsec" id="s6">
-<div class="wlabel">Screen 6 <span>Sign Up</span></div>
+<div class="wlabel">Screen 6 <span>Expenses List</span></div>
 <div class="scr">
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;min-height:70vh">
-  <div class="form-card" style="margin:0 auto;order:2">
-    <h3 style="font-size:20px;font-weight:600;margin-bottom:22px">Create your account</h3>
-    <div class="field"><label>Name</label><input placeholder="Your name"></div>
-    <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
-    <div class="field"><label>Password</label><input type="password" placeholder="Create a password"></div>
-    <button class="btn btn-dark" style="width:100%;justify-content:center">Get started free</button>
-    <div style="display:flex;gap:10px;margin-top:14px">
-      <button class="btn btn-outline" style="flex:1;justify-content:center">ðŸ” Google</button>
-      <button class="btn btn-outline" style="flex:1;justify-content:center">ðŸŽ Apple</button>
-    </div>
-  </div>
-  <div style="padding-left:60px;order:1">
-    <div class="chip chip-y" style="margin-bottom:18px">Free forever plan</div>
-    <h2 class="h-sec">Join in 30 seconds.</h2>
-    <ul style="list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:24px">
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Unlimited groups</b><br><span style="color:var(--muted);font-size:14px">No caps, no credit card.</span></div></li>
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Voice & receipt scan</b><br><span style="color:var(--muted);font-size:14px">Log expenses instantly.</span></div></li>
-      <li style="display:flex;gap:12px"><span style="width:30px;height:30px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center">âœ“</span><div><b>Cross-device sync</b><br><span style="color:var(--muted);font-size:14px">Web, iOS and Android.</span></div></li>
-    </ul>
-  </div>
-</div></section>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Bali Trip 2025</h1><div style="font-size:13px;color:var(--muted)">Your balance <b style="color:var(--success)">+$45.50</b></div></div><div class="actions"><button class="btn btn-primary">＋ New Expense</button></div></div>
+<div class="tabs" style="margin-bottom:24px"><a class="active">Expenses</a><a>Balances</a><a>Stats</a></div>
+<div class="list">
+  <div class="grp-lbl" style="padding:14px 18px 4px;font-size:12px;color:var(--muted);font-weight:600">Today</div>
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🍔</span><div class="grow"><div class="t">Lunch at Warung</div><div class="s">Paid by You · Split 3 ways</div></div><div style="text-align:right"><div class="amt">$15.50<span style="font-size:12px;color:var(--muted)">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--teal)">🚕</span><div class="grow"><div class="t">Taxi to Beach</div><div class="s">Paid by Jhony · Split 4 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$8.25<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">🏨</span><div class="grow"><div class="t">Hotel Booking</div><div class="s">Paid by You · Split 4 ways</div></div><div style="text-align:right"><div class="amt">$120.00<span style="font-size:12px;color:var(--muted)">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="grp-lbl" style="padding:18px 18px 4px;font-size:12px;color:var(--muted);font-weight:600;border-top:1px solid var(--line)">Yesterday</div>
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🛍️</span><div class="grow"><div class="t">Souvenir Shopping</div><div class="s">Paid by Rehan · Split 3 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$18.75<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Yesterday</div></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--teal)">🍽️</span><div class="grow"><div class="t">Dinner at Jimbaran</div><div class="s">Paid by Ujang · Split 4 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$32.00<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Yesterday</div></div></div>
+</div>
 
 </div>
 </section>
 <section class="wsec" id="s7">
-<div class="wlabel">Screen 7 <span>Groups Dashboard</span></div>
+<div class="wlabel">Screen 7 <span>Create Expense</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><div class="eyebrow" style="margin-bottom:4px">Welcome back, Aarav</div><h1>Your groups</h1></div>
-   <div class="actions"><div class="search">ðŸ” Search groups</div><button class="btn btn-dark">ï¼‹ New group</button></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">You are owed</div><div class="val" style="color:var(--success)">â‚¹2,480</div><div class="sub">across 3 groups</div></div>
-     <div class="sum"><div class="lbl">You owe</div><div class="val">â‚¹960</div><div class="sub">settle up soon</div></div>
-     <div class="sum"><div class="lbl">This month</div><div class="val">â‚¹9,140</div><div class="sub">12 expenses logged</div></div>
-   </div>
-   <div class="group-grid">
-     <div class="gcard"><div class="top" style="background:var(--purple)"><span class="avatar avatar-lg" style="background:#fff">ðŸ•</span></div><div class="body"><h3>Goa Trip</h3><div class="meta"><span>5 members</span><span style="color:var(--success);font-weight:600">+â‚¹2,480</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">ðŸ </span></div><div class="body"><h3>Flatmates</h3><div class="meta"><span>3 members</span><span style="color:#DC2626;font-weight:600">âˆ’â‚¹960</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">ðŸŽ‰</span></div><div class="body"><h3>Birthday Bash</h3><div class="meta"><span>8 members</span><span style="color:var(--muted)">all square</span></div></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">New Expense</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="form-card" style="max-width:640px">
+  <div class="field"><label>Expense name</label><input type="text" value="Lunch at Warung"></div>
+  <div class="field"><label>Amount</label><div style="position:relative"><span style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-weight:600">$</span><input type="text" value="15.50" style="padding-left:34px"></div></div>
+  <div class="two-col">
+    <div class="field"><label>Category</label><select><option>🍔 Food &amp; Drink</option></select></div>
+    <div class="field"><label>Date</label><input type="text" value="Aug 23, 2025"></div>
+  </div>
+  <div class="field"><label>Paid by</label><select><option>You (Mank Kasep)</option></select></div>
+  <div class="field"><label>Split with</label>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <span class="chip chip-p" style="padding:9px 16px">✓ You</span><span class="chip chip-p" style="padding:9px 16px">✓ Jhony</span><span class="chip chip-p" style="padding:9px 16px">✓ Rehan</span><span class="chip chip-soft" style="padding:9px 16px">Ujang</span>
+    </div></div>
+  <div class="sum" style="box-shadow:none;margin-top:6px"><div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:var(--muted)">Split equally</span><b>$5.17 each</b></div><div style="display:flex;justify-content:space-between;font-size:14px;margin-top:8px"><span style="color:var(--muted)">Your share</span><b style="color:var(--text)">$5.17</b></div></div>
+  <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:22px">Save Expense</button>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s8">
-<div class="wlabel">Screen 8 <span>Split Bill Detail</span></div>
+<div class="wlabel">Screen 8 <span>Balances & Settle Up</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="active" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div style="display:flex;align-items:center;gap:12px"><span class="group-chip"><span class="avatar avatar-sm" style="background:var(--purple)">ðŸ•</span> Goa Trip</span></div>
-   <div class="actions"><button class="btn btn-outline btn-sm">âš™ Settings</button><button class="btn btn-dark">ï¼‹ Add expense</button></div></div>
-    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px">
-     <div class="sum" style="flex:1;min-width:200px"><div class="lbl">Total spent</div><div class="val">â‚¹24,600</div></div>
-     <div class="sum" style="flex:1;min-width:200px"><div class="lbl">Your balance</div><div class="val" style="color:var(--success)">+â‚¹2,480</div></div>
-     <div class="sum" style="flex:1;min-width:200px"><div class="lbl">Members</div><div class="val">5</div></div>
-   </div>
-   <div class="tabs"><a class="active" href="#">Overview</a><a href="#">Expenses</a><a href="#">Balances</a><a href="#">Stats</a></div>
-   <div class="list">
-     <div class="row"><span class="avatar" style="background:var(--yellow)">S</span><div class="grow"><div class="t">Sam paid Â· Resort</div><div class="s">â‚¹12,000 Â· 3 days ago</div></div><div class="amt">â‚¹2,400</div></div>
-     <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Meera paid Â· Scuba</div><div class="s">â‚¹6,000 Â· 4 days ago</div></div><div class="amt">â‚¹1,200</div></div>
-     <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">You paid Â· Dinner</div><div class="s">â‚¹4,800 Â· yesterday</div></div><div class="amt">â‚¹960</div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Balances</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div><div class="actions"><button class="btn btn-dark">Settle Up</button></div></div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Who Owes What</h2>
+<div class="list" style="margin-bottom:30px">
+  <div class="row"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">Jhony</div></div><div class="amt" style="color:var(--success)">Owes $12.50</div></div>
+  <div class="row"><span class="avatar avatar-sm" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div></div><div class="amt" style="color:var(--danger)">Owes you $8.75</div></div>
+  <div class="row" style="border:none"><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div></div><div class="amt" style="color:var(--success)">Owes $24.25</div></div>
 </div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Suggested Settlements</h2>
+<div class="card" style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;margin-bottom:14px">
+  <div style="display:flex;align-items:center;gap:10px"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><span style="color:var(--muted)">→</span><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span></div>
+  <b>$12.50</b><button class="btn btn-sm btn-dark">Settle</button>
+</div>
+<div class="card" style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--teal)">
+  <div style="display:flex;align-items:center;gap:10px"><span class="avatar avatar-sm" style="background:#fff">👩</span><span style="color:var(--teal-ink)">→</span><span class="avatar avatar-sm" style="background:#fff">🧔</span></div>
+  <b style="color:var(--teal-ink)">$8.75</b><button class="btn btn-sm btn-dark">Settle</button>
+</div>
+
 </div>
 </section>
 <section class="wsec" id="s9">
-<div class="wlabel">Screen 9 <span>Expenses List</span></div>
+<div class="wlabel">Screen 9 <span>Statistics</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Expenses</h1></div>
-   <div class="actions"><div class="search">ðŸ” Search</div><button class="btn btn-dark">ï¼‹ Add</button></div></div>
-    <div class="tabs"><a class="active" href="#">All</a><a href="#">Mine</a><a href="#">This month</a><a href="#">By category</a></div>
-   <div class="list">
-     <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">Dinner at Fisherman's</div><div class="s">You paid Â· Goa Trip Â· Yesterday</div></div><div class="amt">â‚¹4,800</div></div>
-     <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Scuba diving</div><div class="s">Meera paid Â· Goa Trip Â· 4 days ago</div></div><div class="amt">â‚¹6,000</div></div>
-     <div class="row"><span class="avatar" style="background:var(--yellow)">S</span><div class="grow"><div class="t">Resort booking</div><div class="s">Sam paid Â· Goa Trip Â· 3 days ago</div></div><div class="amt">â‚¹12,000</div></div>
-     <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">Taxi from airport</div><div class="s">You paid Â· Goa Trip Â· 6 days ago</div></div><div class="amt">â‚¹1,200</div></div>
-     <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Groceries</div><div class="s">Meera paid Â· Flatmates Â· Today</div></div><div class="amt">â‚¹640</div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Statistics</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="tabs" style="margin-bottom:24px"><a class="active">This Month</a><a>3 Months</a><a>All Time</a></div>
+<div class="two-col" style="margin-bottom:30px">
+  <div class="sum"><div class="lbl">Total Expenses</div><div class="val" style="color:var(--text)">$320<span style="font-size:14px;font-weight:500">,00</span></div><div class="sub">12 expenses</div></div>
+  <div class="sum"><div class="lbl">Your Share</div><div class="val" style="color:var(--success)">$85<span style="font-size:14px;font-weight:500">,25</span></div><div class="sub">26.6% of total</div></div>
 </div>
+<div class="card" style="margin-bottom:30px">
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:22px">Spending Over Time</h3>
+  <div class="bars">
+    <div class="bar t" style="height:40%"><span class="bl">Mon</span></div><div class="bar" style="height:65%"><span class="bl">Tue</span></div><div class="bar t" style="height:30%"><span class="bl">Wed</span></div><div class="bar" style="height:85%"><span class="bl">Thu</span></div><div class="bar y" style="height:55%"><span class="bl">Fri</span></div><div class="bar" style="height:95%;background:var(--dark)"><span class="bl">Sat</span></div><div class="bar t" style="height:45%"><span class="bl">Sun</span></div>
+  </div>
+</div>
+<div class="card">
+  <h3 style="font-size:16px;font-weight:700;margin-bottom:20px">By Category</h3>
+  <div class="row"><span class="avatar avatar-sm" style="background:var(--yellow);border-radius:12px">🍔</span><div class="grow"><div class="t">Food &amp; Drink</div><div style="height:8px;background:var(--bg);border-radius:10px;margin-top:8px"><div style="width:75%;height:100%;background:var(--yellow-d);border-radius:10px"></div></div></div><div class="amt">$145.00</div></div>
+  <div class="row"><span class="avatar avatar-sm" style="background:var(--teal);border-radius:12px">🚕</span><div class="grow"><div class="t">Transport</div><div style="height:8px;background:var(--bg);border-radius:10px;margin-top:8px"><div style="width:40%;height:100%;background:var(--teal-d);border-radius:10px"></div></div></div><div class="amt">$65.00</div></div>
+  <div class="row"><span class="avatar avatar-sm" style="background:var(--purple-l);border-radius:12px">🏨</span><div class="grow"><div class="t">Accommodation</div><div style="height:8px;background:var(--bg);border-radius:10px;margin-top:8px"><div style="width:55%;height:100%;background:var(--purple);border-radius:10px"></div></div></div><div class="amt">$95.00</div></div>
+  <div class="row" style="border:none"><span class="avatar avatar-sm" style="background:var(--yellow);border-radius:12px">🛍️</span><div class="grow"><div class="t">Shopping</div><div style="height:8px;background:var(--bg);border-radius:10px;margin-top:8px"><div style="width:18%;height:100%;background:var(--yellow-d);border-radius:10px"></div></div></div><div class="amt">$15.00</div></div>
+</div>
+
 </div>
 </section>
 <section class="wsec" id="s10">
-<div class="wlabel">Screen 10 <span>Create Expense</span></div>
+<div class="wlabel">Screen 10 <span>Group Information</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Add expense</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Cancel</button><button class="btn btn-dark btn-sm">Save</button></div></div>
-    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px">
-    <div class="form-card" style="max-width:none">
-      <div class="field"><label>Description</label><input placeholder="e.g. Dinner"></div>
-      <div class="two-col"><div class="field"><label>Amount</label><input placeholder="â‚¹0.00"></div><div class="field"><label>Currency</label><select><option>INR â‚¹</option><option>USD $</option><option>EUR â‚¬</option></select></div></div>
-      <div class="field"><label>Paid by</label><select><option>You</option><option>Sam</option><option>Meera</option></select></div>
-      <div class="field"><label>Split with</label><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip-p">Sam âœ“</span><span class="chip chip-y">Meera âœ“</span><span class="chip chip-t">Aarav âœ“</span><span class="chip chip-soft">+ Add</span></div></div>
-    </div>
-    <div class="card"><div class="lbl" style="color:var(--muted);font-size:13px;margin-bottom:14px">Split preview</div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><span>Sam</span><b>â‚¹1,600</b></div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><span>Meera</span><b>â‚¹1,600</b></div>
-      <div style="display:flex;justify-content:space-between;padding:10px 0"><span>Aarav</span><b>â‚¹1,600</b></div>
-    </div>
-  </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Group Info</h1></div><div class="actions"><button class="btn btn-outline" style="color:#B91C1C;border-color:var(--danger)">Leave Group</button></div></div>
+<div class="center" style="margin-bottom:30px">
+  <span class="avatar" style="width:72px;height:72px;border-radius:24px;background:var(--teal);font-size:36px;margin:0 auto 12px;display:flex">🏖️</span>
+  <h2 style="font-size:22px;font-weight:700">Bali Trip 2025</h2>
+  <p style="font-size:13px;color:var(--muted);margin-top:4px">Created by Mank Kasep</p>
 </div>
+<div class="two-col" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:30px">
+  <div class="sum"><div class="lbl">Currency</div><div class="val" style="font-size:20px">USD ($)</div></div>
+  <div class="sum"><div class="lbl">Created</div><div class="val" style="font-size:20px">Aug 15, 2025</div></div>
+  <div class="sum"><div class="lbl">Total Expenses</div><div class="val" style="font-size:20px">12</div></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Members (4)</h2>
+<div class="list" style="max-width:640px">
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🧑</span><div class="grow"><div class="t">Mank Kasep</div><div class="s">Owner</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">Jhony</div><div class="s">jhony@email.com</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div><div class="s">rehan@email.com</div></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div><div class="s">ujang@email.com</div></div></div>
+</div>
+
 </div>
 </section>
 <section class="wsec" id="s11">
-<div class="wlabel">Screen 11 <span>Balances & Reimbursements</span></div>
+<div class="wlabel">Screen 11 <span>Activity Log</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="active" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Balances</h1></div><div class="actions"><button class="btn btn-dark">Settle up</button></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">Net balance</div><div class="val" style="color:var(--success)">+â‚¹1,520</div></div>
-     <div class="sum"><div class="lbl">To receive</div><div class="val">â‚¹2,480</div></div>
-     <div class="sum"><div class="lbl">To pay</div><div class="val">â‚¹960</div></div>
-   </div>
-   <div class="card" style="margin-bottom:20px"><div style="font-weight:600;margin-bottom:14px">Who owes whom</div>
-     <div class="row" style="border:none;padding:12px 0"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--purple)">S</span><span class="avatar avatar-sm" style="background:var(--teal)">A</span></div><div class="grow" style="margin-left:12px"><div class="t">Sam owes you</div><div class="s">Goa Trip</div></div><div class="amt" style="color:var(--success)">â‚¹2,480</div></div>
-     <div class="row" style="border:none;padding:12px 0"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--teal)">A</span><span class="avatar avatar-sm" style="background:var(--yellow)">M</span></div><div class="grow" style="margin-left:12px"><div class="t">You owe Meera</div><div class="s">Flatmates</div></div><div class="amt" style="color:#DC2626">â‚¹960</div></div>
-   </div>
-   <div class="tabs"><a class="active" href="#">Reimbursements</a><a href="#">History</a></div>
-   <div class="list">
-     <div class="row"><span class="avatar" style="background:var(--purple)">S</span><div class="grow"><div class="t">Sam â†’ You</div><div class="s">Pending Â· Goa Trip</div></div><button class="btn btn-yellow btn-sm">Remind</button></div>
-     <div class="row"><span class="avatar" style="background:var(--yellow)">M</span><div class="grow"><div class="t">You â†’ Meera</div><div class="s">Settle now</div></div><button class="btn btn-dark btn-sm">Pay â‚¹960</button></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Activity</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="list" style="max-width:760px">
+  <div class="grp-lbl" style="padding:14px 18px 4px;font-size:12px;color:var(--muted);font-weight:600">Today</div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> added expense <b>"Lunch at Warung"</b> for $15.50</div><div class="s">2 hours ago</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--purple);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Jhony</b> joined the group</div><div class="s">4 hours ago</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Rehan</b> added expense <b>"Taxi to Beach"</b> for $8.25</div><div class="s">5 hours ago</div></div></div>
+  <div class="grp-lbl" style="padding:18px 18px 4px;font-size:12px;color:var(--muted);font-weight:600;border-top:1px solid var(--line)">Yesterday</div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--yellow-d);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> edited expense <b>"Hotel Booking"</b></div><div class="s">Yesterday, 6:30 PM</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Ujang</b> added expense <b>"Dinner at Jimbaran"</b> for $32.00</div><div class="s">Yesterday, 8:15 PM</div></div></div>
+  <div class="row"><span style="width:10px;height:10px;border-radius:50%;background:var(--purple);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Rehan</b> paid <b>$12.50</b> to Mank Kasep</div><div class="s">Yesterday, 3:00 PM</div></div></div>
+  <div class="row" style="border:none"><span style="width:10px;height:10px;border-radius:50%;background:var(--success);flex-shrink:0"></span><div class="grow"><div class="t" style="font-weight:400"><b>Mank Kasep</b> created the group <b>"Bali Trip 2025"</b></div><div class="s">Aug 15, 10:00 AM</div></div></div>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s12">
-<div class="wlabel">Screen 12 <span>Statistics</span></div>
+<div class="wlabel">Screen 12 <span>OCR Receipt Preview</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="active" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Statistics</h1></div><div class="actions"><div class="search">ðŸ“… This month</div></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">Total spent</div><div class="val">â‚¹9,140</div></div>
-     <div class="sum"><div class="lbl">Avg / expense</div><div class="val">â‚¹762</div></div>
-     <div class="sum"><div class="lbl">Top category</div><div class="val" style="font-size:24px">Food ðŸ½ï¸</div></div>
-   </div>
-   <div class="grid-2">
-     <div class="card"><div style="font-weight:600;margin-bottom:18px">Spend by category</div>
-       <div class="bars">
-         <div class="bar y" style="height:80%"><span class="bl">Food</span></div>
-         <div class="bar" style="height:55%"><span class="bl">Stay</span></div>
-         <div class="bar t" style="height:40%"><span class="bl">Travel</span></div>
-         <div class="bar" style="height:65%"><span class="bl">Fun</span></div>
-       </div>
-       <div class="legend"><span><i style="background:var(--yellow)"></i>Food</span><span><i style="background:var(--purple)"></i>Stay</span><span><i style="background:var(--teal)"></i>Travel</span><span><i style="background:#1D1C22"></i>Fun</span></div>
-     </div>
-     <div class="card"><div style="font-weight:600;margin-bottom:18px">Per member</div>
-       <div style="display:flex;flex-direction:column;gap:14px">
-         <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>Sam</span><b>â‚¹3,200</b></div><div style="height:10px;background:var(--line);border-radius:10px"><div style="width:70%;height:100%;background:var(--purple);border-radius:10px"></div></div></div>
-         <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>Meera</span><b>â‚¹2,900</b></div><div style="height:10px;background:var(--line);border-radius:10px"><div style="width:63%;height:100%;background:var(--yellow);border-radius:10px"></div></div></div>
-         <div><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>You</span><b>â‚¹3,040</b></div><div style="height:10px;background:var(--line);border-radius:10px"><div style="width:66%;height:100%;background:var(--teal);border-radius:10px"></div></div></div>
-       </div>
-     </div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Receipt scanned successfully</h1><div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--success);font-weight:600;margin-top:4px"><span style="width:9px;height:9px;border-radius:50%;background:var(--success);display:inline-block"></span>AI extracted all items</div></div><div class="actions"><button class="btn btn-outline">✏️ Edit</button><button class="btn btn-dark">＋ Add Item</button></div></div>
+<div class="hero-grid" style="grid-template-columns:1fr 1fr;align-items:start">
+  <div class="receipt" style="max-width:none">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+      <span class="avatar" style="background:#DC2626;color:#fff;border-radius:14px">M</span>
+      <div style="flex:1"><div style="font-weight:800;font-size:18px">McDonald's</div><div style="font-size:12px;color:var(--muted)">Baton Rouge, LA</div></div>
+      <span class="chip chip-t" style="padding:5px 12px;font-size:11px">3/4 Paid</span>
+    </div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Bill No. :</span><span>#N3004</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Date :</span><span>04-09-2022</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Paid by :</span><span>John Sans</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>1. Chicken Burger x2</span><span>$50.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>2. Cheese Burger x2</span><span>$30.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>3. Fries XL x3</span><span>$25.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>4. Pizza Puff x3</span><span>$30.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>5. Coke XL x5</span><span>$75.00</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-weight:800;font-size:17px"><span>Grand Total</span><span>$210.00</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:6px"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><span class="avatar avatar-sm" style="background:var(--purple-l);margin-left:-14px">👩</span><span class="avatar avatar-sm" style="background:var(--yellow);margin-left:-14px">🧔</span><span class="avatar avatar-sm" style="background:var(--teal);margin-left:-14px">👨</span></div>
+      <a href="#" style="font-size:13px;font-weight:600">See Details →</a>
+    </div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:18px">👁 View Bill</button>
+  </div>
+  <div>
+    <div class="sum" style="margin-bottom:20px">
+      <div class="lbl">Your Share to pay</div>
+      <div class="val" style="font-size:34px">$52.50</div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">Pay Now</button>
+    </div>
+    <div class="card"><div style="font-size:13px;color:var(--muted)">Scanned items are matched to this group's members. Tap an item to reassign who ate what before confirming.</div></div>
+  </div>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s13">
-<div class="wlabel">Screen 13 <span>Group Information</span></div>
+<div class="wlabel">Screen 13 <span>Split Now — Custom Amount Sliders</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="active" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Group information</h1></div><div class="actions"><button class="btn btn-outline btn-sm">Share</button></div></div>
-    <div class="card-lg" style="margin-bottom:20px;display:flex;align-items:center;gap:20px">
-     <span class="avatar avatar-lg" style="background:var(--purple);font-size:40px">ðŸ•</span>
-     <div><h2 style="font-size:24px;font-weight:700">Goa Trip</h2><div style="color:var(--muted)">Created 12 Aug 2025 Â· 5 members</div></div>
-   </div>
-   <div class="card"><div style="font-weight:600;margin-bottom:14px">Members</div>
-     <div class="row" style="border:none;padding:10px 0"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">Aarav (you)</div><div class="s">+â‚¹2,480</div></div><span class="chip chip-soft">Admin</span></div>
-     <div class="row" style="border:none;padding:10px 0"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Meera</div><div class="s">âˆ’â‚¹640</div></div></div>
-     <div class="row" style="border:none;padding:10px 0"><span class="avatar" style="background:var(--yellow)">S</span><div class="grow"><div class="t">Sam</div><div class="s">âˆ’â‚¹1,840</div></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Split Now</h1><div style="font-size:13px;color:var(--muted)">Drag the sliders to adjust each share</div></div></div>
+<div class="card" style="margin-bottom:26px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+  <span class="chip chip-y">Receipt</span>
+  <div style="flex:1;display:flex;justify-content:space-around;text-align:center">
+    <div><div style="font-size:12px;color:var(--muted)">Title</div><b style="font-size:17px">Team Dinner</b></div>
+    <div><div style="font-size:12px;color:var(--muted)">Total Bill</div><b style="font-size:17px">$1250.86</b></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--purple)"></span><span class="avatar avatar-sm" style="background:var(--teal)"></span><span class="avatar avatar-sm" style="background:var(--yellow)"></span></div><span style="font-size:12px;color:var(--muted)">Splitting With</span></div>
 </div>
+<div class="list" style="max-width:760px;margin-bottom:26px">
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--purple)">🧑</span><b style="flex:1">You</b><span class="amt">$200.86</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:28%;height:100%;border-radius:10px;background:var(--teal)"></div><span style="position:absolute;left:28%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--teal)"></span></div>
+  </div>
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--success);color:#fff">🧑</span><b style="flex:1">Jhony</b><span class="amt">$450.00</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:65%;height:100%;border-radius:10px;background:var(--success)"></div><span style="position:absolute;left:65%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--success)"></span></div>
+  </div>
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px;border:none">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--yellow-d)">👩</span><b style="flex:1">Rehan</b><span class="amt">$600.00</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:85%;height:100%;border-radius:10px;background:var(--yellow-d)"></div><span style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--yellow-d)"></span></div>
+  </div>
+</div>
+<button class="btn btn-dark" style="padding:18px 60px;font-size:16px">Confirm Split</button>
+
 </div>
 </section>
 <section class="wsec" id="s14">
-<div class="wlabel">Screen 14 <span>Activity Log</span></div>
+<div class="wlabel">Screen 14 <span>Create Group</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="active" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Activity</h1></div><div class="actions"><div class="search">ðŸ” Filter</div></div></div>
-    <div class="list">
-     <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">You added "Dinner"</div><div class="s">Goa Trip Â· 2h ago</div></div><div class="amt">â‚¹4,800</div></div>
-     <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Meera settled up</div><div class="s">Flatmates Â· 5h ago</div></div><div class="amt" style="color:var(--success)">âœ“</div></div>
-     <div class="row"><span class="avatar" style="background:var(--yellow)">S</span><div class="grow"><div class="t">Sam joined Goa Trip</div><div class="s">1 day ago</div></div></div>
-     <div class="row"><span class="avatar" style="background:var(--teal)">A</span><div class="grow"><div class="t">You scanned a receipt</div><div class="s">Flatmates Â· 1 day ago</div></div><div class="amt">â‚¹640</div></div>
-     <div class="row"><span class="avatar" style="background:var(--purple)">M</span><div class="grow"><div class="t">Meera added "Scuba"</div><div class="s">Goa Trip Â· 2 days ago</div></div><div class="amt">â‚¹6,000</div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">New Group</h1></div></div>
+<div class="form-card" style="max-width:640px">
+  <div class="field"><label>Group name</label><input type="text" value="Bali Trip 2025" placeholder="e.g. Bali Trip 2025"></div>
+  <div class="two-col">
+    <div class="field"><label>Currency</label><select><option>🇺🇸 USD ($)</option><option>🇪🇺 EUR (€)</option><option>🇬🇧 GBP (£)</option><option>🇮🇩 IDR (Rp)</option></select></div>
+    <div class="field"><label>Theme color</label><div style="display:flex;gap:12px;padding-top:4px"><span class="avatar avatar-sm" style="background:var(--yellow);border:3px solid var(--text)">✓</span><span class="avatar avatar-sm" style="background:var(--purple)"></span><span class="avatar avatar-sm" style="background:var(--teal)"></span><span class="avatar avatar-sm" style="background:#FCE8E6"></span></div></div>
+  </div>
+  <div class="field"><label>Description <span class="chip chip-soft" style="padding:3px 10px;font-size:11px">optional</span></label><input type="text" placeholder="What is this group for?"></div>
+  <div class="field"><label>Members</label>
+    <div class="list" style="box-shadow:none;border:none">
+      <div class="row" style="padding:12px 0"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">You</div><div class="s">Owner</div></div></div>
+      <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div><div class="s">invited</div></div><span style="color:var(--muted);cursor:pointer">🗑</span></div>
+    </div>
+    <div class="row" style="padding:12px 0;border-top:1px solid var(--line)"><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div><div class="s">invited</div></div><span style="color:var(--muted);cursor:pointer">🗑</span></div>
+    <button class="btn btn-outline btn-sm" style="margin-top:10px">＋ Invite by email or link</button>
+  </div>
+  <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:22px">Create Group</button>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s15">
-<div class="wlabel">Screen 15 <span>OCR Receipt Preview</span></div>
+<div class="wlabel">Screen 15 <span>Split Modes — Evenly / Shares / % / Amount</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Receipt scan</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Retake</button><button class="btn btn-dark btn-sm">Confirm</button></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-    <div style="background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;text-align:center">
-      <div style="background:var(--bg);border-radius:16px;padding:30px;font-size:14px;color:var(--muted)">ðŸ§¾ Receipt image<br><span style="font-size:12px">Goa Cafe Â· â‚¹1,240</span></div>
-      <div class="chip chip-t" style="margin-top:14px">âœ“ Extracted 4 items</div>
-    </div>
-    <div class="receipt">
-      <div style="font-weight:700;margin-bottom:6px">Goa Cafe</div>
-      <div style="color:var(--muted);font-size:13px;margin-bottom:14px">12 Aug 2025</div>
-      <div class="rline"><span>Coffee Ã—2</span><span>â‚¹240</span></div>
-      <div class="rline"><span>Club sandwich</span><span>â‚¹420</span></div>
-      <div class="rline"><span>Orange juice Ã—2</span><span>â‚¹320</span></div>
-      <div class="rline"><span>Tip</span><span>â‚¹260</span></div>
-      <div class="rtot"><span>Total</span><span>â‚¹1,240</span></div>
-      <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:18px">Add as expense</button>
-    </div>
-  </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Split Expense</h1><div style="font-size:13px;color:var(--muted)">Choose how to divide $45.00</div></div></div>
+<div class="tabs" style="margin-bottom:24px"><a class="active">Equally</a><a>Shares</a><a>%</a><a>Amount</a></div>
+<div class="sum" style="max-width:640px;margin-bottom:26px">
+  <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:var(--muted)">Total amount</span><b>$45.00</b></div>
+  <div style="display:flex;justify-content:space-between;font-size:14px;margin-top:8px"><span style="color:var(--muted)">Split equally · 3 people</span><b>$15.00 each</b></div>
 </div>
+<div class="form-card" style="max-width:640px">
+  <div class="field"><label>Assign shares</label>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">You</div></div><input class="fld-num" type="text" value="1" style="width:70px;text-align:center;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-family:inherit"></div>
+    <div class="row" style="padding:12px 0"><span class="avatar avatar-sm" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div></div><input type="text" value="2" style="width:70px;text-align:center;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-family:inherit"></div>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div></div><input type="text" value="1" style="width:70px;text-align:center;padding:9px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-family:inherit"></div>
+  </div>
+  <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:500;margin:16px 0 22px;cursor:pointer"><span style="width:18px;height:18px;border-radius:6px;background:var(--purple);display:inline-block"></span>Save as default splitting option</label>
+  <button class="btn btn-dark" style="width:100%;justify-content:center">Save Expense</button>
+</div>
+
 </div>
 </section>
 <section class="wsec" id="s16">
-<div class="wlabel">Screen 16 <span>Split Now â€” Custom Amount Sliders</span></div>
+<div class="wlabel">Screen 16 <span>Receipt Scan & AI Draft Review</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Split â‚¹4,800</h1></div><div class="actions"><button class="btn btn-dark btn-sm">Done</button></div></div>
-    <div class="card" style="max-width:620px">
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--teal)">A</span><div class="name">Aarav</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--purple)">M</span><div class="name">Meera</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--yellow)">S</span><div class="name">Sam</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div style="display:flex;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-weight:700"><span>Total</span><span>â‚¹4,800</span></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Scan Receipt</h1></div></div>
+<div class="hero-grid" style="grid-template-columns:1fr 1fr;align-items:start">
+  <div class="card" style="padding:28px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px"><b style="font-size:16px">Upload Receipt</b><span class="chip chip-y" style="padding:4px 12px;font-size:11px">BETA</span></div>
+    <div style="border:2px dashed var(--line);border-radius:20px;padding:38px 20px;text-align:center;margin-bottom:18px">
+      <div style="font-size:34px;margin-bottom:10px">📸</div>
+      <div style="font-weight:600;font-size:15px">Take a photo or upload</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px">We'll read the items &amp; total for you</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:12px">JPEG · PNG · WebP · max 5MB</div>
+    </div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center">Analyze Receipt</button>
+  </div>
+  <div>
+    <div style="font-size:13px;color:var(--muted);font-weight:600;margin-bottom:12px">AI extracted →</div>
+    <div class="receipt" style="max-width:none">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><span class="avatar" style="background:var(--yellow);border-radius:14px">🧾</span><div class="field" style="flex:1;margin:0"><input type="text" value="Warung Made" style="padding:10px 12px"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px dashed var(--line)"><span>Nasi Goreng <span style="color:var(--muted);font-size:12px">· A-2</span></span><b>$8.00</b></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px dashed var(--line)"><span>Ice Tea <span style="color:var(--muted);font-size:12px">· A-3</span></span><b>$4.50</b></div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0"><span>Sate Ayam <span style="color:var(--muted);font-size:12px">· A-1</span></span><b>$6.00</b></div>
+      <div style="display:flex;justify-content:space-between;font-weight:800;font-size:16px;margin-top:10px"><span>Total</span><span>$18.50</span></div>
+      <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-top:16px">Edit in full form</button>
+      <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:10px">Confirm &amp; Add</button>
+    </div>
+  </div>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s17">
-<div class="wlabel">Screen 17 <span>Create Group</span></div>
+<div class="wlabel">Screen 17 <span>Group Settings</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>New group</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Cancel</button><button class="btn btn-dark btn-sm">Create</button></div></div>
-    <div class="form-card">
-     <div class="field"><label>Group name</label><input placeholder="e.g. Goa Trip"></div>
-     <div class="field"><label>Description</label><textarea rows="3" placeholder="What's this group for?"></textarea></div>
-     <div class="field"><label>Currency</label><select><option>INR â‚¹</option><option>USD $</option><option>EUR â‚¬</option></select></div>
-     <div class="field"><label>Invite members</label><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip-p">Sam âœ“</span><span class="chip chip-y">Meera âœ“</span><span class="chip chip-soft">+ Invite</span></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Group Settings</h1><div style="font-size:13px;color:var(--muted)">Bali Trip 2025</div></div></div>
+<div class="form-card" style="max-width:640px">
+  <div class="field"><label>Group name</label><input type="text" value="Bali Trip 2025"></div>
+  <div class="two-col">
+    <div class="field"><label>Currency</label><select><option>🇺🇸 USD ($)</option></select></div>
+    <div class="field"><label>Theme color</label><div style="display:flex;gap:12px;padding-top:4px"><span class="avatar avatar-sm" style="background:var(--yellow)"></span><span class="avatar avatar-sm" style="background:var(--teal);border:3px solid var(--text)">✓</span><span class="avatar avatar-sm" style="background:var(--purple)"></span></div></div>
+  </div>
+  <div class="field"><label>Description</label><input type="text" value="Our 2025 Bali adventure"></div>
+  <div class="field"><label>Members</label>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><div class="grow"><div class="t">You</div><div class="s">Owner</div></div></div>
+    <div class="row" style="padding:12px 0"><span class="avatar avatar-sm" style="background:var(--purple-l)">👩</span><div class="grow"><div class="t">Rehan</div><div class="s">2 expenses</div></div><span style="color:var(--faint)" title="Has expenses">🗑</span></div>
+    <div class="row" style="padding:12px 0;border:none"><span class="avatar avatar-sm" style="background:var(--yellow)">🧔</span><div class="grow"><div class="t">Ujang</div><div class="s">no expenses</div></div><span style="color:var(--muted);cursor:pointer">🗑</span></div>
+    <button class="btn btn-outline btn-sm" style="margin-top:8px">＋ Invite member</button>
+  </div>
+  <div style="display:flex;gap:14px;margin-top:24px">
+    <button class="btn btn-outline" style="flex:1;justify-content:center">Archive</button>
+    <button class="btn btn-dark" style="flex:2;justify-content:center;background:var(--danger)">Save Changes</button>
+  </div>
 </div>
+
 </div>
 </section>
 <section class="wsec" id="s18">
-<div class="wlabel">Screen 18 <span>Split Modes â€” Evenly / Shares / % / Amount</span></div>
+<div class="wlabel">Screen 18 <span>Empty States (First-run)</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Choose split mode</h1></div><div class="actions"><button class="btn btn-dark btn-sm">Apply</button></div></div>
-    <div style="display:flex;flex-direction:column;gap:14px;max-width:560px">
-     <div class="mode active"><span class="mi">âš–ï¸</span><div><h4>Evenly</h4><p>Split the total into equal parts.</p></div></div>
-     <div class="mode"><span class="mi">ðŸ”¢</span><div><h4>By shares</h4><p>Assign weights, e.g. 2 shares vs 1.</p></div></div>
-     <div class="mode"><span class="mi">%</span><div><h4>By percentage</h4><p>Distribute by custom percentages.</p></div></div>
-     <div class="mode"><span class="mi">â‚¹</span><div><h4>Exact amounts</h4><p>Type the precise amount per person.</p></div></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">My Groups</h1></div></div>
+<div class="empty" style="padding:60px 20px">
+  <div class="ic" style="background:var(--yellow)">👥</div>
+  <h3>No groups yet</h3>
+  <p>Create your first group to start splitting bills with friends and family.</p>
+  <button class="btn btn-dark" style="padding:16px 34px">＋ Create Group</button>
+  <div style="font-size:13px;color:var(--muted);margin-top:16px">or join with a link / QR code</div>
 </div>
+<div class="empty" style="padding:20px 20px 70px">
+  <div class="ic" style="background:var(--teal)">🧾</div>
+  <h3>No expenses yet</h3>
+  <p>Add an expense or scan a receipt to keep track of who paid for what.</p>
+</div>
+
 </div>
 </section>
 <section class="wsec" id="s19">
-<div class="wlabel">Screen 19 <span>Receipt Scan & AI Draft Review</span></div>
+<div class="wlabel">Screen 19 <span>Dark Mode — Dashboard</span></div>
 <div class="scr">
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>AI draft review</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Discard</button><button class="btn btn-dark btn-sm">Save expense</button></div></div>
-    <div class="card" style="max-width:620px">
-     <div class="chip chip-t" style="margin-bottom:16px">ðŸ¤– AI drafted from receipt</div>
-     <div class="field"><label>Description</label><input value="Goa Cafe dinner"></div>
-     <div class="two-col"><div class="field"><label>Amount</label><input value="â‚¹1,240"></div><div class="field"><label>Category</label><select><option>Food</option><option>Travel</option></select></div></div>
-     <div class="field"><label>Split</label><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip-p">Aarav âœ“</span><span class="chip chip-y">Meera âœ“</span><span class="chip chip-t">Sam âœ“</span></div></div>
-   </div>
-  </main>
+<div class="topbar">
+  <div><h1 style="font-size:22px;font-weight:700">Good morning, Mank Kasep 👋</h1><div style="font-size:13px;color:var(--muted)">Dark theme · yoru 夜</div></div>
+  <div class="actions" style="display:flex;gap:12px;align-items:center">
+    <div class="search" style="width:280px">🔍 Search groups &amp; expenses</div>
+    <button class="btn btn-dark">＋ New Group</button>
+  </div>
 </div>
+<div class="sum-grid" style="grid-template-columns:1.4fr 1fr;margin-bottom:26px">
+  <div class="sum"><div class="lbl">Total balance across groups</div><div class="val">$45.50 <span style="font-size:14px;font-weight:500;color:var(--success)">you are owed</span></div></div>
+  <div class="sum"><div class="lbl">This month</div><div class="val" style="font-size:24px">$320<span style="font-size:14px;font-weight:500">,00</span></div><div class="sub">12 expenses</div></div>
 </div>
-</section>
-<section class="wsec" id="s20">
-<div class="wlabel">Screen 20 <span>Group Settings</span></div>
-<div class="scr">
-
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="active" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Group settings</h1></div><div class="actions"><button class="btn btn-dark btn-sm">Save</button></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-     <div class="form-card" style="max-width:none"><h3 style="font-weight:600;margin-bottom:18px">General</h3>
-       <div class="field"><label>Name</label><input value="Goa Trip"></div>
-       <div class="field"><label>Default currency</label><select><option>INR â‚¹</option></select></div>
-     </div>
-     <div class="form-card" style="max-width:none"><h3 style="font-weight:600;margin-bottom:18px">Danger zone</h3>
-       <p style="color:var(--muted);font-size:14px;margin-bottom:14px">Remove members or delete this group. This cannot be undone.</p>
-       <button class="btn btn-outline" style="border-color:var(--danger);color:var(--danger)">Delete group</button>
-     </div>
-   </div>
-  </main>
-</div>
-</div>
-</section>
-<section class="wsec" id="s21">
-<div class="wlabel">Screen 21 <span>Empty States</span></div>
-<div class="scr">
-
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Empty states</h1></div></div>
-    <div class="group-grid">
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ½ï¸</div><h3>No expenses yet</h3><p>Add the first expense to get started.</p><button class="btn btn-dark btn-sm">ï¼‹ Add expense</button></div></div></div>
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ‘¥</div><h3>No groups</h3><p>Create a group to split with friends.</p><button class="btn btn-dark btn-sm">ï¼‹ New group</button></div></div></div>
-     <div class="gcard"><div class="body" style="padding:0"><div class="empty" style="padding:50px 20px"><div class="ic">ðŸ“Š</div><h3>Nothing to report</h3><p>Stats appear once you log spend.</p></div></div></div>
-   </div>
-  </main>
-</div>
-</div>
-</section>
-<section class="wsec" id="s22">
-<div class="wlabel">Screen 22 <span>Dark Mode â€” Dashboard</span></div>
-<div class="scr">
-
-
-<div class="app dark-app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><div class="eyebrow" style="margin-bottom:4px">Welcome back, Aarav</div><h1>Your groups</h1></div>
-   <div class="actions"><div class="search">ðŸ” Search groups</div><button class="btn btn-dark">ï¼‹ New group</button></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">You are owed</div><div class="val" style="color:var(--success)">â‚¹2,480</div><div class="sub">across 3 groups</div></div>
-     <div class="sum"><div class="lbl">You owe</div><div class="val">â‚¹960</div><div class="sub">settle up soon</div></div>
-     <div class="sum"><div class="lbl">This month</div><div class="val">â‚¹9,140</div><div class="sub">12 expenses logged</div></div>
-   </div>
-   <div class="group-grid">
-     <div class="gcard"><div class="top" style="background:var(--purple)"><span class="avatar avatar-lg" style="background:#fff">ðŸ•</span></div><div class="body"><h3>Goa Trip</h3><div class="meta"><span>5 members</span><span style="color:var(--success);font-weight:600">+â‚¹2,480</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">ðŸ </span></div><div class="body"><h3>Flatmates</h3><div class="meta"><span>3 members</span><span style="color:var(--danger);font-weight:600">âˆ’â‚¹960</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">ðŸŽ‰</span></div><div class="body"><h3>Birthday Bash</h3><div class="meta"><span>8 members</span><span style="color:var(--muted)">all square</span></div></div></div>
-   </div>
-  </main>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Recent groups</h2>
+<div class="group-grid">
+  <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">🏖️</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Bali Trip 2025</b><b>$320</b></div><div class="meta"><span>4 members · 12 expenses</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--purple)"><span class="avatar avatar-lg" style="background:#fff">🏠</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Roommates</b><b>$890</b></div><div class="meta"><span>3 members · 28 expenses</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">🎉</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Birthday Party</b><b>$320</b></div><div class="meta"><span>8 members · 5 expenses</span></div></div></div>
 </div>
 
 </div>

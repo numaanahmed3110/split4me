@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· OCR Receipt Preview</title>
+<title>split4me · Web · Expenses</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,42 +259,17 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Receipt scan</h1></div><div class="actions"><button class="btn btn-ghost btn-sm">Retake</button><button class="btn btn-dark btn-sm">Confirm</button></div></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-    <div style="background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;text-align:center">
-      <div style="background:var(--bg);border-radius:16px;padding:30px;font-size:14px;color:var(--muted)">ðŸ§¾ Receipt image<br><span style="font-size:12px">Goa Cafe Â· â‚¹1,240</span></div>
-      <div class="chip chip-t" style="margin-top:14px">âœ“ Extracted 4 items</div>
-    </div>
-    <div class="receipt">
-      <div style="font-weight:700;margin-bottom:6px">Goa Cafe</div>
-      <div style="color:var(--muted);font-size:13px;margin-bottom:14px">12 Aug 2025</div>
-      <div class="rline"><span>Coffee Ã—2</span><span>â‚¹240</span></div>
-      <div class="rline"><span>Club sandwich</span><span>â‚¹420</span></div>
-      <div class="rline"><span>Orange juice Ã—2</span><span>â‚¹320</span></div>
-      <div class="rline"><span>Tip</span><span>â‚¹260</span></div>
-      <div class="rtot"><span>Total</span><span>â‚¹1,240</span></div>
-      <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:18px">Add as expense</button>
-    </div>
-  </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Bali Trip 2025</h1><div style="font-size:13px;color:var(--muted)">Your balance <b style="color:var(--success)">+$45.50</b></div></div><div class="actions"><button class="btn btn-primary">＋ New Expense</button></div></div>
+<div class="tabs" style="margin-bottom:24px"><a class="active">Expenses</a><a>Balances</a><a>Stats</a></div>
+<div class="list">
+  <div class="grp-lbl" style="padding:14px 18px 4px;font-size:12px;color:var(--muted);font-weight:600">Today</div>
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🍔</span><div class="grow"><div class="t">Lunch at Warung</div><div class="s">Paid by You · Split 3 ways</div></div><div style="text-align:right"><div class="amt">$15.50<span style="font-size:12px;color:var(--muted)">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--teal)">🚕</span><div class="grow"><div class="t">Taxi to Beach</div><div class="s">Paid by Jhony · Split 4 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$8.25<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="row"><span class="avatar" style="background:var(--purple-l)">🏨</span><div class="grow"><div class="t">Hotel Booking</div><div class="s">Paid by You · Split 4 ways</div></div><div style="text-align:right"><div class="amt">$120.00<span style="font-size:12px;color:var(--muted)">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Today</div></div></div>
+  <div class="grp-lbl" style="padding:18px 18px 4px;font-size:12px;color:var(--muted);font-weight:600;border-top:1px solid var(--line)">Yesterday</div>
+  <div class="row"><span class="avatar" style="background:var(--yellow)">🛍️</span><div class="grow"><div class="t">Souvenir Shopping</div><div class="s">Paid by Rehan · Split 3 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$18.75<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Yesterday</div></div></div>
+  <div class="row" style="border:none"><span class="avatar" style="background:var(--teal)">🍽️</span><div class="grow"><div class="t">Dinner at Jimbaran</div><div class="s">Paid by Ujang · Split 4 ways</div></div><div style="text-align:right"><div class="amt" style="color:var(--success)">+$32.00<span style="font-size:12px">,00</span></div><div class="s" style="font-size:11px;color:var(--muted)">Yesterday</div></div></div>
 </div>
+
 </body>
 </html>

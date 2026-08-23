@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Split Now</title>
+<title>split4me · Web · Dashboard</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,32 +259,25 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="active" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Split â‚¹4,800</h1></div><div class="actions"><button class="btn btn-dark btn-sm">Done</button></div></div>
-    <div class="card" style="max-width:620px">
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--teal)">A</span><div class="name">Aarav</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--purple)">M</span><div class="name">Meera</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div class="slider-row"><span class="avatar avatar-sm" style="background:var(--yellow)">S</span><div class="name">Sam</div><input type="range" min="0" max="4800" value="1600"><div class="val">â‚¹1,600</div></div>
-     <div style="display:flex;justify-content:space-between;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-weight:700"><span>Total</span><span>â‚¹4,800</span></div>
-   </div>
-  </main>
+<div class="topbar">
+  <div><h1 style="font-size:22px;font-weight:700">Good morning, <span style="color:var(--purple-ink)">Mank Kasep</span> 👋</h1><div style="font-size:13px;color:var(--muted)">Here's what's happening across your trips</div></div>
+  <div class="actions" style="display:flex;gap:12px;align-items:center">
+    <div class="search" style="width:300px">🔍 Search groups &amp; expenses</div>
+    <button class="btn btn-dark">＋ New Group</button>
+  </div>
 </div>
+<div class="sum-grid" style="grid-template-columns:1.4fr 1fr 1fr;margin-bottom:26px">
+  <div class="sum"><div class="lbl">Your total balance · Across all groups</div><div class="val">$45.50 <span style="font-size:14px;font-weight:500;color:var(--success)">you are owed</span></div>
+    <div style="display:flex;gap:18px;margin-top:10px;font-size:13px;font-weight:600"><span style="color:var(--success)">▲ $120.00 owed to you</span><span style="color:var(--danger)">▼ $74.50 you owe</span></div></div>
+  <div class="sum"><div class="lbl">Quick action</div><button class="btn btn-yellow" style="width:100%;justify-content:center">🔗 Join / QR</button><div style="height:10px"></div><button class="btn btn-teal" style="width:100%;justify-content:center">＋ Add Event</button></div>
+  <div class="sum"><div class="lbl">This month</div><div class="val" style="font-size:24px">$320<span style="font-size:14px;font-weight:500">,00</span></div><div class="sub">12 expenses · 4 groups</div></div>
+</div>
+<h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Recent Groups</h2>
+<div class="group-grid">
+  <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">🏖️</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Bali Trip 2025</b><b>$2.450</b></div><div class="meta"><span>6 members · 12 expenses</span><span>You're owed</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--purple-l)"><span class="avatar avatar-lg" style="background:#fff">🏠</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Roommates</b><b>$890</b></div><div class="meta"><span>3 members · 28 expenses</span><span>You owe</span></div></div></div>
+  <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">🎉</span></div><div class="body"><div style="display:flex;justify-content:space-between;align-items:center"><b>Birthday Party</b><b>$320</b></div><div class="meta"><span>8 members · 5 expenses</span><span>Settled up</span></div></div></div>
+</div>
+
 </body>
 </html>

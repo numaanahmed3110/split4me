@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Dark Mode</title>
+<title>split4me · Web · Sign In</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,37 +259,22 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app dark-app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="active" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><div class="eyebrow" style="margin-bottom:4px">Welcome back, Aarav</div><h1>Your groups</h1></div>
-   <div class="actions"><div class="search">ðŸ” Search groups</div><button class="btn btn-dark">ï¼‹ New group</button></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">You are owed</div><div class="val" style="color:var(--success)">â‚¹2,480</div><div class="sub">across 3 groups</div></div>
-     <div class="sum"><div class="lbl">You owe</div><div class="val">â‚¹960</div><div class="sub">settle up soon</div></div>
-     <div class="sum"><div class="lbl">This month</div><div class="val">â‚¹9,140</div><div class="sub">12 expenses logged</div></div>
-   </div>
-   <div class="group-grid">
-     <div class="gcard"><div class="top" style="background:var(--purple)"><span class="avatar avatar-lg" style="background:#fff">ðŸ•</span></div><div class="body"><h3>Goa Trip</h3><div class="meta"><span>5 members</span><span style="color:var(--success);font-weight:600">+â‚¹2,480</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--yellow)"><span class="avatar avatar-lg" style="background:#fff">ðŸ </span></div><div class="body"><h3>Flatmates</h3><div class="meta"><span>3 members</span><span style="color:var(--danger);font-weight:600">âˆ’â‚¹960</span></div></div></div>
-     <div class="gcard"><div class="top" style="background:var(--teal)"><span class="avatar avatar-lg" style="background:#fff">ðŸŽ‰</span></div><div class="body"><h3>Birthday Bash</h3><div class="meta"><span>8 members</span><span style="color:var(--muted)">all square</span></div></div></div>
-   </div>
-  </main>
+<div class="wrap center" style="padding-top:70px;padding-bottom:80px">
+  <div class="form-card" style="margin:0 auto">
+    <div style="text-align:center;margin-bottom:26px">
+      <a class="wlogo" href="#" style="justify-content:center;display:inline-flex;margin-bottom:18px"><span class="mark">💸</span> split4me</a>
+      <h2 style="font-size:26px;font-weight:700">Welcome Back!</h2>
+      <p style="font-size:14px;color:var(--muted);margin-top:6px">Sign in to continue to split4me</p>
+    </div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;font-weight:600">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+    <div style="display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--muted);font-size:13px"><span style="flex:1;height:1px;background:var(--line)"></span>or<span style="flex:1;height:1px;background:var(--line)"></span></div>
+    <div class="field"><label>Email address <span class="chip chip-y" style="padding:3px 10px;font-size:11px;margin-left:6px">Last used</span></label><input type="email" placeholder="Enter your email address"></div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:20px">Continue →</button>
+    <p style="text-align:center;font-size:14px;color:var(--muted);margin-top:20px">Don't have an account? <a href="#" style="color:var(--text);font-weight:600">Sign up</a></p>
+  </div>
 </div>
 
 </body>

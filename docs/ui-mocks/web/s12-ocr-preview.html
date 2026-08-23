@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Onboarding â€” Smart Split</title>
+<title>split4me · Web · Receipt Scan (OCR)</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,46 +259,42 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<nav class="wnav"><div class="wnav-in">
-  <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-  <div class="wlinks"><a href="#">Features</a><a href="#">How it works</a><a href="#">Pricing</a><a href="#">About</a></div>
-  <div class="wnav-cta"><a class="btn btn-ghost" href="#">Sign in</a><a class="btn btn-dark" href="#">Get started</a></div>
-</div></nav>
-<section class="section"><div class="wrap">
-  <div class="hero-grid">
-    <div>
-      <div class="chip chip-y" style="margin-bottom:18px">Feature spotlight</div>
-      <h2 class="h-sec">Split any way you like.</h2>
-      <p class="lead" style="text-align:left;margin:20px 0 26px">Evenly, by shares, by percentage, or exact amounts â€” plus beautiful analytics so you always know where money goes.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px">
-        <span class="chip chip-p">âš–ï¸ Evenly</span><span class="chip chip-y">ðŸ”¢ Shares</span><span class="chip chip-t">% Percentage</span><span class="chip chip-soft">â‚¹ Exact</span>
-      </div>
-      <a class="btn btn-dark btn-lg" href="#">See analytics</a>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Receipt scanned successfully</h1><div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--success);font-weight:600;margin-top:4px"><span style="width:9px;height:9px;border-radius:50%;background:var(--success);display:inline-block"></span>AI extracted all items</div></div><div class="actions"><button class="btn btn-outline">✏️ Edit</button><button class="btn btn-dark">＋ Add Item</button></div></div>
+<div class="hero-grid" style="grid-template-columns:1fr 1fr;align-items:start">
+  <div class="receipt" style="max-width:none">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+      <span class="avatar" style="background:#DC2626;color:#fff;border-radius:14px">M</span>
+      <div style="flex:1"><div style="font-weight:800;font-size:18px">McDonald's</div><div style="font-size:12px;color:var(--muted)">Baton Rouge, LA</div></div>
+      <span class="chip chip-t" style="padding:5px 12px;font-size:11px">3/4 Paid</span>
     </div>
-    <div class="card"><div class="lbl" style="color:var(--muted);font-size:13px;margin-bottom:16px">This month Â· Goa Trip</div>
-      <div class="bars">
-        <div class="bar y" style="height:60%"><span class="bl">Food</span></div>
-        <div class="bar" style="height:90%"><span class="bl">Stay</span></div>
-        <div class="bar t" style="height:45%"><span class="bl">Travel</span></div>
-        <div class="bar" style="height:70%"><span class="bl">Fun</span></div>
-        <div class="bar y" style="height:35%"><span class="bl">Misc</span></div>
-      </div>
-      <div class="legend"><span><i style="background:var(--purple)"></i>You</span><span><i style="background:var(--yellow)"></i>Sam</span><span><i style="background:var(--teal)"></i>Meera</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Bill No. :</span><span>#N3004</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Date :</span><span>04-09-2022</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:var(--muted)">Paid by :</span><span>John Sans</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>1. Chicken Burger x2</span><span>$50.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>2. Cheese Burger x2</span><span>$30.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>3. Fries XL x3</span><span>$25.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>4. Pizza Puff x3</span><span>$30.00</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0"><span>5. Coke XL x5</span><span>$75.00</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;justify-content:space-between;font-weight:800;font-size:17px"><span>Grand Total</span><span>$210.00</span></div>
+    <div style="border-top:1px dashed var(--line);margin:14px 0"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:6px"><span class="avatar avatar-sm" style="background:var(--teal)">🧑</span><span class="avatar avatar-sm" style="background:var(--purple-l);margin-left:-14px">👩</span><span class="avatar avatar-sm" style="background:var(--yellow);margin-left:-14px">🧔</span><span class="avatar avatar-sm" style="background:var(--teal);margin-left:-14px">👨</span></div>
+      <a href="#" style="font-size:13px;font-weight:600">See Details →</a>
     </div>
+    <button class="btn btn-dark" style="width:100%;justify-content:center;margin-top:18px">👁 View Bill</button>
   </div>
-</div></section>
-
-<footer class="foot"><div class="wrap">
-  <div class="foot-grid">
-    <div><a class="wlogo" href="#" style="margin-bottom:14px"><span class="mark">ðŸ’¸</span> split4me</a>
-      <p style="font-size:14px;color:var(--muted);max-width:260px">Split bills, track shared expenses and settle up â€” without the awkward maths.</p></div>
-    <div><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Download</a><a href="#">Changelog</a></div>
-    <div><h4>Company</h4><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
-    <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a></div>
+  <div>
+    <div class="sum" style="margin-bottom:20px">
+      <div class="lbl">Your Share to pay</div>
+      <div class="val" style="font-size:34px">$52.50</div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">Pay Now</button>
+    </div>
+    <div class="card"><div style="font-size:13px;color:var(--muted)">Scanned items are matched to this group's members. Tap an item to reassign who ate what before confirming.</div></div>
   </div>
-  <div class="foot-bottom"><span>Â© 2025 split4me. All rights reserved.</span><span>Made with ðŸ’œ for fair splits.</span></div>
-</div></footer>
+</div>
 
 </body>
 </html>

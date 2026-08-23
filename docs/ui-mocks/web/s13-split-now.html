@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>split4me Â· Web Â· Balances</title>
+<title>split4me · Web · Split Now — Sliders</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  /* LIGHT â€” ã€Œç”Ÿæˆã‚Šã€ kinari: warm unbleached-paper canvas, sumi ink text */
+  /* LIGHT — 「生成り」 kinari: warm unbleached-paper canvas, sumi ink text */
   --bg:#F6F2E9;
   --card:#FFFFFF;      --surface:#FFFFFF;   --surface-2:#FFFFFF;
   --text:#211F1B;
   --muted:#665F53;     /* AA >= 4.5:1 on card, canvas & pastel chips */
-  --faint:#98948A;     /* decorative only (large/bold) */
-  --success:#1B7A47;   --danger:#DC2626;    /* text-safe semantic */
+  --faint:#98948A;     /* decorative only */
+  --success:#1B7A47;   --danger:#DC2626;
   --yellow:#FDECAD;  --yellow-d:#E6D799;  --yellow-ink:#6F5A14;
   --purple:#D8CEFA;  --purple-l:#E8E2FC;  --purple-ink:#564787;
   --teal:#E0F4F5;    --teal-d:#CDE6E8;    --teal-ink:#23555B;
@@ -227,7 +227,7 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 .empty h3{font-size:22px;font-weight:600;margin-bottom:8px;}
 .empty p{color:var(--muted);margin-bottom:22px;}
 
-/* ---------- Dark app theme (screen 22) â€” ã€Œå¤œã€ yoru: sumi-violet night ---------- */
+/* ---------- Dark app theme (screen 19) — 「夜」 yoru: sumi-violet night ---------- */
 .dark-app{--bg:#141319;--card:#201F27;--surface:#201F27;--surface-2:#2A2833;--text:#F1EFE8;--muted:#A6A2AE;--faint:#7B7784;--success:#5FD68F;--danger:#E5766C;--line:rgba(255,255,255,0.09);--shadow:0 24px 60px rgba(0,0,0,0.45);--shadow-sm:0 8px 24px rgba(0,0,0,0.35);background:var(--bg);color:var(--text);}
 .dark-app .wnav{background:rgba(20,19,25,0.82);border-color:var(--line);}
 .dark-app .sidebar{background:#191820;border-color:var(--line);}
@@ -259,40 +259,30 @@ h2.h-sec{font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-1px;font
 </head>
 <body>
 
-
-<div class="app">
-  <aside class="sidebar side">
-    <a class="wlogo" href="#"><span class="mark">ðŸ’¸</span> split4me</a>
-    <nav class="snav">
-      <a class="" href="#"><span class="ic">ðŸ </span> Dashboard</a>
-      <a class="" href="#"><span class="ic">ðŸ§¾</span> Expenses</a>
-      <a class="active" href="#"><span class="ic">âš–ï¸</span> Balances</a>
-      <a class="" href="#"><span class="ic">ðŸ“ˆ</span> Activity</a>
-      <a class="" href="#"><span class="ic">ðŸ“Š</span> Statistics</a>
-      <div class="grp">Groups</div>
-      <a class="" href="#"><span class="ic">ðŸ•</span> Goa Trip</a>
-      <a class="" href="#"><span class="ic">ðŸ </span> Flatmates</a>
-      <a class="" href="#"><span class="ic">ðŸŽ‰</span> Birthday Bash</a>
-    </nav>
-    <div class="side-foot"><span class="avatar avatar-sm" style="background:var(--purple)">A</span><div><div style="font-weight:600;font-size:14px">Aarav</div><div style="font-size:12px;color:var(--muted)">Free plan</div></div></div>
-  </aside>
-  <main class="main">
-    <div class="topbar"><div><h1>Balances</h1></div><div class="actions"><button class="btn btn-dark">Settle up</button></div></div>
-    <div class="sum-grid">
-     <div class="sum"><div class="lbl">Net balance</div><div class="val" style="color:var(--success)">+â‚¹1,520</div></div>
-     <div class="sum"><div class="lbl">To receive</div><div class="val">â‚¹2,480</div></div>
-     <div class="sum"><div class="lbl">To pay</div><div class="val">â‚¹960</div></div>
-   </div>
-   <div class="card" style="margin-bottom:20px"><div style="font-weight:600;margin-bottom:14px">Who owes whom</div>
-     <div class="row" style="border:none;padding:12px 0"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--purple)">S</span><span class="avatar avatar-sm" style="background:var(--teal)">A</span></div><div class="grow" style="margin-left:12px"><div class="t">Sam owes you</div><div class="s">Goa Trip</div></div><div class="amt" style="color:var(--success)">â‚¹2,480</div></div>
-     <div class="row" style="border:none;padding:12px 0"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--teal)">A</span><span class="avatar avatar-sm" style="background:var(--yellow)">M</span></div><div class="grow" style="margin-left:12px"><div class="t">You owe Meera</div><div class="s">Flatmates</div></div><div class="amt" style="color:#DC2626">â‚¹960</div></div>
-   </div>
-   <div class="tabs"><a class="active" href="#">Reimbursements</a><a href="#">History</a></div>
-   <div class="list">
-     <div class="row"><span class="avatar" style="background:var(--purple)">S</span><div class="grow"><div class="t">Sam â†’ You</div><div class="s">Pending Â· Goa Trip</div></div><button class="btn btn-yellow btn-sm">Remind</button></div>
-     <div class="row"><span class="avatar" style="background:var(--yellow)">M</span><div class="grow"><div class="t">You â†’ Meera</div><div class="s">Settle now</div></div><button class="btn btn-dark btn-sm">Pay â‚¹960</button></div>
-   </div>
-  </main>
+<div class="topbar"><div><h1 style="font-size:22px;font-weight:700">Split Now</h1><div style="font-size:13px;color:var(--muted)">Drag the sliders to adjust each share</div></div></div>
+<div class="card" style="margin-bottom:26px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+  <span class="chip chip-y">Receipt</span>
+  <div style="flex:1;display:flex;justify-content:space-around;text-align:center">
+    <div><div style="font-size:12px;color:var(--muted)">Title</div><b style="font-size:17px">Team Dinner</b></div>
+    <div><div style="font-size:12px;color:var(--muted)">Total Bill</div><b style="font-size:17px">$1250.86</b></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px"><div class="av-stack"><span class="avatar avatar-sm" style="background:var(--purple)"></span><span class="avatar avatar-sm" style="background:var(--teal)"></span><span class="avatar avatar-sm" style="background:var(--yellow)"></span></div><span style="font-size:12px;color:var(--muted)">Splitting With</span></div>
 </div>
+<div class="list" style="max-width:760px;margin-bottom:26px">
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--purple)">🧑</span><b style="flex:1">You</b><span class="amt">$200.86</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:28%;height:100%;border-radius:10px;background:var(--teal)"></div><span style="position:absolute;left:28%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--teal)"></span></div>
+  </div>
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--success);color:#fff">🧑</span><b style="flex:1">Jhony</b><span class="amt">$450.00</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:65%;height:100%;border-radius:10px;background:var(--success)"></div><span style="position:absolute;left:65%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--success)"></span></div>
+  </div>
+  <div class="row" style="flex-direction:column;align-items:stretch;gap:12px;padding:20px 18px;border:none">
+    <div style="display:flex;align-items:center;gap:12px"><span class="avatar avatar-sm" style="background:var(--yellow-d)">👩</span><b style="flex:1">Rehan</b><span class="amt">$600.00</span></div>
+    <div style="height:10px;border-radius:10px;background:var(--bg);position:relative"><div style="width:85%;height:100%;border-radius:10px;background:var(--yellow-d)"></div><span style="position:absolute;left:85%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--yellow-d)"></span></div>
+  </div>
+</div>
+<button class="btn btn-dark" style="padding:18px 60px;font-size:16px">Confirm Split</button>
+
 </body>
 </html>
