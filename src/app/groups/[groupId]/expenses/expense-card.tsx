@@ -85,10 +85,12 @@ export function ExpenseCard({
         router.push(`/groups/${groupId}/expenses/${expense.id}/edit`)
       }}
     >
-      <CategoryIcon
-        category={expense.category}
-        className="w-4 h-4 mr-2 mt-0.5 text-muted-foreground"
-      />
+      <div className="shrink-0 w-9 h-9 rounded-2xl bg-secondary flex items-center justify-center mr-1 mt-0.5">
+        <CategoryIcon
+          category={expense.category}
+          className="w-4 h-4 text-[#6B5BD2]"
+        />
+      </div>
       <div className="flex-1">
         <div className={cn('mb-1', expense.isReimbursement && 'italic')}>
           {expense.title}

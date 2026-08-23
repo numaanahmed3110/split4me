@@ -116,7 +116,7 @@ function Metric({
   return (
     <div className="min-w-0">
       <div className="text-sm text-muted-foreground">{label}</div>
-      <div className="text-lg">{children}</div>
+      <div className="text-2xl font-bold tracking-tight tabular-nums">{children}</div>
     </div>
   )
 }
