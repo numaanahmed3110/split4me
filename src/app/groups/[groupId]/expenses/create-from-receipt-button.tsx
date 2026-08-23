@@ -21,9 +21,15 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
 import { useAnalytics } from '@/lib/analytics/context'
 import { useMediaQuery } from '@/lib/hooks'
+import {
+  dismissToast,
+  getErrorMessage,
+  toastError,
+  toastRetrying,
+  toastSuccess,
+} from '@/lib/toast-feedback'
 import { formatFileSize } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
@@ -82,7 +88,7 @@ function ReceiptDialogContent() {
   const t = useTranslations('CreateFromReceipt')
   const [pending, setPending] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const { toast } = useToast()
+  const retryToastRef = useRef<ReturnType<typeof toastRetrying> | null>(null)
   const utils = trpc.useUtils()
   const createDraft = trpc.drafts.create.useMutation()
 
@@ -92,29 +98,33 @@ function ReceiptDialogContent() {
     import('@/lib/draft-schemas').ExpenseDraftPayload | null
   >(null)
 
+  const clearRetryToast = () => {
+    dismissToast(retryToastRef.current)
+    retryToastRef.current = null
+  }
+
   const handleFileChange = async (file: File) => {
     if (file.size > MAX_FILE_SIZE) {
-      toast({
-        title: t('TooBigToast.title'),
-        description: t('TooBigToast.description', {
+      toastError(
+        t('TooBigToast.title'),
+        t('TooBigToast.description', {
           maxSize: formatFileSize(MAX_FILE_SIZE, locale),
           size: formatFileSize(file.size, locale),
         }),
-        variant: 'destructive',
-      })
+      )
       return
     }
 
     if (!isSignedIn) {
-      toast({
-        title: 'Sign in required',
-        description: 'Please sign in to scan receipts.',
-        variant: 'destructive',
-      })
+      toastError('Sign in required', 'Please sign in to scan receipts.')
       return
     }
 
-    const process = async () => {
+    const process = async (attempt = 0) => {
+      if (attempt === 1) {
+        retryToastRef.current = toastRetrying('Scanning your receipt again…')
+      }
+
       sendEvent(
         { event: 'expense: scan receipt', props: {} },
         `/groups/${groupId}/expenses`,
@@ -135,12 +145,13 @@ function ReceiptDialogContent() {
           membership.participantId ?? undefined,
         )
 
+        clearRetryToast()
+
         if (!extracted.draft) {
-          toast({
-            title: t('ErrorToast.title'),
-            description: 'Could not read anything from this receipt.',
-            variant: 'destructive',
-          })
+          toastError(
+            t('ErrorToast.title'),
+            'Could not read anything from this receipt.',
+          )
           return
         }
 
@@ -150,25 +161,30 @@ function ReceiptDialogContent() {
         })
         setDraftId(created.draftId)
         setDraftPayload(extracted.draft)
-        toast({
-          title: 'Receipt scanned',
-          description: 'Review the extracted expense below.',
-        })
+        toastSuccess('Receipt scanned', 'Review the extracted expense below.')
       } catch (err) {
         console.error(err)
-        toast({
-          title: t('ErrorToast.title'),
-          description: t('ErrorToast.description'),
-          variant: 'destructive',
-          action: (
-            <ToastAction
-              altText={t('ErrorToast.retry')}
-              onClick={() => process()}
-            >
-              {t('ErrorToast.retry')}
-            </ToastAction>
-          ),
-        })
+        clearRetryToast()
+
+        if (attempt === 0) {
+          toastError(
+            t('ErrorToast.title'),
+            `${t('ErrorToast.description')} Retrying…`,
+          )
+          await process(1)
+          return
+        }
+
+        toastError(
+          t('ErrorToast.title'),
+          getErrorMessage(err, t('ErrorToast.description')),
+          <ToastAction
+            altText={t('ErrorToast.retry')}
+            onClick={() => process(0)}
+          >
+            {t('ErrorToast.retry')}
+          </ToastAction>,
+        )
       } finally {
         setPending(false)
       }

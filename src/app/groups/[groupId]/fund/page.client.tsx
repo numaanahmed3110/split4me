@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Progress } from '@/components/ui/progress'
-import { useToast } from '@/components/ui/use-toast'
+import { toastError, toastSuccess } from '@/lib/toast-feedback'
 import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { Lock, PiggyBank, Plus, Trash2 } from 'lucide-react'
@@ -52,7 +52,10 @@ export function TripFundPageClient() {
   const locale = useLocale()
   const { groupId, group } = useCurrentGroup()
   const currency = group ? getCurrencyFromGroup(group) : undefined
-  const { toast } = useToast()
+
+  const mutationError = (title: string) => (error: { message: string }) => {
+    toastError(title, error.message)
+  }
 
   const utils = trpc.useUtils()
   const { data, isLoading } = trpc.groups.fund.getSnapshot.useQuery({ groupId })
@@ -64,47 +67,44 @@ export function TripFundPageClient() {
   const createFund = trpc.groups.fund.create.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({
-        title: 'Trip budget created',
-        description: 'Your budget is ready.',
-      })
+      toastSuccess('Trip budget created', 'Your budget is ready.')
     },
+    onError: mutationError('Could not create budget'),
   })
   const updateFund = trpc.groups.fund.update.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({ title: 'Budget updated', description: 'Trip budget saved.' })
+      toastSuccess('Budget updated', 'Trip budget saved.')
     },
+    onError: mutationError('Could not update budget'),
   })
   const createBudget = trpc.groups.fund.createBudget.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({
-        title: 'Allocation added',
-        description: 'Budget category saved.',
-      })
+      toastSuccess('Allocation added', 'Budget category saved.')
     },
+    onError: mutationError('Could not add allocation'),
   })
   const deleteBudget = trpc.groups.fund.deleteBudget.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({ title: 'Allocation removed' })
+      toastSuccess('Allocation removed')
     },
+    onError: mutationError('Could not remove allocation'),
   })
   const createReserve = trpc.groups.fund.createReserve.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({ title: 'Reserve created', description: 'Money set aside.' })
+      toastSuccess('Reserve created', 'Money set aside.')
     },
+    onError: mutationError('Could not create reserve'),
   })
   const releaseReserve = trpc.groups.fund.releaseReserve.useMutation({
     onSuccess: () => {
       utils.groups.fund.invalidate()
-      toast({
-        title: 'Reserve released',
-        description: 'Funds returned to spendable budget.',
-      })
+      toastSuccess('Reserve released', 'Funds returned to spendable budget.')
     },
+    onError: mutationError('Could not release reserve'),
   })
 
   const [budgetDialog, setBudgetDialog] = useState(false)
