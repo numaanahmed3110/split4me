@@ -11,17 +11,17 @@ export const GroupHeader = () => {
 
   return (
     <div className="flex flex-col justify-between gap-3">
-      <h1 className="font-bold text-2xl">
+      <h1 className="font-bold text-3xl tracking-tight">
         <Link href={`/groups/${groupId}`}>
           {isLoading ? (
-            <Skeleton className="mt-1.5 mb-1.5 h-5 w-32" />
+            <Skeleton className="mt-1.5 mb-1.5 h-7 w-40" />
           ) : (
             <div className="flex">{group.name}</div>
           )}
         </Link>
       </h1>
 
-      <div className="flex gap-2 justify-between">
+      <div className="flex gap-2 justify-between items-center">
         <GroupTabs groupId={groupId} />
         {group && <ShareButton group={group} />}
       </div>

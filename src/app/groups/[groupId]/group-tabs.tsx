@@ -37,7 +37,7 @@ export function GroupTabs({ groupId }: Props) {
   return (
     <Tabs
       value={value}
-      className="[&>*]:border flex-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="flex-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       onValueChange={(value) => {
         router.push(`/groups/${groupId}/${value}`)
       }}
