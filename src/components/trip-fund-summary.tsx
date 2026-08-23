@@ -17,7 +17,7 @@ export function TripFundSummary() {
   const { data, isLoading } = trpc.groups.fund.getSnapshot.useQuery({ groupId })
 
   if (isLoading) {
-    return <Skeleton className="h-28 w-full mb-4 rounded-lg" />
+    return <Skeleton className="h-28 w-full mb-4 rounded-3xl" />
   }
 
   if (!group || !data?.snapshot || !data.fund) return null
@@ -27,7 +27,7 @@ export function TripFundSummary() {
 
   return (
     <Link href={`/groups/${groupId}/fund`} className="block mb-4">
-      <div className="rounded-lg border bg-card p-4 hover:bg-muted/40 transition-colors">
+      <div className="rounded-3xl border bg-card shadow-sm p-4 hover:bg-muted/40 transition-colors">
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2 font-semibold text-sm">
             <PiggyBank className="w-4 h-4" />

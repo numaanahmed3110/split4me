@@ -438,7 +438,7 @@ function VoiceExpenseContent() {
       </div>
 
       {transcript && (step === 'idle' || step === 'failed') && (
-        <div className="rounded-lg border bg-muted/40 p-3 text-sm text-left space-y-1">
+        <div className="rounded-3xl border bg-muted/40 p-3 text-sm text-left space-y-1">
           <p className="font-medium text-xs uppercase tracking-wide text-muted-foreground">
             What we heard
           </p>

@@ -104,7 +104,7 @@ function MonthlyBars({
             key={month.month}
             type="button"
             onClick={() => setSelected(month.month)}
-            className="group -mx-2 flex w-full cursor-pointer flex-col gap-1.5 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group -mx-2 flex w-full cursor-pointer flex-col gap-1.5 rounded-2xl px-2 py-1.5 text-left transition-colors hover:bg-accent focus-visible:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={t('showExpenses', { month: formatMonth(month.month) })}
           >
             <div className="flex items-center justify-between gap-2 text-sm">

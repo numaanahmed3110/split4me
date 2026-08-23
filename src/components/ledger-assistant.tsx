@@ -89,8 +89,8 @@ export function LedgerAssistant({ groupId }: { groupId: string }) {
                 <p
                   className={
                     m.role === 'user'
-                      ? 'inline-block bg-primary text-primary-foreground rounded-lg px-3 py-1'
-                      : 'bg-muted rounded-lg px-3 py-1 inline-block'
+                      ? 'inline-block bg-primary text-primary-foreground rounded-3xl px-3 py-1'
+                      : 'bg-muted rounded-3xl px-3 py-1 inline-block'
                   }
                 >
                   {m.text}

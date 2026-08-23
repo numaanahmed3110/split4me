@@ -84,7 +84,7 @@ export function ShareQrCodeDialog({ url, groupName }: Props) {
           <DialogDescription>{t('qrCode.description')}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4 py-4">
-          <div className="bg-white p-4 rounded-lg">
+          <div className="bg-white p-4 rounded-3xl">
             <QRCodeSVG
               id={qrCodeId}
               value={url}

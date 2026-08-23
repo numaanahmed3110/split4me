@@ -229,7 +229,7 @@ export function TripFundPageClient() {
           </div>
 
           {snapshot.totalReserved > 0 && (
-            <p className="text-sm text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/40 rounded-lg px-3 py-2">
+            <p className="text-sm text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-950/40 rounded-3xl px-3 py-2">
               {t('lockedHint', {
                 amount: formatCurrency(
                   currency,

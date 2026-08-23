@@ -68,7 +68,7 @@ export function ExpenseFundFields({ group, form, expenseId }: Props) {
   const snapshot = data.snapshot
 
   return (
-    <div className="space-y-4 rounded-lg border p-4 bg-muted/30">
+    <div className="space-y-4 rounded-3xl border p-4 bg-muted/30">
       <div className="text-sm space-y-1">
         <p>
           <span className="font-medium text-foreground">

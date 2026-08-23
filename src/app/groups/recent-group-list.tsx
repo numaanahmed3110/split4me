@@ -203,7 +203,7 @@ function GroupsPage({
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <h1 className="font-bold text-2xl flex-1 tracking-tight">
+        <h1 className="font-bold text-2xl tracking-tight flex-1 tracking-tight">
           <Link href="/groups">{t('myGroups')}</Link>
         </h1>
         <div className="flex gap-2">

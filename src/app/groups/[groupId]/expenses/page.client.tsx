@@ -38,7 +38,7 @@ export default function GroupExpensesPageClient({
     <>
       <TrackPage path={`/groups/${groupId}/expenses`} />
       <TripFundSummary />
-      <Card className="mb-4 rounded-none -mx-4 border-x-0 sm:border-x sm:rounded-lg sm:mx-0">
+      <Card className="mb-4 rounded-none -mx-4 border-x-0 sm:border-x sm:rounded-3xl sm:mx-0">
         <div className="flex flex-1">
           <CardHeader className="flex-1 p-4 sm:p-6">
             <CardTitle>{t('title')}</CardTitle>

@@ -105,7 +105,7 @@ export function ExpenseDraftReview({
 
       <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         {previewImageUrl && (
-          <div className="rounded-lg border bg-muted/30 p-2 flex items-center justify-center min-h-[140px]">
+          <div className="rounded-3xl border bg-muted/30 p-2 flex items-center justify-center min-h-[140px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewImageUrl}
@@ -115,7 +115,7 @@ export function ExpenseDraftReview({
           </div>
         )}
 
-        <div className="space-y-3 rounded-lg border p-4 bg-card">
+        <div className="space-y-3 rounded-3xl border p-4 bg-card shadow-sm">
           {editing ? (
             <div className="space-y-3">
               <div className="space-y-1">
@@ -232,7 +232,7 @@ export function ExpenseDraftReview({
       </div>
 
       {lineItems.length > 0 && (
-        <div className="rounded-lg border overflow-hidden">
+        <div className="rounded-3xl border overflow-hidden">
           <div className="px-4 py-2 bg-muted/50 border-b text-sm font-medium">
             Line items
           </div>
@@ -260,7 +260,7 @@ export function ExpenseDraftReview({
       )}
 
       {shareRows.length > 0 && (
-        <div className="rounded-lg border overflow-hidden">
+        <div className="rounded-3xl border overflow-hidden">
           <div className="px-4 py-2 bg-muted/50 border-b text-sm font-medium">
             Split preview
           </div>
