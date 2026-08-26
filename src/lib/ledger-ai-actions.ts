@@ -107,15 +107,57 @@ ${ledgerJson}`,
   })
 
   const parsed = parseModelJson(content, ledgerAnswerSchema)
-  if (!parsed) {
+  if (parsed) return parsed
+
+  return fallbackLedgerAnswer(context, question)
+}
+
+function minorToMajor(minor: number): string {
+  return (minor / 100).toFixed(2)
+}
+
+function fallbackLedgerAnswer(
+  context: NonNullable<Awaited<ReturnType<typeof getFundLedgerContext>>>,
+  question: string,
+): LedgerAiResult {
+  const { snapshot } = context
+  const q = question.toLowerCase()
+
+  if (/spent|spend(ing)? so far|total spend/.test(q)) {
+    return {
+      answer: `The group has spent ${minorToMajor(snapshot.totalSpent)} so far.`,
+      proposedAction: { type: 'none' },
+    }
+  }
+  if (/remaining|left|budget left/.test(q)) {
+    return {
+      answer: `There is ${minorToMajor(snapshot.remaining)} remaining in the trip budget.`,
+      proposedAction: { type: 'none' },
+    }
+  }
+  if (/freely|safe to spend|available/.test(q)) {
+    return {
+      answer: `You can safely spend ${minorToMajor(snapshot.freelySpendable)} without touching locked reserves.`,
+      proposedAction: { type: 'none' },
+    }
+  }
+  if (/reserve|locked|set aside/.test(q)) {
+    const total = minorToMajor(snapshot.totalReserved)
+    const count = context.fund.reserves.filter((r) => !r.releasedAt).length
     return {
       answer:
-        'I could not process that question. Try asking about freely spendable amount, remaining budget, or reserves.',
+        count > 0
+          ? `${count} reserve(s) totalling ${total} are locked.`
+          : 'No money is currently locked in reserves.',
       proposedAction: { type: 'none' },
     }
   }
 
-  return parsed
+  return {
+    answer:
+      'I could not process that question. Try asking about freely spendable amount, remaining budget, or reserves.',
+    proposedAction: { type: 'none' },
+  }
 }
 
 export async function executeLedgerAction(

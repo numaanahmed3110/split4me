@@ -5,7 +5,6 @@ import { PreferencesMigration } from '@/components/preferences-migration'
 import { ProgressBar } from '@/components/progress-bar'
 import { ServiceWorkerRegistration } from '@/components/service-worker-registration'
 import { ThemeProvider } from '@/components/theme-provider'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { Toaster } from '@/components/ui/toaster'
 import { Analytics } from '@/lib/analytics/analytics'
 import { getAnalyticsConfig } from '@/lib/analytics/config'
@@ -118,9 +117,6 @@ function Content({ children }: { children: React.ReactNode }) {
             <li>
               <LocaleSwitcher />
             </li>
-            <li>
-              <ThemeToggle />
-            </li>
             <li className="ml-2 flex items-center gap-2">
               <Show when="signed-in">
                 <UserButton />
@@ -183,8 +179,8 @@ export default async function RootLayout({
             <Analytics config={analyticsConfig}>
               <ThemeProvider
                 attribute="class"
-                defaultTheme="system"
-                enableSystem
+                defaultTheme="light"
+                forcedTheme="light"
                 disableTransitionOnChange
               >
                 <Suspense>
