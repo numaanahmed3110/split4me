@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { SplitMode } from '@/generated/prisma/client'
+import { aiLog, createAiLogId, logAiConfig, withAiTiming } from '@/lib/ai-log'
 import { getCategories, getGroup } from '@/lib/api'
 import {
   expenseDraftPayloadSchema,
@@ -77,28 +78,72 @@ function buildDraftFromExtract(
   })
 }
 
+export type ReceiptExtractResult = {
+  logId: string
+  draft: ExpenseDraftPayload | null
+  raw?: unknown
+}
+
 export async function extractReceiptDraft(
   groupId: string,
   imageSource: string,
   payerParticipantId?: string,
-): Promise<{ draft: ExpenseDraftPayload; raw: unknown } | null> {
+  logId = createAiLogId(),
+): Promise<ReceiptExtractResult> {
   const { enableReceiptExtract } = await getRuntimeFeatureFlags()
+  logAiConfig(
+    'ocr',
+    {
+      enableReceiptExtract,
+      hasNvidiaKey: !!env.NVIDIA_API_KEY,
+      model: env.NVIDIA_MODEL,
+    },
+    { groupId, logId },
+  )
+
   if (!enableReceiptExtract || !env.NVIDIA_API_KEY) {
-    throw new Error('Receipt extraction is not enabled.')
+    const error = new Error('Receipt extraction is not enabled.')
+    aiLog('error', {
+      feature: 'ocr',
+      stage: 'disabled',
+      logId,
+      groupId,
+      error,
+      meta: { enableReceiptExtract, hasNvidiaKey: !!env.NVIDIA_API_KEY },
+    })
+    throw error
   }
 
   const imageUrl = imageSource.startsWith('data:image/') ? imageSource : null
 
   if (!imageUrl) {
     if (!isAllowedUploadUrl(imageSource)) {
-      throw new Error('Invalid image URL.')
+      const error = new Error('Invalid image URL.')
+      aiLog('error', {
+        feature: 'ocr',
+        stage: 'invalid_image_url',
+        logId,
+        groupId,
+        error,
+      })
+      throw error
     }
   }
 
   const nemotronImageUrl = imageUrl ?? imageSource
 
   const group = await getGroup(groupId)
-  if (!group) throw new Error('Invalid group ID')
+  if (!group) {
+    const error = new Error('Invalid group ID')
+    aiLog('error', {
+      feature: 'ocr',
+      stage: 'group_not_found',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
+  }
 
   const participants = group.participants
     .map((p) => `${p.id}:${p.name}`)
@@ -118,24 +163,73 @@ Return ONLY JSON:
 }
 Use plain currency numbers (1850 for ₹1,850).`
 
-  const content = await nemotronChat({
-    messages: [
-      { role: 'user', content: [{ type: 'text', text: prompt }] },
-      {
-        role: 'user',
-        content: [{ type: 'image_url', image_url: { url: nemotronImageUrl } }],
-      },
-    ],
-    maxTokens: 8192,
-  })
+  const content = await withAiTiming(
+    'ocr',
+    'nemotron_vision',
+    () =>
+      nemotronChat({
+        messages: [
+          { role: 'user', content: [{ type: 'text', text: prompt }] },
+          {
+            role: 'user',
+            content: [
+              { type: 'image_url', image_url: { url: nemotronImageUrl } },
+            ],
+          },
+        ],
+        maxTokens: 8192,
+        logFeature: 'ocr',
+        logStage: 'nemotron_vision',
+        logId,
+        groupId,
+      }),
+    { groupId, logId },
+  )
 
-  const parsed = parseModelJson(content, receiptExtractSchema)
-  if (!parsed) return null
+  const parsed = parseModelJson(content, receiptExtractSchema, {
+    feature: 'ocr',
+    stage: 'receipt_schema',
+    logId,
+    groupId,
+  })
+  if (!parsed) {
+    aiLog('warn', {
+      feature: 'ocr',
+      stage: 'invalid_model_json',
+      logId,
+      groupId,
+    })
+    return { draft: null, logId }
+  }
 
   const draft = buildDraftFromExtract(group, parsed, payerParticipantId)
-  if (!draft) return null
+  if (!draft) {
+    aiLog('warn', {
+      feature: 'ocr',
+      stage: 'draft_build_failed',
+      logId,
+      groupId,
+      meta: {
+        participantCount: group.participants.length,
+        lineItemCount: parsed.lineItems.length,
+      },
+    })
+    return { draft: null, logId }
+  }
 
-  return { draft, raw: parsed }
+  aiLog('info', {
+    feature: 'ocr',
+    stage: 'draft_ready',
+    logId,
+    groupId,
+    meta: {
+      title: draft.title,
+      amountMinor: draft.amount,
+      lineItems: draft.lineItems?.length ?? 0,
+    },
+  })
+
+  return { draft, raw: parsed, logId }
 }
 
 /** Extract receipt from a base64 data URL (no S3 storage). */
@@ -143,18 +237,55 @@ export async function extractReceiptDraftFromBase64(
   groupId: string,
   imageDataUrl: string,
   payerParticipantId?: string,
-) {
+  logId = createAiLogId(),
+): Promise<ReceiptExtractResult> {
   if (!imageDataUrl.startsWith('data:image/')) {
-    throw new Error('Invalid image data.')
+    const error = new Error('Invalid image data.')
+    aiLog('error', {
+      feature: 'ocr',
+      stage: 'invalid_data_url',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
   }
   const base64Part = imageDataUrl.split(',')[1]
-  if (!base64Part) throw new Error('Invalid image data.')
+  if (!base64Part) {
+    const error = new Error('Invalid image data.')
+    aiLog('error', {
+      feature: 'ocr',
+      stage: 'missing_base64',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
+  }
   const byteLength = Math.ceil((base64Part.length * 3) / 4)
   const maxBytes = 5 * 1024 * 1024
   if (byteLength > maxBytes) {
-    throw new Error('Image is too large.')
+    const error = new Error('Image is too large.')
+    aiLog('error', {
+      feature: 'ocr',
+      stage: 'image_too_large',
+      logId,
+      groupId,
+      error,
+      meta: { byteLength, maxBytes },
+    })
+    throw error
   }
-  return extractReceiptDraft(groupId, imageDataUrl, payerParticipantId)
+
+  aiLog('info', {
+    feature: 'ocr',
+    stage: 'image_accepted',
+    logId,
+    groupId,
+    meta: { byteLength },
+  })
+
+  return extractReceiptDraft(groupId, imageDataUrl, payerParticipantId, logId)
 }
 
 const voiceExtractSchema = receiptExtractSchema.extend({
@@ -165,13 +296,41 @@ export async function parseVoiceTranscriptToDraft(
   groupId: string,
   transcript: string,
   payerParticipantId?: string,
+  logId = createAiLogId(),
 ): Promise<ExpenseDraftPayload | null> {
+  logAiConfig(
+    'voice-parse',
+    {
+      hasNvidiaKey: !!env.NVIDIA_API_KEY,
+      model: env.NVIDIA_MODEL,
+    },
+    { groupId, logId },
+  )
+
   if (!env.NVIDIA_API_KEY) {
-    throw new Error('NVIDIA_API_KEY is not configured.')
+    const error = new Error('NVIDIA_API_KEY is not configured.')
+    aiLog('error', {
+      feature: 'voice-parse',
+      stage: 'missing_key',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
   }
 
   const group = await getGroup(groupId)
-  if (!group) throw new Error('Invalid group ID')
+  if (!group) {
+    const error = new Error('Invalid group ID')
+    aiLog('error', {
+      feature: 'voice-parse',
+      stage: 'group_not_found',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
+  }
 
   const categories = await getCategories()
   const participants = group.participants
@@ -194,13 +353,61 @@ Return ONLY JSON matching:
 }
 Use plain numbers (250 for ₹250). Assign each line item to participant ids who consumed it.`
 
-  const content = await nemotronChat({
-    messages: [{ role: 'user', content: prompt }],
-    maxTokens: 8192,
+  const content = await withAiTiming(
+    'voice-parse',
+    'nemotron_parse',
+    () =>
+      nemotronChat({
+        messages: [{ role: 'user', content: prompt }],
+        maxTokens: 8192,
+        logFeature: 'voice-parse',
+        logStage: 'nemotron_parse',
+        logId,
+        groupId,
+      }),
+    { groupId, logId },
+  )
+
+  const parsed = parseModelJson(content, voiceExtractSchema, {
+    feature: 'voice-parse',
+    stage: 'voice_schema',
+    logId,
+    groupId,
+  })
+  if (!parsed) {
+    aiLog('warn', {
+      feature: 'voice-parse',
+      stage: 'invalid_model_json',
+      logId,
+      groupId,
+      meta: { transcriptChars: transcript.length },
+    })
+    return null
+  }
+
+  const draft = buildDraftFromExtract(
+    group,
+    parsed,
+    payerParticipantId,
+    parsed.notes,
+  )
+  if (!draft) {
+    aiLog('warn', {
+      feature: 'voice-parse',
+      stage: 'draft_build_failed',
+      logId,
+      groupId,
+    })
+    return null
+  }
+
+  aiLog('info', {
+    feature: 'voice-parse',
+    stage: 'draft_ready',
+    logId,
+    groupId,
+    meta: { title: draft.title, amountMinor: draft.amount },
   })
 
-  const parsed = parseModelJson(content, voiceExtractSchema)
-  if (!parsed) return null
-
-  return buildDraftFromExtract(group, parsed, payerParticipantId, parsed.notes)
+  return draft
 }

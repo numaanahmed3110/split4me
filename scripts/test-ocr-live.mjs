@@ -1,10 +1,12 @@
+import { PrismaPg } from '@prisma/adapter-pg'
 import fs from 'fs'
 import pg from 'pg'
-import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma/client/index.js'
 
 async function main() {
-  const pool = new pg.Pool({ connectionString: process.env.POSTGRES_PRISMA_URL })
+  const pool = new pg.Pool({
+    connectionString: process.env.POSTGRES_PRISMA_URL,
+  })
   const prisma = new PrismaClient({ adapter: new PrismaPg(pool) })
 
   const group = await prisma.group.findFirst({
@@ -23,9 +25,8 @@ async function main() {
     group.participants.map((p) => `${p.name}(${p.id})`).join(', '),
   )
 
-  const { extractReceiptDraftFromBase64 } = await import(
-    '../src/lib/receipt-extract.ts'
-  )
+  const { extractReceiptDraftFromBase64 } =
+    await import('../src/lib/receipt-extract.ts')
 
   const img = fs.readFileSync('test-assets/synthetic-receipt.png')
   const dataUrl = `data:image/png;base64,${img.toString('base64')}`
@@ -36,13 +37,14 @@ async function main() {
     group.participants[0]?.id,
   )
 
-  if (!result) {
-    console.log('OCR_RESULT: null')
+  if (!result.draft) {
+    console.log('OCR_RESULT: null', 'logId:', result.logId)
   } else {
     console.log(
       'OCR_RESULT:',
       JSON.stringify(
         {
+          logId: result.logId,
           title: result.draft.title,
           total: result.draft.amount / 100,
           date: result.draft.expenseDate,

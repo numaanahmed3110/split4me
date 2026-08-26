@@ -40,6 +40,10 @@ import { useCurrentGroup } from '../current-group-context'
 
 const MAX_FILE_SIZE = 5 * 1024 ** 2
 
+function withLogRef(message: string, logId?: string) {
+  return logId ? `${message} (ref: ${logId})` : message
+}
+
 function readFileAsDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -148,9 +152,16 @@ function ReceiptDialogContent() {
         clearRetryToast()
 
         if (!extracted.draft) {
+          console.error('[split4me-ai][client] ocr_no_draft', {
+            logId: extracted.logId,
+            groupId,
+          })
           toastError(
             t('ErrorToast.title'),
-            'Could not read anything from this receipt.',
+            withLogRef(
+              extracted.error ?? 'Could not read anything from this receipt.',
+              extracted.logId,
+            ),
           )
           return
         }
@@ -163,7 +174,7 @@ function ReceiptDialogContent() {
         setDraftPayload(extracted.draft)
         toastSuccess('Receipt scanned', 'Review the extracted expense below.')
       } catch (err) {
-        console.error(err)
+        console.error('[split4me-ai][client] ocr_failed', { groupId, err })
         clearRetryToast()
 
         if (attempt === 0) {

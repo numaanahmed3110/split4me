@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { aiLog } from '@/lib/ai-log'
 import { env } from '@/lib/env'
 
 const DEEPGRAM_URL = 'https://api.deepgram.com/v1/listen'
@@ -8,6 +9,8 @@ type TranscribeOptions = {
   /** Raw audio bytes (webm, wav, mp3, etc.) */
   audio: Buffer | ArrayBuffer
   mimeType?: string
+  logId?: string
+  groupId?: string
 }
 
 /**
@@ -17,8 +20,19 @@ type TranscribeOptions = {
 export async function transcribeAudio(
   options: TranscribeOptions,
 ): Promise<string> {
+  const logId = options.logId
+  const groupId = options.groupId
+
   if (!env.DEEPGRAM_API_KEY) {
-    throw new Error('DEEPGRAM_API_KEY is not configured.')
+    const error = new Error('DEEPGRAM_API_KEY is not configured.')
+    aiLog('error', {
+      feature: 'voice-transcribe',
+      stage: 'missing_key',
+      logId,
+      groupId,
+      error,
+    })
+    throw error
   }
 
   const buffer =
@@ -33,18 +47,53 @@ export async function transcribeAudio(
     punctuate: 'true',
   })
 
-  const response = await fetch(`${DEEPGRAM_URL}?${params}`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Token ${env.DEEPGRAM_API_KEY}`,
-      'Content-Type': options.mimeType ?? 'audio/webm',
+  const started = Date.now()
+  aiLog('info', {
+    feature: 'voice-transcribe',
+    stage: 'request',
+    logId,
+    groupId,
+    meta: {
+      mimeType: options.mimeType ?? 'audio/webm',
+      audioBytes: buffer.byteLength,
     },
-    body: new Uint8Array(buffer),
   })
+
+  let response: Response
+  try {
+    response = await fetch(`${DEEPGRAM_URL}?${params}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${env.DEEPGRAM_API_KEY}`,
+        'Content-Type': options.mimeType ?? 'audio/webm',
+      },
+      body: new Uint8Array(buffer),
+    })
+  } catch (error) {
+    aiLog('error', {
+      feature: 'voice-transcribe',
+      stage: 'network',
+      logId,
+      groupId,
+      durationMs: Date.now() - started,
+      error,
+    })
+    throw error
+  }
 
   if (!response.ok) {
     const body = await response.text()
-    throw new Error(`Deepgram API error ${response.status}: ${body}`)
+    const error = new Error(`Deepgram API error ${response.status}: ${body}`)
+    aiLog('error', {
+      feature: 'voice-transcribe',
+      stage: `http_${response.status}`,
+      logId,
+      groupId,
+      durationMs: Date.now() - started,
+      error,
+      meta: { responseBodyPreview: body.slice(0, 500) },
+    })
+    throw error
   }
 
   const data = (await response.json()) as {
@@ -53,7 +102,26 @@ export async function transcribeAudio(
   const transcript =
     data.results?.channels?.[0]?.alternatives?.[0]?.transcript?.trim() ?? ''
   if (!transcript) {
-    throw new Error('Deepgram returned empty transcript.')
+    const error = new Error('Deepgram returned empty transcript.')
+    aiLog('error', {
+      feature: 'voice-transcribe',
+      stage: 'empty_transcript',
+      logId,
+      groupId,
+      durationMs: Date.now() - started,
+      error,
+    })
+    throw error
   }
+
+  aiLog('info', {
+    feature: 'voice-transcribe',
+    stage: 'ok',
+    logId,
+    groupId,
+    durationMs: Date.now() - started,
+    meta: { transcriptChars: transcript.length },
+  })
+
   return transcript
 }

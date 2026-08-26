@@ -8,6 +8,7 @@ jest.mock('../../../../lib/receipt-extract', () => ({
 import { extractExpenseInformationFromImage } from './create-from-receipt-button-actions'
 
 const GROUP_ID = 'group-test'
+const LOG_ID = 'test-log-id'
 const IMAGE_DATA_URL =
   'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAn/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBEQCEAwEPwAB//9k='
 
@@ -17,6 +18,8 @@ const NOTHING_EXTRACTED = {
   date: null,
   title: null,
   draft: null,
+  logId: LOG_ID,
+  error: 'Could not read anything from this receipt.',
 }
 
 describe('extractExpenseInformationFromImage', () => {
@@ -34,6 +37,7 @@ describe('extractExpenseInformationFromImage', () => {
         lineItems: [],
       },
       raw: {},
+      logId: LOG_ID,
     })
 
     expect(
@@ -44,6 +48,7 @@ describe('extractExpenseInformationFromImage', () => {
       date: '2026-03-01',
       title: 'Dinner',
       draft: expect.objectContaining({ title: 'Dinner' }),
+      logId: LOG_ID,
     })
   })
 
@@ -59,6 +64,7 @@ describe('extractExpenseInformationFromImage', () => {
         lineItems: [],
       },
       raw: {},
+      logId: LOG_ID,
     })
 
     const info = await extractExpenseInformationFromImage(
@@ -81,6 +87,7 @@ describe('extractExpenseInformationFromImage', () => {
         lineItems: [],
       },
       raw: {},
+      logId: LOG_ID,
     })
 
     await extractExpenseInformationFromImage(GROUP_ID, IMAGE_DATA_URL, 'p2')
@@ -89,11 +96,12 @@ describe('extractExpenseInformationFromImage', () => {
       GROUP_ID,
       IMAGE_DATA_URL,
       'p2',
+      expect.any(String),
     )
   })
 
-  it('reports nothing extracted when extraction returns null', async () => {
-    mockExtractReceiptDraft.mockResolvedValue(null)
+  it('reports nothing extracted when extraction returns null draft', async () => {
+    mockExtractReceiptDraft.mockResolvedValue({ draft: null, logId: LOG_ID })
     expect(
       await extractExpenseInformationFromImage(GROUP_ID, IMAGE_DATA_URL),
     ).toEqual(NOTHING_EXTRACTED)
