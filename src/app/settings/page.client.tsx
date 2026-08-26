@@ -4,6 +4,7 @@ import { NotificationSettings } from '@/app/settings/notification-settings'
 import { BrandMark } from '@/components/brand-icons'
 import { LocaleSwitcher } from '@/components/locale-switcher'
 import { Button } from '@/components/ui/button'
+import { ButtonGroup } from '@/components/ui/button-group'
 import { SignOutButton, useClerk, useUser } from '@clerk/nextjs'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -52,7 +53,22 @@ export function SettingsPageClient() {
             ) : null}
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <ButtonGroup className="hidden w-full md:flex [&>button]:flex-1 [&>*]:flex-1">
+          <Button
+            type="button"
+            variant="secondary"
+            className="h-11"
+            onClick={() => openUserProfile()}
+          >
+            {t('manageAccount')}
+          </Button>
+          <SignOutButton>
+            <Button type="button" variant="outline" className="h-11">
+              {t('signOut')}
+            </Button>
+          </SignOutButton>
+        </ButtonGroup>
+        <div className="flex flex-col gap-2 md:hidden">
           <Button
             type="button"
             variant="secondary"
@@ -74,6 +90,9 @@ export function SettingsPageClient() {
             </Button>
           </SignOutButton>
         </div>
+        <p className="mt-2 hidden text-xs text-muted-foreground px-1 md:block">
+          {t('manageAccountHint')}
+        </p>
       </section>
 
       <NotificationSettings />

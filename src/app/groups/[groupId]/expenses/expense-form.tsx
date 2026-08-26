@@ -17,6 +17,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
+import { DatePicker4 } from '@/components/ui/date-picker-04'
 import {
   Form,
   FormControl,
@@ -599,15 +600,11 @@ export function ExpenseForm({
               name="expenseDate"
               render={({ field }) => (
                 <FormItem className="sm:order-1">
-                  <FormLabel>{t(`${sExpense}.DateField.label`)}</FormLabel>
                   <FormControl>
-                    <Input
-                      className="date-base"
-                      type="date"
-                      defaultValue={formatDate(field.value as Date)}
-                      onChange={(event) => {
-                        return field.onChange(new Date(event.target.value))
-                      }}
+                    <DatePicker4
+                      label={t(`${sExpense}.DateField.label`)}
+                      value={field.value as Date}
+                      onChange={(date) => field.onChange(date ?? new Date())}
                     />
                   </FormControl>
                   <FormDescription>
@@ -1456,9 +1453,4 @@ export function ExpenseForm({
       </form>
     </Form>
   )
-}
-
-function formatDate(date?: Date) {
-  if (!date || isNaN(date as any)) date = new Date()
-  return date.toISOString().substring(0, 10)
 }

@@ -1,3 +1,4 @@
+import { Alert7 } from '@/components/ui/alert-7'
 import { Button } from '@/components/ui/button'
 import {
   Carousel,
@@ -43,6 +44,8 @@ export function ExpenseDocumentsInput({
   const locale = useLocale()
   const t = useTranslations('ExpenseDocumentsInput')
   const [pending, setPending] = useState(false)
+  const [uploadName, setUploadName] = useState('')
+  const [uploadProgress, setUploadProgress] = useState(0)
   const { FileInput, openFileDialog, uploadToS3 } = usePresignedUpload() // use presigned uploads to addtionally support providers other than AWS
   const { toast } = useToast()
 
@@ -62,9 +65,13 @@ export function ExpenseDocumentsInput({
     const upload = async () => {
       try {
         setPending(true)
+        setUploadName(file.name)
+        setUploadProgress(20)
         const { width, height } = await getImageData(file)
         if (!width || !height) throw new Error('Cannot get image dimensions')
+        setUploadProgress(55)
         const { url } = await uploadToS3(file)
+        setUploadProgress(100)
         updateDocuments([...documents, { id: randomId(), url, width, height }])
         onDocumentAttached?.()
       } catch (err) {
@@ -84,6 +91,8 @@ export function ExpenseDocumentsInput({
         })
       } finally {
         setPending(false)
+        setUploadProgress(0)
+        setUploadName('')
       }
     }
     upload()
@@ -92,6 +101,14 @@ export function ExpenseDocumentsInput({
   return (
     <div>
       <FileInput onChange={handleFileChange} accept="image/jpeg,image/png" />
+      {pending ? (
+        <div className="mb-4">
+          <Alert7
+            fileName={uploadName || 'receipt.png'}
+            progress={uploadProgress}
+          />
+        </div>
+      ) : null}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 [&_*]:aspect-square">
         {documents.map((doc) => (

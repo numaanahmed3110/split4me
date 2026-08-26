@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { ButtonGroup } from '@/components/ui/button-group'
 import { TrackPage } from '@/lib/analytics/track-page'
 import { Show, SignInButton } from '@clerk/nextjs'
 import { ArrowLeftRight, Camera, Receipt, Users } from 'lucide-react'
@@ -54,18 +55,38 @@ export default function HomePage() {
                 strong: (chunks) => <strong>{chunks}</strong>,
               })}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8">
               <Show when="signed-out">
-                <SignInButton mode="modal">
-                  <Button size="lg" className="px-8 h-12 text-base">
-                    {t('button.signIn')}
+                <ButtonGroup>
+                  <SignInButton mode="modal">
+                    <Button size="lg" className="h-12 px-8 text-base">
+                      {t('button.signIn')}
+                    </Button>
+                  </SignInButton>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-8 text-base"
+                  >
+                    <Link href="#how">{t('how.heading')}</Link>
                   </Button>
-                </SignInButton>
+                </ButtonGroup>
               </Show>
               <Show when="signed-in">
-                <Button asChild size="lg" className="px-8 h-12 text-base">
-                  <Link href="/groups">{t('button.groups')}</Link>
-                </Button>
+                <ButtonGroup>
+                  <Button asChild size="lg" className="h-12 px-8 text-base">
+                    <Link href="/groups">{t('button.groups')}</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-12 px-8 text-base"
+                  >
+                    <Link href="#how">{t('how.heading')}</Link>
+                  </Button>
+                </ButtonGroup>
               </Show>
             </div>
           </div>
@@ -119,7 +140,10 @@ export default function HomePage() {
 
       <section className="pb-24 md:pb-32 py-16 md:py-20 bg-white border-t">
         <div className="container max-w-screen-md mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-10">
+          <h2
+            id="how"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-10"
+          >
             {t('how.heading')}
           </h2>
           <ol className="grid grid-cols-1 sm:grid-cols-3 gap-8">
