@@ -218,7 +218,7 @@ function GroupsPage({
             <Link href="/groups">{t('myGroups')}</Link>
           </h1>
         </div>
-        <div className="hidden md:flex gap-2">
+        <div className="flex gap-2">
           <AddGroupByUrlButton reload={reload} />
           <Button asChild>
             <Link href="/groups/create">{t('create')}</Link>
