@@ -40,8 +40,15 @@ export function PwaOnboarding() {
   }
 
   return (
-    <div className="fixed inset-0 z-[80] bg-[#F6F2E9] flex flex-col md:hidden">
-      <div className="flex-1 flex flex-col items-center justify-center px-8 pt-10">
+    <div className="fixed inset-0 z-[80] bg-[#F6F2E9] flex flex-col md:hidden overflow-y-auto">
+      <button
+        type="button"
+        className="absolute top-4 left-5 z-10 text-sm font-semibold text-[#1D1C22]"
+        onClick={finish}
+      >
+        {t('pwaSkip')}
+      </button>
+      <div className="flex-1 flex flex-col items-center justify-center px-8 pt-14 min-h-[240px]">
         <StackedBills step={step} />
       </div>
       <div className="px-6 pt-2 pb-[max(20px,env(safe-area-inset-bottom))]">
@@ -64,7 +71,7 @@ export function PwaOnboarding() {
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"
-            className="text-sm font-medium text-muted-foreground px-2 py-3"
+            className="text-sm font-semibold text-[#1D1C22] px-2 py-3 min-w-[64px]"
             onClick={finish}
           >
             {t('pwaSkip')}
@@ -84,7 +91,7 @@ export function PwaOnboarding() {
 function StackedBills({ step }: { step: number }) {
   const offset = step * 8
   return (
-    <div className="relative w-full max-w-[280px] h-[280px]">
+    <div className="relative w-full max-w-[260px] h-[230px]">
       <div
         className="absolute left-8 right-2 top-4 h-[210px] rounded-[28px] bg-[#E0F4F5] shadow-sm"
         style={{ transform: `rotate(${6 + offset / 8}deg)` }}
