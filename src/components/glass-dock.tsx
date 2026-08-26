@@ -1,7 +1,12 @@
 'use client'
 
 import { UserButton } from '@clerk/nextjs'
-import { Activity, Home, Plus, Scale } from 'lucide-react'
+import {
+  IconActivity,
+  IconAdd,
+  IconHome,
+  IconSettle,
+} from '@/components/brand-icons'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -34,53 +39,44 @@ export function GlassDock({ groupId }: { groupId: string | null }) {
     ? `/groups/${groupId}/expenses/create`
     : '/groups/create'
 
-  const homeActive = pathname === '/groups' || pathname === '/groups/'
-  const settleActive = pathname.includes('/balances')
-  const activityActive = pathname.includes('/activity')
-
   return (
     <nav
       aria-label={t('primaryNav')}
-      className={`glass-dock-wrap ${compact ? 'is-compact' : ''}`}
+      className={`glass-dock-wrap md:hidden ${compact ? 'is-compact' : ''}`}
     >
       <div className="glass-dock">
         <DockLink
           href="/groups"
           label={t('home')}
-          active={homeActive}
+          active={pathname === '/groups' || pathname === '/groups/'}
         >
-          <Home className="size-[22px]" strokeWidth={1.75} />
+          <IconHome />
         </DockLink>
         <DockLink
           href={groupId ? `/groups/${groupId}/balances` : '/groups'}
           label={t('settle')}
-          active={settleActive}
+          active={pathname.includes('/balances')}
         >
-          <Scale className="size-[22px]" strokeWidth={1.75} />
+          <IconSettle />
         </DockLink>
-
         <Link
           href={fabHref}
           aria-label={groupId ? t('addExpense') : t('newGroup')}
           className="glass-dock__fab"
         >
-          <Plus className="size-6" strokeWidth={2.25} />
+          <IconAdd />
         </Link>
-
         <DockLink
           href={groupId ? `/groups/${groupId}/activity` : '/groups'}
           label={t('activity')}
-          active={activityActive}
+          active={pathname.includes('/activity')}
         >
-          <Activity className="size-[22px]" strokeWidth={1.75} />
+          <IconActivity />
         </DockLink>
-
         <div className="glass-dock__item glass-dock__you">
           <UserButton
             appearance={{
-              elements: {
-                avatarBox: 'size-8',
-              },
+              elements: { avatarBox: 'size-8' },
             }}
           />
         </div>

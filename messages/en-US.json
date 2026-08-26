@@ -172,7 +172,14 @@
     "step3Title": "See who owes whom",
     "step3Body": "Open Settle when you're ready to pay back. That's it.",
     "cta": "Create your first group",
-    "skip": "I'll look around first"
+    "skip": "I'll look around first",
+    "next": "Continue",
+    "pwa1Title": "Say what you spent",
+    "pwa1Body": "On the installed app, speak a purchase and we draft the split for you to confirm.",
+    "pwa2Title": "Keep a trip budget",
+    "pwa2Body": "Lock money for a purpose so everyday spending cannot quietly eat it.",
+    "pwa3Title": "See who owes whom",
+    "pwa3Body": "Fair splits, then one tap to settle. That is the whole loop."
   },
   "GroupForm": {
     "title": "Group information",
