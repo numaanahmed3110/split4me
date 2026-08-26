@@ -105,9 +105,9 @@
     "createGroup": "Create group",
     "loadingRecent": "Loading recent groups…",
     "NoRecent": {
-      "description": "You have not visited any group recently.",
-      "create": "Create one",
-      "orAsk": "or ask a friend to send you the link to an existing one."
+      "description": "Start with one group. Add people, then log the first expense.",
+      "create": "Create a group",
+      "orAsk": "or join with a link someone sent you."
     },
     "GlobalBalance": {
       "title": "Your total balance",
@@ -148,6 +148,31 @@
       "text": "This group does not exist.",
       "link": "Go to recently visited groups"
     }
+  },
+  "AppShell": {
+    "primaryNav": "Main",
+    "home": "Home",
+    "settle": "Settle",
+    "activity": "Activity",
+    "you": "You",
+    "addExpense": "Add expense",
+    "newGroup": "New group",
+    "expenses": "Expenses",
+    "stats": "Stats",
+    "settings": "Settings"
+  },
+  "Onboarding": {
+    "kicker": "Getting started",
+    "title": "Three steps. Then you're done.",
+    "subtitle": "Don't worry about the rest of the app yet. This is the whole loop.",
+    "step1Title": "Make a group",
+    "step1Body": "Name the trip or household and add who is in it.",
+    "step2Title": "Log what was paid",
+    "step2Body": "Type it, snap a receipt, or say it out loud on the installed app.",
+    "step3Title": "See who owes whom",
+    "step3Body": "Open Settle when you're ready to pay back. That's it.",
+    "cta": "Create your first group",
+    "skip": "I'll look around first"
   },
   "GroupForm": {
     "title": "Group information",
@@ -367,7 +392,7 @@
     "Reimbursements": {
       "title": "Suggested reimbursements",
       "description": "Here are suggestions for optimized reimbursements between participants.",
-      "noImbursements": "It looks like your group doesn’t need any reimbursement 😁",
+      "noImbursements": "Everyone is settled up.",
       "owes": "<strong>{from}</strong> owes <strong>{to}</strong>",
       "markAsPaid": "Mark as paid"
     }

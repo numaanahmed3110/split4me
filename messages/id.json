@@ -304,7 +304,7 @@
     "Reimbursements": {
       "title": "Saran reimburse",
       "description": "Berikut adalah saran untuk reimburse yang optimal antara peserta.",
-      "noImbursements": "Sepertinya grup Anda tidak memerlukan reimburse apa pun 😁",
+      "noImbursements": "Sepertinya grup Anda tidak memerlukan reimburse apa pun",
       "owes": "<strong>{from}</strong> berutang <strong>{to}</strong>",
       "markAsPaid": "Tandai sebagai telah dibayar"
     }

@@ -27,7 +27,7 @@ export function TripFundSummary() {
 
   return (
     <Link href={`/groups/${groupId}/fund`} className="block mb-4">
-      <div className="rounded-lg border bg-card p-4 hover:bg-muted/40 transition-colors">
+      <div className="rounded-[24px] border-0 bg-[#E0F4F5] p-4 hover:opacity-95 transition-opacity">
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2 font-semibold text-sm">
             <PiggyBank className="w-4 h-4" />

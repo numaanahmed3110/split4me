@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "التسويات المقترحة",
       "description": "إليك مقترحات للتسويات المحسّنة بين المشاركين.",
-      "noImbursements": "يبدو أن مجموعتك لا تحتاج إلى أي تسويات 😁",
+      "noImbursements": "يبدو أن مجموعتك لا تحتاج إلى أي تسويات",
       "owes": "يدين <strong>{from}</strong> لـ <strong>{to}</strong> بمبلغ",
       "markAsPaid": "تحديد كمدفوع"
     }

@@ -68,7 +68,7 @@ export function CreateFromReceiptButton() {
       title={
         <>
           <span>{t('Dialog.title')}</span>
-          <Badge className="bg-pink-700 hover:bg-pink-600 dark:bg-pink-500 dark:hover:bg-pink-600">
+          <Badge className="bg-[#D8CEFA] text-foreground hover:bg-[#D8CEFA]">
             Beta
           </Badge>
         </>

@@ -96,14 +96,16 @@ function GlobalBalanceCard_({
   const isSettledUp = currencyBalances.every(({ amount }) => amount === 0)
 
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
+    <Card className="mb-6 rounded-[32px] border-0 bg-[#FDECAD] shadow-[0_15px_35px_rgba(0,0,0,0.06)] hover:translate-y-0">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base font-semibold">{t('title')}</CardTitle>
+        <CardDescription className="text-[#6F5A14]">
+          {t('description')}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {isSettledUp ? (
-          <p className="text-muted-foreground text-sm">{t('settledUp')}</p>
+          <p className="text-sm">{t('settledUp')}</p>
         ) : (
           <ul className="flex flex-col gap-1">
             {currencyBalances.map(({ currency, amount }) => {
@@ -116,15 +118,15 @@ function GlobalBalanceCard_({
               return (
                 <li
                   key={currency.code || currency.symbol}
-                  className="flex justify-between items-baseline gap-2 text-sm"
+                  className="flex justify-between items-baseline gap-2"
                 >
-                  <span className="text-muted-foreground">
+                  <span className="text-sm text-[#6F5A14]">
                     {amount > 0 ? t('owedToYou') : t('youOwe')}
                   </span>
                   <span
                     className={cn(
-                      'font-semibold tabular-nums',
-                      amount > 0 ? 'text-green-600' : 'text-red-600',
+                      'font-extrabold tabular-nums text-[28px] tracking-tight leading-none',
+                      amount > 0 ? 'text-[#1B7A47]' : 'text-[#DC2626]',
                     )}
                   >
                     {formatted}

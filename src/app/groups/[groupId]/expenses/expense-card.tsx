@@ -78,7 +78,7 @@ export function ExpenseCard({
       data-testid="expense-card"
       data-expense-id={expense.id}
       className={cn(
-        'flex justify-between sm:mx-6 px-4 sm:rounded-lg sm:pr-2 sm:pl-4 py-4 text-sm cursor-pointer hover:bg-accent gap-1 items-stretch',
+        'flex justify-between sm:mx-6 mx-3 rounded-2xl px-4 sm:pr-2 sm:pl-4 py-4 text-sm cursor-pointer hover:bg-[#F6F2E9] gap-3 items-stretch bg-white mb-2 shadow-[0_8px_24px_rgba(0,0,0,0.04)]',
         expense.isReimbursement && 'italic',
       )}
       onClick={() => {
@@ -87,7 +87,7 @@ export function ExpenseCard({
     >
       <CategoryIcon
         category={expense.category}
-        className="w-4 h-4 mr-2 mt-0.5 text-muted-foreground"
+        className="w-9 h-9 p-2 mr-0 rounded-full bg-[#FDECAD] text-foreground"
       />
       <div className="flex-1">
         <div className={cn('mb-1', expense.isReimbursement && 'italic')}>

@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "建议报销",
       "description": "这里是优化群组成员之间报销的建议。",
-      "noImbursements": "看起来你的群组不需要任何报销😁",
+      "noImbursements": "看起来你的群组不需要任何报销",
       "owes": "<strong>{from}</strong> 欠 <strong>{to}</strong>",
       "markAsPaid": "标记为已支付"
     }

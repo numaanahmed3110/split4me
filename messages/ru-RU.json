@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Предложенные возмещения",
       "description": "Вот список задолженностей между участниками.",
-      "noImbursements": "Похоже, все в расчете 😁",
+      "noImbursements": "Похоже, все в расчете",
       "owes": "<strong>{from}</strong> должен <strong>{to}</strong>",
       "markAsPaid": "Пометить оплаченным"
     }

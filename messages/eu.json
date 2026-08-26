@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Proposatutako diru-itzulketak",
       "description": "Hona hemen kideen arteko ditu-itzulketak optimizatzeko proposamenak.",
-      "noImbursements": "Antza denez zure taldeak ez du diru-itzulketarik behar 😁",
+      "noImbursements": "Antza denez zure taldeak ez du diru-itzulketarik behar",
       "owes": "<strong>{from}</strong> zor dio <strong>{to}</strong>-ri",
       "markAsPaid": "Markatu ordainduta gisa"
     }

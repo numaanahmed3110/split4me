@@ -157,7 +157,7 @@ export function ExpenseFundFields({ group, form, expenseId }: Props) {
       {impact?.warnings && impact.warnings.length > 0 && (
         <div className="text-sm text-amber-600 space-y-1">
           {impact.warnings.map((w, i) => (
-            <p key={i}>⚠️ {w}</p>
+            <p key={i}>{w}</p>
           ))}
         </div>
       )}

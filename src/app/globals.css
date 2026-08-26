@@ -73,9 +73,19 @@
 }
 
 .landing-header {
-  @apply bg-gradient-to-br from-emerald-800 to-emerald-600 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text;
+  color: #1c1c1e;
 }
 
 .landing-header strong {
-  @apply font-bold text-transparent;
+  font-weight: 700;
+}
+
+.pastel-yellow {
+  background: #fdecad;
+}
+.pastel-purple {
+  background: #d8cefa;
+}
+.pastel-teal {
+  background: #e0f4f5;
 }

@@ -299,7 +299,7 @@
     "Reimbursements": {
       "title": "Voorgestelde terugbetalingen",
       "description": "Dit zijn de voorgestelde terugbetalingen tussen deelnemers.",
-      "noImbursements": "Lijkt erop dat je groep geen terugbetalingen nodig heeft 😁",
+      "noImbursements": "Lijkt erop dat je groep geen terugbetalingen nodig heeft",
       "owes": "<strong>{from}</strong> betaalt aan <strong>{to}</strong>",
       "markAsPaid": "Markeer als betaald"
     }

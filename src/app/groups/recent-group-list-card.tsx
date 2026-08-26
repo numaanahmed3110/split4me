@@ -23,6 +23,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
+const STRIPES = ['bg-[#E0F4F5]', 'bg-[#E8E2FC]', 'bg-[#FDECAD]']
+
 export function RecentGroupListCard({
   group,
   groupDetail,
@@ -79,14 +81,17 @@ export function RecentGroupListCard({
     <li key={group.id}>
       <Button
         variant="secondary"
-        className="h-fit w-full py-3 rounded-lg border bg-card shadow-sm"
+        className="h-fit w-full p-0 rounded-[24px] border-0 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.05)] overflow-hidden hover:translate-y-[-2px]"
         asChild
       >
         <div
           className="text-base"
           onClick={() => router.push(`/groups/${group.id}`)}
         >
-          <div className="w-full flex flex-col gap-1">
+          <div
+            className={`h-16 ${STRIPES[group.id.charCodeAt(0) % STRIPES.length]}`}
+          />
+          <div className="w-full flex flex-col gap-1 p-4 pt-3">
             <div className="text-base flex gap-2 justify-between">
               <Link
                 href={`/groups/${group.id}`}

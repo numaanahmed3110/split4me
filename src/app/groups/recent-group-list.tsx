@@ -2,6 +2,7 @@
 import { AddGroupByUrlButton } from '@/app/groups/add-group-by-url-button'
 import type { RecentGroups } from '@/app/groups/recent-groups-helpers'
 import { useRecentGroupsState } from '@/app/groups/use-recent-groups'
+import { FirstRunGuide } from '@/components/first-run-guide'
 import { GroupCardsSkeleton } from '@/components/page-skeleton'
 import { Button } from '@/components/ui/button'
 import { trpc } from '@/trpc/client'
@@ -91,12 +92,18 @@ function RecentGroupList_({
   if (data.groups.length === 0) {
     return (
       <GroupsPage reload={refreshGroupsFromStorage}>
-        <div className="text-sm space-y-2">
-          <p>{t('NoRecent.description')}</p>
-          <p>
-            <Button variant="link" asChild className="-m-4">
+        <FirstRunGuide hasGroups={false} />
+        <div className="rounded-[28px] bg-white p-8 text-center shadow-[0_15px_35px_rgba(0,0,0,0.06)]">
+          <p className="text-sm text-muted-foreground mb-4">
+            {t('NoRecent.description')}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2 justify-center">
+            <Button asChild className="rounded-full h-11">
               <Link href={`/groups/create`}>{t('NoRecent.create')}</Link>
-            </Button>{' '}
+            </Button>
+            <AddGroupByUrlButton reload={refreshGroupsFromStorage} />
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
             {t('NoRecent.orAsk')}
           </p>
         </div>
@@ -114,9 +121,9 @@ function RecentGroupList_({
     <GroupsPage reload={refreshGroupsFromStorage}>
       <GlobalBalanceCard groups={groups} />
 
-      {starredGroupInfo.length > 0 && (
+          {starredGroupInfo.length > 0 && (
         <>
-          <h2 className="mb-2">{t('starred')}</h2>
+          <h2 className="mb-3 text-lg font-semibold">{t('starred')}</h2>
           <GroupList
             groups={starredGroupInfo}
             groupDetails={data.groups}
@@ -130,7 +137,7 @@ function RecentGroupList_({
 
       {groupInfo.length > 0 && (
         <>
-          <h2 className="mt-6 mb-2">{t('recent')}</h2>
+          <h2 className="mt-8 mb-3 text-lg font-semibold">{t('recent')}</h2>
           <GroupList
             groups={groupInfo}
             groupDetails={data.groups}
@@ -144,7 +151,7 @@ function RecentGroupList_({
 
       {archivedGroupInfo.length > 0 && (
         <>
-          <h2 className="mt-6 mb-2 opacity-50">{t('archived')}</h2>
+          <h2 className="mt-8 mb-3 text-lg font-semibold opacity-50">{t('archived')}</h2>
           <div className="opacity-50">
             <GroupList
               groups={archivedGroupInfo}
@@ -177,7 +184,7 @@ function GroupList({
   isSignedIn: boolean
 }) {
   return (
-    <ul className="grid gap-2 sm:grid-cols-2">
+    <ul className="grid gap-3 sm:grid-cols-2">
       {groups.map((group) => (
         <RecentGroupListCard
           key={group.id}
@@ -202,11 +209,16 @@ function GroupsPage({
   const t = useTranslations('Groups')
   return (
     <>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <h1 className="font-bold text-2xl flex-1">
-          <Link href="/groups">{t('myGroups')}</Link>
-        </h1>
-        <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-1">
+            split4me
+          </p>
+          <h1 className="font-bold text-2xl md:text-[26px] tracking-tight flex-1">
+            <Link href="/groups">{t('myGroups')}</Link>
+          </h1>
+        </div>
+        <div className="hidden md:flex gap-2">
           <AddGroupByUrlButton reload={reload} />
           <Button asChild>
             <Link href="/groups/create">{t('create')}</Link>
