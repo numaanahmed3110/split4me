@@ -10,6 +10,14 @@ describe('nemotron JSON parsing', () => {
     expect(parseJsonFromModelOutput('```json\n{"b":2}\n```')).toEqual({ b: 2 })
   })
 
+  it('parses JSON after reasoning tags', () => {
+    expect(
+      parseJsonFromModelOutput(
+        '</think>\n{"title":"COFFEE SHOP","total":13.75}',
+      ),
+    ).toEqual({ title: 'COFFEE SHOP', total: 13.75 })
+  })
+
   it('validates with Zod schema', () => {
     const schema = z.object({ title: z.string(), amount: z.number() })
     const result = parseModelJson('{"title":"Lunch","amount":1850}', schema)

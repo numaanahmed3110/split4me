@@ -1,5 +1,6 @@
 'use server'
 
+import { aiLog, createAiLogId, withAiTiming } from '@/lib/ai-log'
 import { getFundLedgerContext } from '@/lib/fund'
 import { nemotronChat, parseModelJson } from '@/lib/nemotron'
 import { z } from 'zod'
@@ -64,8 +65,23 @@ export async function askLedgerQuestion(
   groupId: string,
   question: string,
 ): Promise<LedgerAiResult> {
+  const logId = createAiLogId()
+  aiLog('info', {
+    feature: 'ledger',
+    stage: 'request',
+    logId,
+    groupId,
+    meta: { questionChars: question.length },
+  })
+
   const context = await getFundLedgerContext(groupId)
   if (!context) {
+    aiLog('info', {
+      feature: 'ledger',
+      stage: 'no_context',
+      logId,
+      groupId,
+    })
     return {
       answer:
         'No trip budget has been set up for this group yet. Create a budget on the Trip Fund tab first.',
@@ -75,11 +91,15 @@ export async function askLedgerQuestion(
 
   const ledgerJson = JSON.stringify(formatSnapshotForAi(context), null, 2)
 
-  const content = await nemotronChat({
-    messages: [
-      {
-        role: 'system',
-        content: `You are a trip finance assistant. Answer ONLY using the ledger data provided. Never invent numbers.
+  const content = await withAiTiming(
+    'ledger',
+    'nemotron_answer',
+    () =>
+      nemotronChat({
+        messages: [
+          {
+            role: 'system',
+            content: `You are a trip finance assistant. Answer ONLY using the ledger data provided. Never invent numbers.
 All amounts in the JSON are in minor units (cents). Convert to human-readable in your answer when helpful.
 
 If the user asks to reserve, release, or change budget, propose an action in proposedAction but NEVER claim it is done — the user must confirm.
@@ -98,22 +118,49 @@ Respond with ONLY JSON:
 
 Ledger data:
 ${ledgerJson}`,
-      },
-      { role: 'user', content: question },
-    ],
-    maxTokens: 1024,
-    temperature: 0.2,
-    reasoningBudget: 0,
-  })
+          },
+          { role: 'user', content: question },
+        ],
+        maxTokens: 1024,
+        temperature: 0.2,
+        reasoningBudget: 0,
+        logFeature: 'ledger',
+        logStage: 'nemotron_answer',
+        logId,
+        groupId,
+      }),
+    { groupId, logId },
+  )
 
-  const parsed = parseModelJson(content, ledgerAnswerSchema)
+  const parsed = parseModelJson(content, ledgerAnswerSchema, {
+    feature: 'ledger',
+    stage: 'ledger_schema',
+    logId,
+    groupId,
+  })
   if (!parsed) {
+    aiLog('warn', {
+      feature: 'ledger',
+      stage: 'invalid_model_json',
+      logId,
+      groupId,
+    })
     return {
       answer:
         'I could not process that question. Try asking about freely spendable amount, remaining budget, or reserves.',
       proposedAction: { type: 'none' },
     }
   }
+
+  aiLog('info', {
+    feature: 'ledger',
+    stage: 'success',
+    logId,
+    groupId,
+    meta: {
+      proposedAction: parsed.proposedAction?.type ?? 'none',
+    },
+  })
 
   return parsed
 }

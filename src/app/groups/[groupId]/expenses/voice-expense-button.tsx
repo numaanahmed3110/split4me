@@ -48,6 +48,11 @@ type TranscribeResponse = {
   draft?: ExpenseDraftPayload
   error?: string
   stage?: 'transcribe' | 'parse'
+  logId?: string
+}
+
+function withLogRef(message: string, logId?: string) {
+  return logId ? `${message} (ref: ${logId})` : message
 }
 
 export function VoiceExpenseButton() {
@@ -148,10 +153,13 @@ function VoiceExpenseContent() {
         transcript: data.transcript,
         stage: data.stage ?? 'parse',
         error: data.error,
+        logId: data.logId,
       }
     }
 
-    throw new Error(data.error ?? 'Could not transcribe audio')
+    throw new Error(
+      withLogRef(data.error ?? 'Could not transcribe audio', data.logId),
+    )
   }
 
   const parseTranscript = async (
@@ -170,7 +178,9 @@ function VoiceExpenseContent() {
 
     const data = (await response.json()) as TranscribeResponse
     if (!response.ok || !data.draft) {
-      throw new Error(data.error ?? 'Could not parse voice expense')
+      throw new Error(
+        withLogRef(data.error ?? 'Could not parse voice expense', data.logId),
+      )
     }
 
     return data.draft
@@ -277,7 +287,7 @@ function VoiceExpenseContent() {
         }
       }
     } catch (err) {
-      console.error(err)
+      console.error('[split4me-ai][client] voice_failed', { groupId, err })
       failProcessing(err)
     } finally {
       setStatusMessage(null)
@@ -294,7 +304,10 @@ function VoiceExpenseContent() {
         const draft = await parseTranscript(storedTranscriptRef.current)
         await finishWithDraft(storedTranscriptRef.current, draft)
       } catch (err) {
-        console.error(err)
+        console.error('[split4me-ai][client] voice_retry_failed', {
+          groupId,
+          err,
+        })
         failProcessing(err, 'manual')
       } finally {
         setStatusMessage(null)

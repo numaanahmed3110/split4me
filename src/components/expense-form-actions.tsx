@@ -1,4 +1,5 @@
 'use server'
+import { aiLog, createAiLogId } from '@/lib/ai-log'
 import { getCategories } from '@/lib/api'
 import { getRuntimeFeatureFlags } from '@/lib/featureFlags'
 import { nemotronChat, parseModelJson } from '@/lib/nemotron'
@@ -19,11 +20,20 @@ const categoryResponseSchema = z.object({ categoryId: z.number() })
 export async function extractCategoryFromTitle(description: string) {
   'use server'
 
+  const logId = createAiLogId()
+
   // Enforce the feature flag server-side: the UI gate only hides the feature, it
   // does not prevent the action endpoint from being invoked directly.
   const { enableCategoryExtract } = await getRuntimeFeatureFlags()
   if (!enableCategoryExtract) {
-    throw new Error('Category extraction is not enabled.')
+    const error = new Error('Category extraction is not enabled.')
+    aiLog('error', {
+      feature: 'category',
+      stage: 'disabled',
+      logId,
+      error,
+    })
+    throw error
   }
 
   const categories = await getCategories()
@@ -56,10 +66,26 @@ export async function extractCategoryFromTitle(description: string) {
     maxTokens: 512,
     temperature: 0,
     reasoningBudget: 0,
-  }).catch(() => null)
+    logFeature: 'category',
+    logStage: 'nemotron_category',
+    logId,
+  }).catch((error) => {
+    aiLog('warn', {
+      feature: 'category',
+      stage: 'nemotron_failed',
+      logId,
+      error,
+      meta: { descriptionChars: description.length },
+    })
+    return null
+  })
 
   const parsed = content
-    ? parseModelJson(content, categoryResponseSchema)
+    ? parseModelJson(content, categoryResponseSchema, {
+        feature: 'category',
+        stage: 'category_schema',
+        logId,
+      })
     : null
 
   // ensure the returned id actually exists
