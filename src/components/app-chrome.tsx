@@ -22,7 +22,8 @@ function groupIdFromPath(pathname: string): string | null {
 export function AppChrome({ children }: PropsWithChildren) {
   const t = useTranslations()
   const pathname = usePathname()
-  const inApp = pathname.startsWith('/groups')
+  const inApp =
+    pathname.startsWith('/groups') || pathname.startsWith('/settings')
   const groupId = groupIdFromPath(pathname)
   const [lastGroupId, setLastGroupId] = useState<string | null>(groupId)
 
@@ -55,7 +56,6 @@ export function AppChrome({ children }: PropsWithChildren) {
                     alt="split4me"
                   />
                 </Link>
-                <LocaleSwitcher />
               </div>
             </header>
           ) : (

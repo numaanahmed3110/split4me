@@ -37,7 +37,9 @@ export default function GroupExpensesPageClient({
   return (
     <>
       <TrackPage path={`/groups/${groupId}/expenses`} />
-      <TripFundSummary />
+      <div className="hidden md:block">
+        <TripFundSummary />
+      </div>
       <Card className="mb-4 rounded-none -mx-4 border-x-0 sm:border-0 sm:rounded-[28px] sm:mx-0 sm:shadow-[0_15px_35px_rgba(0,0,0,0.06)]">
         <div className="flex flex-1">
           <CardHeader className="flex-1 p-4 sm:p-6">

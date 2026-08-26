@@ -80,3 +80,17 @@ export function IconAdd({ className }: IconProps) {
     </svg>
   )
 }
+
+export function IconSettings({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={cn('size-[22px]', className)} fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="3" fill="#D8CEFA" stroke="currentColor" strokeWidth="1.4" />
+      <path
+        d="M12 4.5v1.6M12 17.9v1.6M4.5 12h1.6M17.9 12h1.6M6.6 6.6l1.1 1.1M16.3 16.3l1.1 1.1M17.4 6.6l-1.1 1.1M7.7 16.3l-1.1 1.1"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
