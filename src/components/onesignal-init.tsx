@@ -122,7 +122,8 @@ export function isPushConfigured(): boolean {
   return Boolean(process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID)
 }
 
-export function getNativeNotificationPermission(): NotificationPermission | 'unsupported' {
+export function getNativeNotificationPermission():
+  NotificationPermission | 'unsupported' {
   if (typeof window === 'undefined' || typeof Notification === 'undefined') {
     return 'unsupported'
   }

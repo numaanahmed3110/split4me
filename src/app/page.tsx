@@ -3,12 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { TrackPage } from '@/lib/analytics/track-page'
 import { Show, SignInButton } from '@clerk/nextjs'
-import {
-  ArrowLeftRight,
-  Camera,
-  Receipt,
-  Users,
-} from 'lucide-react'
+import { ArrowLeftRight, Camera, Receipt, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 

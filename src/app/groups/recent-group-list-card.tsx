@@ -150,9 +150,7 @@ export function RecentGroupListCard({
             <span className="opacity-80">{menu}</span>
           </div>
           <p className="text-sm mt-3 opacity-80">
-            {count
-              ? t('splitWith', { count })
-              : t('openGroup')}
+            {count ? t('splitWith', { count }) : t('openGroup')}
           </p>
           <span
             className={cn(

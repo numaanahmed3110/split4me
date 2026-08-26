@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
   getNativeNotificationPermission,
   isPushConfigured,
   requestPushPermission,
 } from '@/components/onesignal-init'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
@@ -74,7 +74,9 @@ export function NotificationSettings() {
 
       <div className="mt-4">
         {!configured ? (
-          <p className="text-sm text-muted-foreground">{t('notificationsOff')}</p>
+          <p className="text-sm text-muted-foreground">
+            {t('notificationsOff')}
+          </p>
         ) : enabled ? (
           <p className="text-sm font-medium text-[#1B7A47]">
             {t('notificationsOn')}

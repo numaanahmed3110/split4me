@@ -14,7 +14,10 @@ export function SettingsPageClient() {
   const { openUserProfile } = useClerk()
 
   const name =
-    user?.fullName || user?.firstName || user?.username || user?.primaryEmailAddress?.emailAddress
+    user?.fullName ||
+    user?.firstName ||
+    user?.username ||
+    user?.primaryEmailAddress?.emailAddress
   const email = user?.primaryEmailAddress?.emailAddress
   const imageUrl = user?.imageUrl
 
