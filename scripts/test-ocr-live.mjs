@@ -1,7 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import fs from 'fs'
+import fs from 'node:fs'
 import pg from 'pg'
-import { PrismaClient } from '../src/generated/prisma/client/index.js'
+import { PrismaClient } from '../src/generated/prisma/client.ts'
 
 async function main() {
   const pool = new pg.Pool({
@@ -28,7 +28,11 @@ async function main() {
   const { extractReceiptDraftFromBase64 } =
     await import('../src/lib/receipt-extract.ts')
 
-  const img = fs.readFileSync('test-assets/synthetic-receipt.png')
+  const imagePath = fs.existsSync('test-assets/synthetic-receipt.png')
+    ? 'test-assets/synthetic-receipt.png'
+    : 'test-assets/receipt-sample.png'
+
+  const img = fs.readFileSync(imagePath)
   const dataUrl = `data:image/png;base64,${img.toString('base64')}`
 
   const result = await extractReceiptDraftFromBase64(

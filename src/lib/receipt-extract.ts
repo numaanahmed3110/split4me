@@ -169,15 +169,21 @@ Use plain currency numbers (1850 for ₹1,850).`
     () =>
       nemotronChat({
         messages: [
-          { role: 'user', content: [{ type: 'text', text: prompt }] },
           {
             role: 'user',
             content: [
-              { type: 'image_url', image_url: { url: nemotronImageUrl } },
+              { type: 'text', text: prompt },
+              {
+                type: 'image_url',
+                image_url: { url: nemotronImageUrl },
+              },
             ],
           },
         ],
         maxTokens: 8192,
+        temperature: 0.2,
+        reasoningBudget: 0,
+        enableThinking: false,
         logFeature: 'ocr',
         logStage: 'nemotron_vision',
         logId,
@@ -360,6 +366,9 @@ Use plain numbers (250 for ₹250). Assign each line item to participant ids who
       nemotronChat({
         messages: [{ role: 'user', content: prompt }],
         maxTokens: 8192,
+        temperature: 0.2,
+        reasoningBudget: 0,
+        enableThinking: false,
         logFeature: 'voice-parse',
         logStage: 'nemotron_parse',
         logId,
