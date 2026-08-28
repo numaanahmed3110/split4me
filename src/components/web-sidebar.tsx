@@ -1,5 +1,6 @@
 'use client'
 
+import { BrandMark } from '@/components/brand-icons'
 import {
   Activity,
   BarChart3,
@@ -8,8 +9,8 @@ import {
   Receipt,
   Scale,
   Settings,
+  UserRound,
 } from 'lucide-react'
-import { BrandMark } from '@/components/brand-icons'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -80,6 +81,12 @@ export function WebSidebar({ groupId }: { groupId: string | null }) {
             Settings,
             pathname.includes('/edit'),
           )}
+        {link(
+          '/settings',
+          t('you'),
+          UserRound,
+          pathname.startsWith('/settings'),
+        )}
       </nav>
       <Link
         href={groupId ? `/groups/${groupId}/expenses/create` : '/groups/create'}

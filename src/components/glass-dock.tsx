@@ -1,10 +1,9 @@
 'use client'
 
-import { UserButton } from '@clerk/nextjs'
 import {
-  IconActivity,
   IconAdd,
   IconHome,
+  IconSettings,
   IconSettle,
 } from '@/components/brand-icons'
 import { useTranslations } from 'next-intl'
@@ -67,19 +66,12 @@ export function GlassDock({ groupId }: { groupId: string | null }) {
           <IconAdd />
         </Link>
         <DockLink
-          href={groupId ? `/groups/${groupId}/activity` : '/groups'}
-          label={t('activity')}
-          active={pathname.includes('/activity')}
+          href="/settings"
+          label={t('settings')}
+          active={pathname.startsWith('/settings')}
         >
-          <IconActivity />
+          <IconSettings />
         </DockLink>
-        <div className="glass-dock__item glass-dock__you">
-          <UserButton
-            appearance={{
-              elements: { avatarBox: 'size-8' },
-            }}
-          />
-        </div>
       </div>
     </nav>
   )

@@ -4,11 +4,13 @@ import { GroupTabs } from '@/app/groups/[groupId]/group-tabs'
 import { ShareButton } from '@/app/groups/[groupId]/share-button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ChevronLeft } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useCurrentGroup } from './current-group-context'
 
 export const GroupHeader = () => {
   const { isLoading, groupId, group } = useCurrentGroup()
+  const t = useTranslations('AppShell')
 
   return (
     <div className="flex flex-col gap-4">
@@ -32,6 +34,9 @@ export const GroupHeader = () => {
         {group && <ShareButton group={group} />}
       </div>
       <GroupTabs groupId={groupId} />
+      <p className="md:hidden text-xs text-muted-foreground -mt-2 px-1">
+        {t('tabsHint')}
+      </p>
     </div>
   )
 }

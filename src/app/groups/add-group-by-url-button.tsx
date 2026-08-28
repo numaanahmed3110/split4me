@@ -15,9 +15,11 @@ import { useState } from 'react'
 
 type Props = {
   reload: () => void
+  className?: string
+  label?: string
 }
 
-export function AddGroupByUrlButton({ reload }: Props) {
+export function AddGroupByUrlButton({ reload, className, label }: Props) {
   const t = useTranslations('Groups.AddByURL')
   const isDesktop = useMediaQuery('(min-width: 640px)')
   const [url, setUrl] = useState('')
@@ -79,7 +81,9 @@ export function AddGroupByUrlButton({ reload }: Props) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="secondary">{t('button')}</Button>
+        <Button variant="secondary" className={className}>
+          {label ?? t('button')}
+        </Button>
       </PopoverTrigger>
       <PopoverContent
         align={isDesktop ? 'end' : 'start'}
