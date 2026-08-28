@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Javasolt költségtérítés",
       "description": "Íme néhány javaslat a résztvevők közötti optimális kifizetésekre.",
-      "noImbursements": "Úgy tűnik, a csoportodnak nincs szüksége költségtérítésre 😁",
+      "noImbursements": "Úgy tűnik, a csoportodnak nincs szüksége költségtérítésre",
       "owes": "<strong>{from}</strong> tartozik neki: <strong>{to}</strong>",
       "markAsPaid": "Megjelölés kifizetettként"
     }

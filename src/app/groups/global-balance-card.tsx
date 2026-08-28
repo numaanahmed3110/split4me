@@ -1,27 +1,26 @@
 'use client'
 
 import { RecentGroups } from '@/app/groups/recent-groups-helpers'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Currency } from '@/lib/currency'
 import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 import { useLocale, useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 type CurrencyBalance = {
   currency: Currency
   amount: number
 }
 
-export function GlobalBalanceCard({ groups }: { groups: RecentGroups }) {
+export function GlobalBalanceCard({
+  groups,
+  actions,
+}: {
+  groups: RecentGroups
+  actions?: ReactNode
+}) {
   const { isSignedIn } = useAuth()
   const [localActiveUserGroups, setLocalActiveUserGroups] = useState<
     { groupId: string; participantId: string }[] | null
@@ -45,39 +44,68 @@ export function GlobalBalanceCard({ groups }: { groups: RecentGroups }) {
     )
   }, [groups, isSignedIn])
 
+  const waitingForMemberships =
+    isSignedIn === undefined ||
+    (!isSignedIn && localActiveUserGroups === null) ||
+    (!!isSignedIn && groupIds.length > 0 && !serverMemberships)
+
   const activeUserGroups = isSignedIn
-    ? (serverMemberships?.memberships ?? null)
-    : localActiveUserGroups
+    ? (serverMemberships?.memberships ?? [])
+    : (localActiveUserGroups ?? [])
 
-  if (activeUserGroups === null) return null
-  if (activeUserGroups.length === 0) return null
-
-  return <GlobalBalanceCard_ activeUserGroups={activeUserGroups} />
+  return (
+    <YellowBalanceShell actions={actions}>
+      {waitingForMemberships ? (
+        <Skeleton className="h-8 w-40 bg-[#f3e08a]" />
+      ) : (
+        <GlobalBalanceAmounts activeUserGroups={activeUserGroups} />
+      )}
+    </YellowBalanceShell>
+  )
 }
 
-function GlobalBalanceCard_({
+function YellowBalanceShell({
+  children,
+  actions,
+}: {
+  children: ReactNode
+  actions?: ReactNode
+}) {
+  const t = useTranslations('Groups.GlobalBalance')
+  return (
+    <section className="rounded-[32px] bg-[#FDECAD] shadow-[0_15px_35px_rgba(0,0,0,0.06)] p-5">
+      <p className="text-sm font-medium text-[#6F5A14]">{t('title')}</p>
+      <div className="mt-3">{children}</div>
+      {actions ? <div className="mt-5">{actions}</div> : null}
+    </section>
+  )
+}
+
+function GlobalBalanceAmounts({
   activeUserGroups,
 }: {
   activeUserGroups: { groupId: string; participantId: string }[]
 }) {
   const locale = useLocale()
   const t = useTranslations('Groups.GlobalBalance')
-  const { data, isLoading } = trpc.groups.balances.forUser.useQuery({
-    groups: activeUserGroups,
-  })
+  const { data, isLoading } = trpc.groups.balances.forUser.useQuery(
+    { groups: activeUserGroups },
+    { enabled: activeUserGroups.length > 0 },
+  )
+
+  if (activeUserGroups.length === 0) {
+    return (
+      <>
+        <p className="font-extrabold tabular-nums text-[32px] tracking-tight leading-none">
+          $0.00
+        </p>
+        <p className="text-xs text-[#6F5A14] mt-2">{t('pickYourself')}</p>
+      </>
+    )
+  }
 
   if (isLoading || !data) {
-    return (
-      <Card className="mb-4">
-        <CardHeader>
-          <CardTitle>{t('title')}</CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-6 w-40" />
-        </CardContent>
-      </Card>
-    )
+    return <Skeleton className="h-8 w-40 bg-[#f3e08a]" />
   }
 
   const byCurrency = new Map<string, CurrencyBalance>()
@@ -95,46 +123,41 @@ function GlobalBalanceCard_({
   const currencyBalances = [...byCurrency.values()]
   const isSettledUp = currencyBalances.every(({ amount }) => amount === 0)
 
+  if (isSettledUp) {
+    return (
+      <>
+        <p className="font-extrabold tabular-nums text-[32px] tracking-tight leading-none">
+          $0.00
+        </p>
+        <p className="text-xs text-[#6F5A14] mt-2">{t('settledUp')}</p>
+      </>
+    )
+  }
+
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        {isSettledUp ? (
-          <p className="text-muted-foreground text-sm">{t('settledUp')}</p>
-        ) : (
-          <ul className="flex flex-col gap-1">
-            {currencyBalances.map(({ currency, amount }) => {
-              if (amount === 0) return null
-              const formatted = formatCurrency(
-                currency,
-                Math.abs(amount),
-                locale,
-              )
-              return (
-                <li
-                  key={currency.code || currency.symbol}
-                  className="flex justify-between items-baseline gap-2 text-sm"
-                >
-                  <span className="text-muted-foreground">
-                    {amount > 0 ? t('owedToYou') : t('youOwe')}
-                  </span>
-                  <span
-                    className={cn(
-                      'font-semibold tabular-nums',
-                      amount > 0 ? 'text-green-600' : 'text-red-600',
-                    )}
-                  >
-                    {formatted}
-                  </span>
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </CardContent>
-    </Card>
+    <ul className="flex flex-col gap-2">
+      {currencyBalances.map(({ currency, amount }) => {
+        if (amount === 0) return null
+        const formatted = formatCurrency(currency, Math.abs(amount), locale)
+        return (
+          <li
+            key={currency.code || currency.symbol}
+            className="flex justify-between items-baseline gap-2"
+          >
+            <span className="text-sm text-[#6F5A14]">
+              {amount > 0 ? t('owedToYou') : t('youOwe')}
+            </span>
+            <span
+              className={cn(
+                'font-extrabold tabular-nums text-[32px] tracking-tight leading-none',
+                amount > 0 ? 'text-[#1B7A47]' : 'text-[#DC2626]',
+              )}
+            >
+              {formatted}
+            </span>
+          </li>
+        )
+      })}
+    </ul>
   )
 }

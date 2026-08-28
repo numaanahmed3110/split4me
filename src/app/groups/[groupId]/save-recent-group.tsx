@@ -1,5 +1,6 @@
 'use client'
 import { saveRecentGroup } from '@/app/groups/recent-groups-helpers'
+import { rememberLastGroup } from '@/lib/last-group'
 import { trpc } from '@/trpc/client'
 import { useAuth } from '@clerk/nextjs'
 import { useEffect, useRef } from 'react'
@@ -26,6 +27,7 @@ export function SaveGroupLocally() {
     const key = `${group.id}:${isSignedIn ? 'signed-in' : 'signed-out'}`
     if (recorded.current === key) return
     recorded.current = key
+    rememberLastGroup(group.id)
 
     if (isSignedIn) {
       touchRecent({ groupId: group.id })

@@ -34,17 +34,17 @@ function amountToMinor(value: string): number {
   return Math.round(n * 100)
 }
 
-function alertEmoji(level: string) {
+function alertDot(level: string) {
   switch (level) {
     case 'exhausted':
     case 'significant':
-      return '🔴'
+      return 'bg-red-500'
     case 'consuming':
-      return '🟠'
+      return 'bg-orange-400'
     case 'approaching':
-      return '🟡'
+      return 'bg-amber-400'
     default:
-      return '🟢'
+      return 'bg-emerald-500'
   }
 }
 
@@ -257,12 +257,17 @@ export function TripFundPageClient() {
               snapshot.withinBudget ? 'text-green-700' : 'text-red-600',
             )}
           >
-            {alertEmoji(snapshot.overallAlertLevel)} {statusLabel}
+            <span
+              className={cn(
+                'inline-block w-2 h-2 rounded-full mr-2 align-middle',
+                alertDot(snapshot.overallAlertLevel),
+              )}
+            />
+            {statusLabel}
           </p>
 
           {snapshot.consumedFromReserves > 0 && (
             <p className="text-sm text-amber-600">
-              ⚠️{' '}
               {t('reserveConsumed', {
                 amount: formatCurrency(
                   currency,
@@ -369,7 +374,12 @@ export function TripFundPageClient() {
                         {r.percentConsumed.toFixed(0)}% {t('used')}
                       </p>
                     </div>
-                    <span>{alertEmoji(r.alertLevel)}</span>
+                    <span
+                      className={cn(
+                        'inline-block w-2.5 h-2.5 rounded-full',
+                        alertDot(r.alertLevel),
+                      )}
+                    />
                   </div>
                   <Progress
                     value={Math.min(100, r.percentConsumed)}

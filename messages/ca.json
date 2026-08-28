@@ -299,7 +299,7 @@
     "Reimbursements": {
       "title": "Proposta de reemborsaments",
       "description": "Suggeriments per a optimitzar els reemborsaments entre participants.",
-      "noImbursements": "Sembla que el teu grup no necessita cap reemborsament 😁",
+      "noImbursements": "Sembla que el teu grup no necessita cap reemborsament",
       "owes": "<strong>{from}</strong> deu a <strong>{to}</strong>",
       "markAsPaid": "Marca com a pagat"
     }

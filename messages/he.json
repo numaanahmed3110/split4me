@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "החזרים מוצעים",
       "description": "הנה הצעות להחזרים אופטימליים בין משתתפים.",
-      "noImbursements": "נראה שהקבוצה שלך לא צריכה החזרים 😁",
+      "noImbursements": "נראה שהקבוצה שלך לא צריכה החזרים",
       "owes": "<strong>{from}</strong> חייב ל<strong>{to}</strong>",
       "markAsPaid": "סמן כשולם"
     }

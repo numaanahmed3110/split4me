@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Föreslagna ersättningar",
       "description": "Här är förslag på optimerade ersättningar mellan deltagarna.",
-      "noImbursements": "Det verkar som att er grupp inte behöver någon ersättning 😁",
+      "noImbursements": "Det verkar som att er grupp inte behöver någon ersättning",
       "owes": "<strong>{from}</strong> är skyldig <strong>{to}</strong>",
       "markAsPaid": "Markera som betald"
     }

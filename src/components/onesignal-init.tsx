@@ -20,6 +20,11 @@ type OneSignalClient = {
   }) => Promise<void>
   login: (externalId: string) => Promise<void>
   logout: () => Promise<void>
+  Notifications?: {
+    permission?: boolean
+    permissionNative?: NotificationPermission
+    requestPermission: (fallbackToSettings?: boolean) => Promise<boolean>
+  }
 }
 
 const SDK_SRC = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'
@@ -67,7 +72,7 @@ export function OneSignalInit() {
       await OneSignal.init({
         appId,
         ...(safariWebId ? { safari_web_id: safariWebId } : {}),
-        notifyButton: { enable: true },
+        notifyButton: { enable: false },
         allowLocalhostAsSecureOrigin: true,
         serviceWorkerPath: SERVICE_WORKER_PATH,
         serviceWorkerParam: { scope: SERVICE_WORKER_SCOPE },
@@ -111,4 +116,57 @@ export function OneSignalInit() {
   }, [appId, isLoaded, userId])
 
   return null
+}
+
+export function isPushConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID)
+}
+
+export function getNativeNotificationPermission():
+  NotificationPermission | 'unsupported' {
+  if (typeof window === 'undefined' || typeof Notification === 'undefined') {
+    return 'unsupported'
+  }
+  return Notification.permission
+}
+
+/** Ask for web-push permission from Settings — never from a floating bell. */
+export async function requestPushPermission(): Promise<boolean> {
+  if (typeof window === 'undefined') return false
+
+  window.OneSignalDeferred = window.OneSignalDeferred || []
+
+  const fromSdk = await new Promise<boolean | null>((resolve) => {
+    let settled = false
+    const timer = window.setTimeout(() => {
+      if (!settled) {
+        settled = true
+        resolve(null)
+      }
+    }, 800)
+
+    window.OneSignalDeferred!.push(async (OneSignal) => {
+      try {
+        const granted = await OneSignal.Notifications?.requestPermission()
+        if (!settled) {
+          settled = true
+          window.clearTimeout(timer)
+          resolve(Boolean(granted))
+        }
+      } catch (error) {
+        console.error('[OneSignal] Permission request failed', error)
+        if (!settled) {
+          settled = true
+          window.clearTimeout(timer)
+          resolve(null)
+        }
+      }
+    })
+  })
+
+  if (fromSdk !== null) return fromSdk
+
+  if (typeof Notification === 'undefined') return false
+  const permission = await Notification.requestPermission()
+  return permission === 'granted'
 }

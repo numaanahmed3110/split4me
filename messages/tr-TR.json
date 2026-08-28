@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Önerilen geri ödemeler",
       "description": "Katılımcılar arasındaki en uygun geri ödeme önerileri aşağıdadır.",
-      "noImbursements": "Görünüşe göre grubunuzun hiçbir geri ödemeye ihtiyacı yok 😁",
+      "noImbursements": "Görünüşe göre grubunuzun hiçbir geri ödemeye ihtiyacı yok",
       "owes": "<strong>{from}</strong>, <strong>{to}</strong>'ya borçlu",
       "markAsPaid": "Ödendi olarak işaretle"
     }

@@ -4,7 +4,6 @@ import { ActiveUserModal } from '@/app/groups/[groupId]/expenses/active-user-mod
 import { CreateFromReceiptButton } from '@/app/groups/[groupId]/expenses/create-from-receipt-button'
 import { ExpenseList } from '@/app/groups/[groupId]/expenses/expense-list'
 import { VoiceExpenseButton } from '@/app/groups/[groupId]/expenses/voice-expense-button'
-import ExportButton from '@/app/groups/[groupId]/export-button'
 import { TripFundSummary } from '@/components/trip-fund-summary'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Popover6 } from '@/components/ui/popover-06'
 import { TrackPage } from '@/lib/analytics/track-page'
 import { useIsInstalledPwa } from '@/lib/hooks'
 import { Plus } from 'lucide-react'
@@ -37,15 +37,20 @@ export default function GroupExpensesPageClient({
   return (
     <>
       <TrackPage path={`/groups/${groupId}/expenses`} />
-      <TripFundSummary />
-      <Card className="mb-4 rounded-none -mx-4 border-x-0 sm:border-x sm:rounded-lg sm:mx-0">
+      <div className="hidden md:block">
+        <TripFundSummary />
+      </div>
+      <Card className="mb-4 rounded-none -mx-4 border-x-0 sm:border-0 sm:rounded-[28px] sm:mx-0 sm:shadow-[0_15px_35px_rgba(0,0,0,0.06)]">
         <div className="flex flex-1">
           <CardHeader className="flex-1 p-4 sm:p-6">
             <CardTitle>{t('title')}</CardTitle>
             <CardDescription>{t('description')}</CardDescription>
           </CardHeader>
           <CardHeader className="p-4 sm:p-6 flex flex-row space-y-0 gap-2">
-            <ExportButton groupId={groupId} />
+            <Popover6
+              csvHref={`/groups/${groupId}/expenses/export/csv`}
+              jsonHref={`/groups/${groupId}/expenses/export/json`}
+            />
             {enableReceiptExtract && <CreateFromReceiptButton />}
             {enableVoiceExpense && isInstalledPwa && <VoiceExpenseButton />}
             <Button asChild size="icon">

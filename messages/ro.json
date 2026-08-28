@@ -244,7 +244,7 @@
     "Reimbursements": {
       "title": "Rambursări sugerate",
       "description": "Acestea sunt sugestiile pentru rambursări optimizate între membrii.",
-      "noImbursements": "Se pare că grupul tău nu are nevoie de rambursări 😁",
+      "noImbursements": "Se pare că grupul tău nu are nevoie de rambursări",
       "owes": "<strong>{from}</strong> datorează <strong>{to}</strong>",
       "markAsPaid": "Bifează ca plătit"
     }

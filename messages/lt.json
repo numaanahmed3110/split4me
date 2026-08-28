@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Siūlomos kompensacijos",
       "description": "Čia pateikti siūlymai, kaip optimaliai atsiskaityti tarp dalyvių.",
-      "noImbursements": "Panašu, kad jūsų grupei nereikia jokios kompensacijos 😁",
+      "noImbursements": "Panašu, kad jūsų grupei nereikia jokios kompensacijos",
       "owes": "<strong>{from}</strong> yra skolingas <strong>{to}</strong>",
       "markAsPaid": "Pažymėti kaip apmokėtą"
     }

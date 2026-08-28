@@ -299,7 +299,7 @@
     "Reimbursements": {
       "title": "Vorgeschlagene Rückzahlungen",
       "description": "Hier sind Vorschläge für optimierte Rückzahlungen zwischen Teilnehmern.",
-      "noImbursements": "Es scheint, als seien in der Gruppe keine Rückzahlungen nötig 😁",
+      "noImbursements": "Es scheint, als seien in der Gruppe keine Rückzahlungen nötig",
       "owes": "<strong>{from}</strong> schuldet <strong>{to}</strong>",
       "markAsPaid": "Als bezahlt markieren"
     }

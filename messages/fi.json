@@ -234,7 +234,7 @@
     "Reimbursements": {
       "title": "Maksuehdotus",
       "description": "Optimoitu ehdotus kuka maksaa kenellekin.",
-      "noImbursements": "Näyttää siltä, että kaikki ovat sujut 😁",
+      "noImbursements": "Näyttää siltä, että kaikki ovat sujut",
       "owes": "<strong>{from}</strong> maksaa henkilölle <strong>{to}</strong>",
       "markAsPaid": "Merkitse maksetuksi"
     }

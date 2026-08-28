@@ -11,12 +11,16 @@ import { Locale, localeLabels } from '@/i18n/request'
 import { setUserLocale } from '@/lib/locale'
 import { useLocale } from 'next-intl'
 
-export function LocaleSwitcher() {
+export function LocaleSwitcher({ className }: { className?: string }) {
   const locale = useLocale() as Locale
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="-my-3 text-primary">
+        <Button
+          variant="ghost"
+          size="sm"
+          className={className ?? '-my-3 text-primary'}
+        >
           <span>{localeLabels[locale]}</span>
         </Button>
       </DropdownMenuTrigger>

@@ -259,7 +259,7 @@
     "Reimbursements": {
       "title": "建議核銷",
       "description": "這是建議的銷帳方式",
-      "noImbursements": "看起來你的群組目前不需要銷帳😁",
+      "noImbursements": "看起來你的群組目前不需要銷帳",
       "owes": "<strong>{from}</strong> 欠 <strong>{to}</strong>",
       "markAsPaid": "標記為已支付"
     }

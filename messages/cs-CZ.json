@@ -253,7 +253,7 @@
     "Reimbursements": {
       "title": "Navrhovaná proplacení",
       "description": "Zde jsou návrhy na optimalizovaná proplacení mezi účastníky.",
-      "noImbursements": "Vypadá to, že vaše skupina nepotřebuje žádné proplacení 😁",
+      "noImbursements": "Vypadá to, že vaše skupina nepotřebuje žádné proplacení",
       "owes": "<strong>{from}</strong> dluží <strong>{to}</strong>",
       "markAsPaid": "Označit jako zaplaceno"
     }

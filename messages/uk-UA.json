@@ -244,7 +244,7 @@
     "Reimbursements": {
       "title": "Запропоновані відшкодування",
       "description": "Ось пропозиції для оптимізованих відшкодувань між учасниками",
-      "noImbursements": "Схоже, ніхто нікому не винен 😁",
+      "noImbursements": "Схоже, ніхто нікому не винен",
       "owes": "<strong>{from}</strong> винен <strong>{to}</strong>",
       "markAsPaid": "Позначити як сплачене"
     }

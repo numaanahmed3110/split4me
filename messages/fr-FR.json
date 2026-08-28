@@ -299,7 +299,7 @@
     "Reimbursements": {
       "title": "Remboursements suggérés",
       "description": "Voici des suggestions pour des remboursements optimisés entre les participants.",
-      "noImbursements": "Les dépenses effectuées ne nécessitent pas d'équilibrage 😁",
+      "noImbursements": "Les dépenses effectuées ne nécessitent pas d'équilibrage",
       "owes": "<strong>{from}</strong> doit à <strong>{to}</strong>",
       "markAsPaid": "Marquer comme payé"
     }

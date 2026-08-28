@@ -1,5 +1,6 @@
 'use server'
 
+import { aiLog, createAiLogId, withAiTiming } from '@/lib/ai-log'
 import { getFundLedgerContext } from '@/lib/fund'
 import { nemotronChat, parseModelJson } from '@/lib/nemotron'
 import { z } from 'zod'
@@ -60,58 +61,6 @@ function formatSnapshotForAi(
   }
 }
 
-export async function askLedgerQuestion(
-  groupId: string,
-  question: string,
-): Promise<LedgerAiResult> {
-  const context = await getFundLedgerContext(groupId)
-  if (!context) {
-    return {
-      answer:
-        'No trip budget has been set up for this group yet. Create a budget on the Trip Fund tab first.',
-      proposedAction: { type: 'none' },
-    }
-  }
-
-  const ledgerJson = JSON.stringify(formatSnapshotForAi(context), null, 2)
-
-  const content = await nemotronChat({
-    messages: [
-      {
-        role: 'system',
-        content: `You are a trip finance assistant. Answer ONLY using the ledger data provided. Never invent numbers.
-All amounts in the JSON are in minor units (cents). Convert to human-readable in your answer when helpful.
-
-If the user asks to reserve, release, or change budget, propose an action in proposedAction but NEVER claim it is done — the user must confirm.
-
-Respond with ONLY JSON:
-{
-  "answer": "your helpful answer",
-  "proposedAction": {
-    "type": "create_reserve" | "release_reserve" | "update_budget" | "none",
-    "purpose": "optional string",
-    "amount": optional number in minor units,
-    "reserveId": "optional id from reserves list",
-    "targetAmount": optional number in minor units for budget update
-  }
-}
-
-Ledger data:
-${ledgerJson}`,
-      },
-      { role: 'user', content: question },
-    ],
-    maxTokens: 1024,
-    temperature: 0.2,
-    reasoningBudget: 0,
-  })
-
-  const parsed = parseModelJson(content, ledgerAnswerSchema)
-  if (parsed) return parsed
-
-  return fallbackLedgerAnswer(context, question)
-}
-
 function minorToMajor(minor: number): string {
   return (minor / 100).toFixed(2)
 }
@@ -158,6 +107,105 @@ function fallbackLedgerAnswer(
       'I could not process that question. Try asking about freely spendable amount, remaining budget, or reserves.',
     proposedAction: { type: 'none' },
   }
+}
+
+export async function askLedgerQuestion(
+  groupId: string,
+  question: string,
+): Promise<LedgerAiResult> {
+  const logId = createAiLogId()
+  aiLog('info', {
+    feature: 'ledger',
+    stage: 'request',
+    logId,
+    groupId,
+    meta: { questionChars: question.length },
+  })
+
+  const context = await getFundLedgerContext(groupId)
+  if (!context) {
+    aiLog('info', {
+      feature: 'ledger',
+      stage: 'no_context',
+      logId,
+      groupId,
+    })
+    return {
+      answer:
+        'No trip budget has been set up for this group yet. Create a budget on the Trip Fund tab first.',
+      proposedAction: { type: 'none' },
+    }
+  }
+
+  const ledgerJson = JSON.stringify(formatSnapshotForAi(context), null, 2)
+
+  const content = await withAiTiming(
+    'ledger',
+    'nemotron_answer',
+    () =>
+      nemotronChat({
+        messages: [
+          {
+            role: 'system',
+            content: `You are a trip finance assistant. Answer ONLY using the ledger data provided. Never invent numbers.
+All amounts in the JSON are in minor units (cents). Convert to human-readable in your answer when helpful.
+
+If the user asks to reserve, release, or change budget, propose an action in proposedAction but NEVER claim it is done — the user must confirm.
+
+Respond with ONLY JSON:
+{
+  "answer": "your helpful answer",
+  "proposedAction": {
+    "type": "create_reserve" | "release_reserve" | "update_budget" | "none",
+    "purpose": "optional string",
+    "amount": optional number in minor units,
+    "reserveId": "optional id from reserves list",
+    "targetAmount": optional number in minor units for budget update
+  }
+}
+
+Ledger data:
+${ledgerJson}`,
+          },
+          { role: 'user', content: question },
+        ],
+        maxTokens: 1024,
+        temperature: 0.2,
+        reasoningBudget: 0,
+        logFeature: 'ledger',
+        logStage: 'nemotron_answer',
+        logId,
+        groupId,
+      }),
+    { groupId, logId },
+  )
+
+  const parsed = parseModelJson(content, ledgerAnswerSchema, {
+    feature: 'ledger',
+    stage: 'ledger_schema',
+    logId,
+    groupId,
+  })
+  if (parsed) {
+    aiLog('info', {
+      feature: 'ledger',
+      stage: 'success',
+      logId,
+      groupId,
+      meta: {
+        proposedAction: parsed.proposedAction?.type ?? 'none',
+      },
+    })
+    return parsed
+  }
+
+  aiLog('warn', {
+    feature: 'ledger',
+    stage: 'fallback_answer',
+    logId,
+    groupId,
+  })
+  return fallbackLedgerAnswer(context, question)
 }
 
 export async function executeLedgerAction(

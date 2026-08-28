@@ -292,7 +292,7 @@
     "Reimbursements": {
       "title": "Reembolsos propuestos",
       "description": "He aquí algunas sugerencias para optimizar los reembolsos entre los participantes.",
-      "noImbursements": "Parece que tu grupo no necesita ningún reembolso 😁",
+      "noImbursements": "Parece que tu grupo no necesita ningún reembolso",
       "owes": "<strong>{from}</strong> debe a <strong>{to}</strong>",
       "markAsPaid": "Marcar como pagado"
     }

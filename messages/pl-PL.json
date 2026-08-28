@@ -253,7 +253,7 @@
     "Reimbursements": {
       "title": "Sugerowane zwroty",
       "description": "Oto sugestie dotyczące optymalizacji zwrotów między uczestnikami.",
-      "noImbursements": "Wygląda na to, że w twojej grupie nie ma potrzeby żadnych zwrotów 😁",
+      "noImbursements": "Wygląda na to, że w twojej grupie nie ma potrzeby żadnych zwrotów",
       "owes": "<strong>{from}</strong> jest winny dla <strong>{to}</strong>",
       "markAsPaid": "Zaznacz jako opłacone"
     }

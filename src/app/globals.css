@@ -73,9 +73,167 @@
 }
 
 .landing-header {
-  @apply bg-gradient-to-br from-emerald-800 to-emerald-600 dark:from-emerald-300 dark:to-emerald-600 bg-clip-text;
+  color: #1c1c1e;
 }
 
 .landing-header strong {
-  @apply font-bold text-transparent;
+  font-weight: 700;
+}
+
+.pastel-yellow {
+  background: #fdecad;
+}
+.pastel-purple {
+  background: #d8cefa;
+}
+.pastel-teal {
+  background: #e0f4f5;
+}
+
+/* Floating glass dock (PWA primary nav) */
+.glass-dock-wrap {
+  position: fixed;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%) translateZ(0);
+  z-index: 50;
+  contain: layout paint;
+  animation: dock-in 0.45s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+}
+
+@keyframes dock-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.glass-dock {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, white 70%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 16px 40px -18px rgba(29, 28, 34, 0.35);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  isolation: isolate;
+  transition: padding 0.35s cubic-bezier(0.34, 1.2, 0.5, 1);
+}
+
+.glass-dock-wrap.is-compact .glass-dock {
+  padding: 6px 8px;
+}
+
+.glass-dock__item {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #6e747e;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.4, 0.5, 1),
+    color 0.18s ease;
+}
+
+.glass-dock__item:hover {
+  transform: translateY(-3px) scale(1.08);
+}
+
+.glass-dock__item:active {
+  transform: scale(0.9);
+}
+
+.glass-dock__blob {
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: #fdecad;
+  transform: scale(0);
+  opacity: 0;
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.4, 0.5, 1),
+    opacity 0.2s ease;
+}
+
+.glass-dock__item.is-active {
+  color: #1c1c1e;
+}
+
+.glass-dock__item.is-active .glass-dock__blob {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.glass-dock__item > svg {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-dock__fab {
+  width: 52px;
+  height: 52px;
+  margin: 0 4px;
+  border-radius: 999px;
+  background: #1d1c22;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 22px rgba(29, 28, 34, 0.28);
+  transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+.glass-dock__fab:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.glass-dock__fab:active {
+  transform: scale(0.94);
+}
+
+.glass-dock__you {
+  overflow: hidden;
+}
+
+.glass-topbar {
+  border-radius: 999px;
+  background: color-mix(in srgb, white 74%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 8px 28px -16px rgba(29, 28, 34, 0.22);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+@supports not (
+  (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))
+) {
+  .glass-dock,
+  .glass-topbar {
+    background: #ffffff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-dock-wrap {
+    animation: none;
+  }
+  .glass-dock__item,
+  .glass-dock__fab,
+  .glass-dock__blob {
+    transition: none;
+  }
 }

@@ -780,21 +780,56 @@ function buildPage(inner, title){
   return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>split4me · Web · ${title}</title>\n<style>\n${WEB_CSS}\n</style>\n</head>\n<body>\n${inner}\n</body>\n</html>\n`;
 }
 
+const APP_SHELL_ACTIVE = {
+  4: 'dash',
+  5: 'bal',
+  6: 'exp',
+  7: 'exp',
+  8: 'bal',
+  9: 'stat',
+  10: 'g1',
+  11: 'act',
+  12: 'exp',
+  13: 'bal',
+  14: 'dash',
+  15: 'exp',
+  16: 'exp',
+  17: 'g1',
+  18: 'dash',
+  19: 'dash',
+};
+
+function renderScreenContent(s) {
+  if (s.n <= 3) return s.html;
+  const active = APP_SHELL_ACTIVE[s.n] || 'dash';
+  const dark = s.n === 19;
+  return appShell(active, '', s.html, dark);
+}
+
+function buildGalleryHtml(title) {
+  const sections = SCREENS.map(
+    (s) =>
+      `<section class="wsec" id="s${s.n}">\n<div class="wlabel">Screen ${s.n} <span>${s.label}</span></div>\n<div class="scr">\n${renderScreenContent(s)}\n</div>\n</section>`,
+  ).join('\n');
+  return `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${title}</title>\n<style>\n${WEB_CSS}\n</style>\n</head>\n<body class="prev-body">\n<nav class="prev-nav"><span class="lab">split4me · Web</span>${SCREENS.map((s) => `<a href="#s${s.n}">${s.n}. ${s.title}</a>`).join('<span class="sep">·</span>')}</nav>\n${sections}\n</body>\n</html>\n`;
+}
 
 // Per-screen standalone files
 let count = 0;
-for (const s of SCREENS.filter(x => x.n === 1)){
-  const file = `s${String(s.n).padStart(2,'0')}-${s.slug}.html`;
-  fs.writeFileSync(path.join(outDir, file), buildPage(s.html, s.title), 'utf8');
+for (const s of SCREENS) {
+  const file = `s${String(s.n).padStart(2, '0')}-${s.slug}.html`;
+  fs.writeFileSync(
+    path.join(outDir, file),
+    buildPage(renderScreenContent(s), s.title),
+    'utf8',
+  );
   console.log('Wrote', file);
   count++;
 }
 
-// All-in-one web preview
-const sections = SCREENS.filter(s => s.n === 1).map(s =>
-  `<section class="wsec" id="s${s.n}">\n<div class="wlabel">Screen ${s.n} <span>${s.label}</span></div>\n<div class="scr">\n${s.html}\n</div>\n</section>`
-).join('\n');
-const preview = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>split4me — Web UI Preview (All Screens)</title>\n<style>\n${WEB_CSS}\n</style>\n</head>\n<body class="prev-body">\n<nav class="prev-nav"><span class="lab">split4me · Web</span>${SCREENS.map(s=>`<a href="#s${s.n}">${s.n}. ${s.title}</a>`).join('<span class="sep">·</span>')}</nav>\n${sections}\n</body>\n</html>\n`;
-fs.writeFileSync(path.join(root, 'ui-preview-web.html'), preview, 'utf8');
+const galleryHtml = buildGalleryHtml('split4me — Web UI Preview (All Screens)');
+fs.writeFileSync(path.join(root, 'ui-preview-web.html'), galleryHtml, 'utf8');
 console.log('Wrote ui-preview-web.html');
-console.log(`\nDone. ${count} web screen files + 1 preview written.`);
+fs.writeFileSync(path.join(root, 'all-screens-web.html'), galleryHtml, 'utf8');
+console.log('Wrote all-screens-web.html');
+console.log(`\nDone. ${count} web screen files + 2 gallery previews written.`);

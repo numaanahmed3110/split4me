@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "Soovitatud hüvitised",
       "description": "Siin on soovitused optimeeritud hüvitisteks osalejate vahel.",
-      "noImbursements": "Tundub, et sinu grupp ei vaja ühtegi hüvitist 😁",
+      "noImbursements": "Tundub, et sinu grupp ei vaja ühtegi hüvitist",
       "owes": "<strong>{from}</strong> võlgneb <strong>{to}</strong>",
       "markAsPaid": "Märgi makstuks"
     }

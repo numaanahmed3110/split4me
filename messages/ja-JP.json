@@ -291,7 +291,7 @@
     "Reimbursements": {
       "title": "提案される払い戻し",
       "description": "参加者間の最適化された払い戻しの提案です。",
-      "noImbursements": "グループに払い戻しが必要ないようです 😁",
+      "noImbursements": "グループに払い戻しが必要ないようです",
       "owes": "<strong>{from}</strong>は<strong>{to}</strong>に借りがあります",
       "markAsPaid": "支払い済みとしてマーク"
     }

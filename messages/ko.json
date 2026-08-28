@@ -192,7 +192,7 @@
     "Reimbursements": {
       "title": "추천 정산 방법",
       "description": "참가자 간에 가장 좋은 정산 방안을 알려드려요.",
-      "noImbursements": "그룹에선 따로 정산할 게 없네요 😁",
+      "noImbursements": "그룹에선 따로 정산할 게 없네요",
       "markAsPaid": "지불 완료로 표시하기",
       "owes": "<strong>{from}</strong>가 <strong>{to}</strong>에게 돈을 내야 해요"
     }
