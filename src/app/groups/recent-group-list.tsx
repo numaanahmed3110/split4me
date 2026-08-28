@@ -5,6 +5,7 @@ import { useRecentGroupsState } from '@/app/groups/use-recent-groups'
 import { FirstRunGuide } from '@/components/first-run-guide'
 import { GroupCardsSkeleton } from '@/components/page-skeleton'
 import { Button } from '@/components/ui/button'
+import { ButtonGroup } from '@/components/ui/button-group'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { trpc } from '@/trpc/client'
 import { AppRouterOutput } from '@/trpc/routers/_app'
@@ -93,19 +94,19 @@ function RecentGroupList_({
   )
 
   const actions = (
-    <div className="grid grid-cols-2 gap-2">
+    <ButtonGroup className="w-full [&>*]:flex-1">
       <Button
         asChild
-        className="h-11 rounded-full bg-[#1D1C22] text-white hover:bg-[#1D1C22]/90"
+        className="h-11 rounded-r-none bg-[#1D1C22] text-white hover:bg-[#1D1C22]/90"
       >
         <Link href="/groups/create">{t('createGroup')}</Link>
       </Button>
       <AddGroupByUrlButton
         reload={refreshGroupsFromStorage}
         label={t('joinGroup')}
-        className="h-11 rounded-full w-full bg-[#E8D9B8] text-[#1D1C22] hover:bg-[#E8D9B8]/90 border-0"
+        className="h-11 w-full rounded-l-none rounded-r-full bg-[#E8D9B8] text-[#1D1C22] hover:bg-[#E8D9B8]/90 border-0"
       />
-    </div>
+    </ButtonGroup>
   )
 
   if (isLoading || !data) {

@@ -6,7 +6,7 @@ import {
   requestPushPermission,
 } from '@/components/onesignal-init'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Switch1 } from '@/components/ui/switch-01'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
@@ -29,8 +29,8 @@ export function NotificationSettings() {
     permission !== 'denied' &&
     permission !== 'unsupported'
 
-  async function enable() {
-    if (!canAsk || busy) return
+  async function enable(next = true) {
+    if (!next || !canAsk || busy) return
     setBusy(true)
     try {
       const granted = await requestPushPermission()
@@ -42,35 +42,17 @@ export function NotificationSettings() {
 
   return (
     <section className="rounded-[28px] bg-white p-5 shadow-[0_15px_35px_rgba(0,0,0,0.06)]">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h2 className="text-sm font-semibold mb-1">
-            {t('notificationsTitle')}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t('notificationsDescription')}
-          </p>
-        </div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={enabled}
-          aria-label={t('notificationsTitle')}
-          disabled={!canAsk || busy}
-          onClick={() => void enable()}
-          className={cn(
-            'relative h-7 w-12 shrink-0 rounded-full transition-colors disabled:opacity-60',
-            enabled ? 'bg-[#1D1C22]' : 'bg-[#E5E5E5]',
-          )}
-        >
-          <span
-            className={cn(
-              'absolute top-0.5 left-0.5 size-6 rounded-full bg-white shadow-sm transition-transform',
-              enabled && 'translate-x-5',
-            )}
-          />
-        </button>
-      </div>
+      <h2 className="text-sm font-semibold mb-1">{t('notificationsTitle')}</h2>
+      <p className="text-sm text-muted-foreground mb-4">
+        {t('notificationsDescription')}
+      </p>
+      <Switch1
+        id="notifications"
+        label={t('notificationsEnable')}
+        checked={enabled}
+        disabled={!canAsk || busy}
+        onCheckedChange={(checked) => void enable(checked)}
+      />
 
       <div className="mt-4">
         {!configured ? (
@@ -92,9 +74,9 @@ export function NotificationSettings() {
         ) : (
           <Button
             type="button"
-            className="h-11 rounded-full bg-[#D8CEFA] text-[#1D1C22] hover:bg-[#D8CEFA]/90"
+            className="mt-2 h-11 rounded-full bg-[#D8CEFA] text-[#1D1C22] hover:bg-[#D8CEFA]/90"
             disabled={busy}
-            onClick={() => void enable()}
+            onClick={() => void enable(true)}
           >
             {busy ? t('notificationsEnabling') : t('notificationsEnable')}
           </Button>
