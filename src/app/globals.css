@@ -113,11 +113,13 @@
 }
 
 .glass-dock {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 8px 10px;
-  border-radius: 999px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 6px;
+  padding: 8px 10px 10px;
+  min-width: min(100vw - 24px, 360px);
+  border-radius: 28px;
   background: color-mix(in srgb, white 70%, transparent);
   border: 1px solid rgba(255, 255, 255, 0.62);
   box-shadow:
@@ -129,18 +131,29 @@
   transition: padding 0.35s cubic-bezier(0.34, 1.2, 0.5, 1);
 }
 
+.glass-dock__side {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  gap: 2px;
+  min-width: 0;
+}
+
 .glass-dock-wrap.is-compact .glass-dock {
-  padding: 6px 8px;
+  padding: 6px 8px 8px;
 }
 
 .glass-dock__item {
   position: relative;
-  width: 44px;
-  height: 44px;
+  min-width: 56px;
+  height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 999px;
+  justify-content: flex-end;
+  gap: 3px;
+  padding: 6px 4px 2px;
+  border-radius: 16px;
   color: #6e747e;
   transition:
     transform 0.22s cubic-bezier(0.34, 1.4, 0.5, 1),
@@ -157,10 +170,13 @@
 
 .glass-dock__blob {
   position: absolute;
-  inset: 4px;
+  top: 4px;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translateX(-50%) scale(0);
   border-radius: 999px;
   background: #fdecad;
-  transform: scale(0);
   opacity: 0;
   transition:
     transform 0.28s cubic-bezier(0.34, 1.4, 0.5, 1),
@@ -172,27 +188,51 @@
 }
 
 .glass-dock__item.is-active .glass-dock__blob {
-  transform: scale(1);
+  transform: translateX(-50%) scale(1);
   opacity: 1;
 }
 
-.glass-dock__item > svg {
+.glass-dock__icon {
   position: relative;
   z-index: 1;
+  width: 22px;
+  height: 22px;
+}
+
+.glass-dock__label {
+  position: relative;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .glass-dock__fab {
-  width: 52px;
-  height: 52px;
-  margin: 0 4px;
-  border-radius: 999px;
+  width: 58px;
+  height: 58px;
+  margin: 0 2px 2px;
+  border-radius: 20px;
   background: #1d1c22;
   color: #fff;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1px;
   box-shadow: 0 10px 22px rgba(29, 28, 34, 0.28);
   transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+.glass-dock__fab-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .glass-dock__fab:hover {

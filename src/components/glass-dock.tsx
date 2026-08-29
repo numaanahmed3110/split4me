@@ -1,15 +1,24 @@
 'use client'
 
 import {
-  IconAdd,
-  IconHome,
-  IconSettings,
-  IconSettle,
-} from '@/components/brand-icons'
+  Home,
+  Plus,
+  Receipt,
+  Scale,
+  UserRound,
+  type LucideIcon,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState } from 'react'
+
+type DockNavItem = {
+  href: string
+  label: string
+  icon: LucideIcon
+  active: boolean
+}
 
 export function GlassDock({ groupId }: { groupId: string | null }) {
   const pathname = usePathname()
@@ -37,6 +46,40 @@ export function GlassDock({ groupId }: { groupId: string | null }) {
   const fabHref = groupId
     ? `/groups/${groupId}/expenses/create`
     : '/groups/create'
+  const fabLabel = groupId ? t('addExpense') : t('newGroup')
+
+  const left: DockNavItem[] = [
+    {
+      href: '/groups',
+      label: t('home'),
+      icon: Home,
+      active: pathname === '/groups' || pathname === '/groups/',
+    },
+    {
+      href: groupId ? `/groups/${groupId}/expenses` : '/groups',
+      label: t('expenses'),
+      icon: Receipt,
+      active:
+        !!groupId &&
+        pathname.includes('/expenses') &&
+        !pathname.includes('/create'),
+    },
+  ]
+
+  const right: DockNavItem[] = [
+    {
+      href: groupId ? `/groups/${groupId}/balances` : '/groups',
+      label: t('settle'),
+      icon: Scale,
+      active: pathname.includes('/balances'),
+    },
+    {
+      href: '/settings',
+      label: t('you'),
+      icon: UserRound,
+      active: pathname.startsWith('/settings'),
+    },
+  ]
 
   return (
     <nav
@@ -44,50 +87,33 @@ export function GlassDock({ groupId }: { groupId: string | null }) {
       className={`glass-dock-wrap md:hidden ${compact ? 'is-compact' : ''}`}
     >
       <div className="glass-dock">
-        <DockLink
-          href="/groups"
-          label={t('home')}
-          active={pathname === '/groups' || pathname === '/groups/'}
-        >
-          <IconHome />
-        </DockLink>
-        <DockLink
-          href={groupId ? `/groups/${groupId}/balances` : '/groups'}
-          label={t('settle')}
-          active={pathname.includes('/balances')}
-        >
-          <IconSettle />
-        </DockLink>
+        <div className="glass-dock__side">
+          {left.map((item) => (
+            <DockLink key={item.href} {...item} />
+          ))}
+        </div>
+
         <Link
           href={fabHref}
-          aria-label={groupId ? t('addExpense') : t('newGroup')}
+          aria-label={fabLabel}
+          title={fabLabel}
           className="glass-dock__fab"
         >
-          <IconAdd />
+          <Plus className="size-6" strokeWidth={2.25} aria-hidden />
+          <span className="glass-dock__fab-label">{t('add')}</span>
         </Link>
-        <DockLink
-          href="/settings"
-          label={t('settings')}
-          active={pathname.startsWith('/settings')}
-        >
-          <IconSettings />
-        </DockLink>
+
+        <div className="glass-dock__side">
+          {right.map((item) => (
+            <DockLink key={item.href} {...item} />
+          ))}
+        </div>
       </div>
     </nav>
   )
 }
 
-function DockLink({
-  href,
-  label,
-  active,
-  children,
-}: {
-  href: string
-  label: string
-  active: boolean
-  children: ReactNode
-}) {
+function DockLink({ href, label, icon: Icon, active }: DockNavItem) {
   return (
     <Link
       href={href}
@@ -97,7 +123,8 @@ function DockLink({
       className={`glass-dock__item ${active ? 'is-active' : ''}`}
     >
       <span className="glass-dock__blob" aria-hidden />
-      {children}
+      <Icon className="glass-dock__icon" strokeWidth={active ? 2.25 : 2} />
+      <span className="glass-dock__label">{label}</span>
     </Link>
   )
 }
