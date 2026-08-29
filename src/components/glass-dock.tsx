@@ -1,6 +1,13 @@
 'use client'
 
-import { Home, Plus, Receipt, Scale, UserRound, type LucideIcon } from 'lucide-react'
+import {
+  Home,
+  Plus,
+  Receipt,
+  Scale,
+  UserRound,
+  type LucideIcon,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
