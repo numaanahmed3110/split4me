@@ -85,7 +85,7 @@ export function AppChrome({ children }: PropsWithChildren) {
           <div
             className={
               inApp
-                ? 'flex-1 flex flex-col pb-[108px] pt-[max(12px,env(safe-area-inset-top))] md:pb-0 md:pt-0'
+                ? 'flex-1 flex flex-col pb-[120px] pt-[max(12px,env(safe-area-inset-top))] md:pb-0 md:pt-0'
                 : showWebLandingNav
                   ? 'pt-20 flex-1 flex flex-col'
                   : 'flex-1 flex flex-col pt-[max(12px,env(safe-area-inset-top))]'
